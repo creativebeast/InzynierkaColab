@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Inzynierka.Models.Users
+namespace Inzynierka.Models
 {
     public class User
     {

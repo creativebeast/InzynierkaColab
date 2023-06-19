@@ -1,4 +1,4 @@
-﻿namespace Inzynierka.Models.Company
+﻿namespace Inzynierka.Models
 {
     public class Client
     {

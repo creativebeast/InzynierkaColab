@@ -1,14 +1,11 @@
-﻿using System;
-
-namespace Inzynierka.Models
+﻿namespace Inzynierka.Models
 {
-    public class UserStyling
+    public class DefaultStyling
     {
         public int ID { get; set; }
         public string StylingsToken { get; set; }
         public int TableStylingID { get; set; }
         public int TextStylingID { get; set; }
         public int SpecialStylingID { get; set; }
-        public string MadeBy { get; set; }
     }
 }

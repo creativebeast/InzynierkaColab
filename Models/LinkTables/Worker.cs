@@ -1,4 +1,4 @@
-﻿namespace Inzynierka.Models.LinkTables
+﻿namespace Inzynierka.Models
 {
     public class Worker
     {
