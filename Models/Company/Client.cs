@@ -1,7 +1,10 @@
-﻿namespace Inzynierka.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Inzynierka.Models
 {
     public class Client
     {
+        [Key]
         public int ID { get; set; }
         public int RelatedCompanyID { get; set; }
         public string Name { get; set; }

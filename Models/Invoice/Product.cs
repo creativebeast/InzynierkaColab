@@ -1,11 +1,10 @@
-﻿using MessagePack;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Inzynierka.Models
 {
-    [PrimaryKey(nameof(ID))]
     public class Product
     {
+        [Key]
         public int ID { get; set; }
         public int InvoiceID { get; set; }
         public string Name { get; set; }

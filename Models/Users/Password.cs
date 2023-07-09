@@ -1,9 +1,11 @@
 ﻿using Inzynierka.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inzynierka.Models
 {
     public class Password
     {
+        [Key]
         public int ID { get; set; }
         public string UserPassword { 
             get  => _userPassword;
@@ -16,7 +18,7 @@ namespace Inzynierka.Models
         }
 
         private string _userPassword;
-        public int? LastModified { get; set; }
+        public DateTime? ModDate { get; set; }
         public string? ResetToken { get; set; }
 
         public int UserID { get; set; }

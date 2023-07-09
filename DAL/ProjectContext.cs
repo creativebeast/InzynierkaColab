@@ -1,28 +1,30 @@
 ﻿using Inzynierka.Models;
+using Inzynierka.Models.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Inzynierka.DAL
 {
     public class ProjectContext : DbContext
     {
         //User related Tables
-        public DbSet<User> Users { get; set; }
-        public DbSet<Password> Password { get; set; }
-        public DbSet<UserStyling> UserStyling { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Password> Passwords { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<UserStyling> UserStylings { get; set; }
         //Company related Tables
-        public DbSet<AuthToken> AuthToken { get; set; }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<Client> Client { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<AuthToken> AuthTokens { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Company> Companies { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Client> Clients { get; set; }
         //Invoice related Tables
-        public DbSet<Invoice> Invoice { get; set; }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<ArchInvoice> ArchInvoice { get; set; }
-        public DbSet<ArchProduct> ArchProduct { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Invoice> Invoices { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Product> Products { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<ArchInvoice> ArchInvoices { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<ArchProduct> ArchProducts { get; set; }
         //Generic Tables
+        public Microsoft.EntityFrameworkCore.DbSet<DefaultStyling> DefaultStylings { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Links> Links { get; set; }
         //Tables linking other tables together
-        public DbSet<InvoiceHistory> InvoiceHistory { get; set; }
-        public DbSet<Worker> Worker { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<InvoiceHistory> InvoiceHistory { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Worker> Workers { get; set; }
 
         public ProjectContext(DbContextOptions<ProjectContext> options) : base(options)
         {

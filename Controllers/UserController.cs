@@ -3,12 +3,15 @@ using Inzynierka.DAL;
 
 namespace Inzynierka.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private ProjectContext db = new ProjectContext();
+        protected UserController(ProjectContext context) : base(context)
+        {
+        }
 
         public IActionResult Index()
         {
+
             return View();
         }
     }
