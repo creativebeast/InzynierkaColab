@@ -48,15 +48,6 @@ namespace Inzynierka.Helpers
 
                     return command.ExecuteNonQuery();
                 }
-                //string username = $"DECLARE @Username={userToAdd.Username}";
-                //string email = $" DECLARE @Email={userToAdd.Email}";
-                //string? phone = userToAdd.Phone != null ? $"DECLARE @Phone={userToAdd.Phone}" : null;
-                //string pswd = $"DECLARE @Password={password}";
-                //string refCode = $"DECLARE @ReferalCode={referalCode}";
-                //string isOwner = $"DECLARE @IsOwner=0";
-
-                //FormattableString dbQuery = $"EXECUTE {procedureName}, {username}, {email}, {phone}, {pswd}, {refCode}, {isOwner}"
-                //return this.context.Database.ExecuteSqlInterpolated($"EXECUTE {procedureName}, {username}, {email}, {phone}, {pswd}, {refCode}, {isOwner}");
             } 
             catch (Exception e)
             {
@@ -67,20 +58,114 @@ namespace Inzynierka.Helpers
         //Add User + company they own
         public int CreateAccount(User userToAdd, string password, Company comapnyToAdd)
         {
-            return 0;
+            string procedureName = "sp_Add_User";
+            try
+            {
+                using (var conn = (SqlConnection)context.Database.GetDbConnection())
+                {
+                    conn.Open();
+                    var command = conn.CreateCommand();
+
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = procedureName;
+                    command.Parameters.AddWithValue("@Username", userToAdd.Username);
+                    command.Parameters.AddWithValue("@Email", userToAdd.Email);
+                    if (!String.IsNullOrEmpty(userToAdd.Phone))
+                        command.Parameters.AddWithValue("@Phone", userToAdd.Phone);
+                    else
+                        command.Parameters.AddWithValue("@Phone", null);
+                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@IsOwner", 1);
+
+                    command.Parameters.AddWithValue("@Companyname", comapnyToAdd.Name);
+                    command.Parameters.AddWithValue("@Username", null);
+                    command.Parameters.AddWithValue("@CompanyPostalCode", comapnyToAdd.PostalCode);
+                    command.Parameters.AddWithValue("@CompanyCity", comapnyToAdd.City);
+                    command.Parameters.AddWithValue("@CompanyProvince", comapnyToAdd.Province);
+                    command.Parameters.AddWithValue("@CompanyStreet", comapnyToAdd.Street);
+                    command.Parameters.AddWithValue("@CompanyLocalNumber", comapnyToAdd.LocalNumber);
+                    command.Parameters.AddWithValue("@CompanyNIP", comapnyToAdd.NIP);
+
+                    return command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
 
         public User CheckForUserLogin(string username, string password)
         {
-            User user;
-            var users = context?.Users.FromSqlInterpolated($"sp_Login_User @Username = {username}, @Password = {password}").ToList();
-            if (users?.Count == 1)
-                user = users[0];
-            else
-                user = new User();
+            //List<User> users = context.Users.FromSqlInterpolated($"sp_Login_User @Username = {username}, @Password = {password}").ToList();
+            var user = context.Users.Where(u => u.Username == username).FirstOrDefault();
+            if (user == null)
+                return new User();
 
-            return user;
+            var checkPassword = context.Passwords.Where(p => p.UserID == user.ID && p.UserPassword == password).Any();
+
+            if (checkPassword)
+                return user;
+            else
+                return new User();
         }
-        #endregion 
+        #endregion
+
+        #region AuthTokens
+        public int CreateAuthToken(string token, string id, bool isCompany)
+        {
+            string procedureName = "sp_Add_Token";
+            try
+            {
+                using (var conn = (SqlConnection)context.Database.GetDbConnection())
+                {
+                    conn.Open();
+                    var command = conn.CreateCommand();
+
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = procedureName;
+                    command.Parameters.AddWithValue("@Token", token);
+                    if (isCompany)
+                        command.Parameters.AddWithValue("@CompanyID", int.Parse(id));
+                    else
+                        command.Parameters.AddWithValue("@UserID", int.Parse(id));
+
+                    return command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
+        //Find matching token for login action
+        public AuthToken FindLoginAuthToken(string token, out bool foundMatch)
+        {
+            try
+            {
+                var authToken = context?.AuthTokens?.FromSqlInterpolated($"sp_Find_Token @Token = {token}").ToList().FirstOrDefault();
+
+                if (authToken != null)
+                {
+                    foundMatch = true;
+                    context?.Remove(authToken);
+                    context?.SaveChanges();
+                    return authToken;
+                }
+                else
+                {
+                    foundMatch = false;
+                    return null;
+                }
+                    
+            }
+            catch (Exception e)
+            {
+                foundMatch = false;
+                return null;
+            }
+        }
+        #endregion
     }
 }

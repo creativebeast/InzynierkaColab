@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "LoginTestView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,12 +13,12 @@
     <form asp-action="Login" asp-controller="User" method="post">
         <div class="my-3">
             <label for="" class="form-label mb-3 h4">Username:</label>
-            <input type="text" id="" class="form-control">
+            <input name=Username type="text" class="form-control" required>
         </div>
 
         <div class="my-3">
             <label for="" class="form-label mb-3 h4">Password:</label>
-            <input type="text" id="" class="form-control">
+            <input name=Password asp type="text" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary px-3 my-2">Login</button>
@@ -28,9 +27,9 @@
     <div class="my-1">
         <span class="text-center">
             Don't have an account? Register company here:
-            <a asp-area="" asp-controller="User" asp-action="CompanyRegister">Company register form</a> <br>
+            <a asp-area="" asp-controller="User" asp-action="RegisterTest">Company register form</a> <br>
             Do you have referal token to join your company? Create or add your profile here:
-            <a asp-area="" asp-controller="User" asp-action="UserRegister" target="#">I got Company Referal Token!</a>
+            <a asp-area="" asp-controller="User" asp-action="RegisterTest">I got Company Referal Token!</a>
         </span>
     </div>
 </div>

@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "LoginTestView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-3 text-center">
+    <h1>
+        Register Form
+    </h1>
+</div>
+
+<div class="container w-50 my-4 border border-3 rounded-3">
+    <h4>Register User - Company Owner</h4>
+    <form asp-action="RegisterCompany" asp-controller="User" method="post">
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Username:</label>
+            <input name=Username type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Email:</label>
+            <input name=Email type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Password:</label>
+            <input name=Password type="text" id="" class="form-control" required>
+        </div>
+        <hr />
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyName:</label>
+            <input name=CompanyName type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyPostalCode:</label>
+            <input name=CompanyPostalCode type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyCity:</label>
+            <input name=CompanyCity type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyProvince:</label>
+            <input name=CompanyProvince type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyStreet:</label>
+            <input name=CompanyStreet type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyLocalNumber:</label>
+            <input name=CompanyLocalNumber type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyLocalNumber:</label>
+            <input name=CompanyLocalNumber type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-1">
+            <label for="" class="form-label mb-3 h4">CompanyNIP:</label>
+            <input name=CompanyNIP type="text" id="" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary px-3 my-2">Register Company</button>
+    </form>
+
+    <h4>Register User - Company Worker</h4>
+    <form asp-action="RegisterWorker" asp-controller="User" method="post">
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Username:</label>
+            <input name=Username type="text" id="" class="form-control">
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Password:</label>
+            <input name=Password type="text" id="" class="form-control">
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Email:</label>
+            <input name=Email type="text" id="" class="form-control" required>
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Phone (Optional):</label>
+            <input name=Phone type="text" id="" class="form-control">
+        </div>
+
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">ReferalCode:</label>
+            <input name=ReferalCode type="text" id="" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary px-3 my-2">Register User</button>
+    </form>
+
+    <div class="my-1">
+        <span class="text-center">
+            <a asp-area="" asp-controller="Home" asp-action="LoginTest">Do you have an account already? Log in!</a> <br>
+        </span>
+    </div>
+</div>
+

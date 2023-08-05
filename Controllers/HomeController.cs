@@ -32,8 +32,24 @@ namespace Inzynierka.Controllers
 
             //User user = _sqlCommandsManager.CheckForUserLogin("test123", "123123");
 
+            return View("Login");
+        }
+
+        public IActionResult LoginTest()
+        {
+            //User testUser = new User();
+            //testUser.Phone = "123 123 123";
+            //testUser.Username = "test user";
+            //testUser.Email = "testEmail@email.test";
+            //string password = "password123";
+            //string refCode = "12345";
+            //_sqlCommandsManager.CreateAccount(testUser, password, refCode);
+
+            //User user = _sqlCommandsManager.CheckForUserLogin("test123", "123123");
+
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

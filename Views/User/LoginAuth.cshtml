@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "LoginTestView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-3 text-center">
+    <h1>
+        LoginAuth Form
+    </h1>
+</div>
+
+<div class="container w-50 my-4 border border-3 rounded-3">
+    <form asp-action="AuthUser" asp-controller="User" method="post">
+        <div class="my-3">
+            <label for="" class="form-label mb-3 h4">Token:</label>
+            <input name=Token type="text" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary px-3 my-2">Login</button>
+    </form>
+</div>
+

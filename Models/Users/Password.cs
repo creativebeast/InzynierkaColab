@@ -1,4 +1,5 @@
 ﻿using Inzynierka.Helpers;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 
 namespace Inzynierka.Models
@@ -7,8 +8,8 @@ namespace Inzynierka.Models
     {
         [Key]
         public int ID { get; set; }
-        public string UserPassword { 
-            get  => _userPassword;
+        public string UserPassword {
+            get => _userPassword;
             set {
                 if(value != null)
                 {

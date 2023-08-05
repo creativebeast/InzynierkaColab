@@ -15,10 +15,11 @@ namespace Inzynierka.Controllers
             this._sqlCommandsManager = new SqlCommandsManager(_context);
         }
 
-        public void SetSessionPrivilages(string username, string privilages)
+        public void SetSessionPrivilages(string username, string privilages, string userId)
         {
             HttpContext.Session.SetString("Privilages", privilages);
             HttpContext.Session.SetString("Username", username);
+            HttpContext.Session.SetString("UserID", userId);
         }
 
         public int GetSessionPrivilages()
@@ -33,9 +34,21 @@ namespace Inzynierka.Controllers
             }
         }
 
+        public string GetSessionUserID()
+        {
+            if (!String.IsNullOrWhiteSpace(HttpContext.Session.GetString("UserID")))
+            {
+                return HttpContext.Session.GetString("UserID");
+            }
+            else
+            {
+                return "";
+            }
+        }
+
         public string GetSessionUsername()
         {
-            if (!String.IsNullOrWhiteSpace(HttpContext.Session.GetString("Privilages")))
+            if (!String.IsNullOrWhiteSpace(HttpContext.Session.GetString("Username")))
             {
                 return HttpContext.Session.GetString("Username");
             }
@@ -45,9 +58,23 @@ namespace Inzynierka.Controllers
             }
         }
 
-        public void UnsetSessionPrivilages()
+        public void UnsetSession()
         {
             HttpContext.Session.Clear();
+        }
+
+        public void SendAuthenticatioNEmail(string email)
+        {
+            EmailSender emailSender = new EmailSender();
+            //emailSender.SendEmailAsync()
+        }
+
+        public void CreateErrorMessage(string message, bool unsetSession)
+        {
+            if (unsetSession)
+                UnsetSession();
+
+            TempData["Error"] = "Wrong Token!";
         }
 
     }

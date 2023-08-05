@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MessagePack;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inzynierka.Models
 {
