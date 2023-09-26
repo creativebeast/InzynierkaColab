@@ -29,6 +29,19 @@ namespace Inzynierka.Helpers
             return str;
         }
 
+        public static string CreateNumericToken(int size)
+        {
+            // Creating object of random class
+            Random rand = new Random();
+
+            string str = "";
+            for (int i = 0; i < size; i++)
+            {
+                str += rand.Next(0, 9).ToString();
+            }
+            return str;
+        }
+
         public static void SendTokenViaMail(string targetEmail, string token)
         {
             string senderEmail = "inzynierkaomiel@gmail.com";

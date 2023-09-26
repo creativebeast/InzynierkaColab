@@ -1,0 +1,94 @@
+﻿@using Inzynierka.Helpers
+@model StylingManager
+@{
+    ViewData["Title"] = "LoginView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-3 text-center">
+    <h1>
+        Styling Form
+    </h1>
+</div>
+
+<div class="container w-50 my-4 border border-3 rounded-3">
+    <h5>Change User Styling</h5>
+    <form asp-action="CreateUserStyling" asp-controller="Home" method="post">
+
+        <label for="textStyling" class="form-label mb-3 h4">Styling Name:</label>
+        <input asp-for=stylingName type="text" id="textStyling" class="form-control" required>
+
+        <h4>Text Styling</h4>
+        <div class="container-fluid">
+            <div class="my-3">
+
+                <label for="_textStylingKeys[0]" class="form-label mb-3 my-1 h4">@Model._textStylingKeys[0]:</label>
+                <input asp-for=_textStylingValues[0] type="color" class="form-control" required>
+
+                <label class="form-label mb-3 my-1 h4">@Model._textStylingKeys[1]:</label>
+                @Html.DropDownListFor(m => m._textStylingValues[1], new SelectList(Model._fontFamilies), new {@class = "my-3 form-control"})
+
+                <label for="_textStylingKeys[2]" class="form-label mb-3 my-1 h4">@Model._textStylingKeys[2]:</label>
+                <div class="container-fluid">
+                    <div class="col-8">
+                        <input asp-for=_textStylingValues[2] type="range" class="form-control" id="textSizeRange" min="12" max=" 48" step="1" required>
+                    </div>
+                    <div class="col-4">
+                        <span id="textSize"></span>
+                    </div>
+                </div>
+                
+
+                <label for="_textStylingKeys[3]" class="form-label mb-3 my-1 h4">@Model._textStylingKeys[3]:</label>
+                <input asp-for=_textStylingValues[3] type="range" class="form-control" min="100" max="800" step="100" required>
+            </div>
+        </div>
+
+        <h4>Table Styling</h4>
+        <div class="container-fluid">
+            <div class="my-3">
+
+                <label for="_tableStylingKeys[0]" class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[0]:</label>
+                <input asp-for=_tableStylingValues[0] type="color" class="form-control" required>
+
+                <label class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[1]:</label>
+                @Html.DropDownListFor(m => m._tableStylingValues[1], new SelectList(Model._fontFamilies), new {@class = "my-3 form-control"})
+
+                <label for="_tableStylingKeys[2]" class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[2]:</label>
+                <div class="container-fluid">
+                    <div class="col-8">
+                        <input asp-for=_tableStylingValues[2] type="range" class="form-control" id="textSizeRange" min="12" max=" 48" step="1" required>
+                    </div>
+                    <div class="col-4">
+                        <span id="textSize"></span>
+                    </div>
+                </div>
+
+                <label for="_tableStylingKeys[3]" class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[3]:</label>
+                <input asp-for=_tableStylingValues[3] type="range" class="form-control" min="100" max="800" step="100" required>
+
+                <label for="_tableStylingKeys[4]" class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[4]:</label>
+                <div class="container-fluid">
+                    <div class="col-8">
+                        <input asp-for=_tableStylingValues[4] type="range" class="form-control" id="tableTextSizeRange" min="12" max=" 48" step="1" required>
+                    </div>
+                    <div class="col-4">
+                        <span id="tableTextSize"></span>
+                    </div>
+                </div>
+
+                <label for="_tableStylingKeys[5]" class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[5]:</label>
+                <input asp-for=_tableStylingValues[5] type="color" class="form-control" required>
+
+                <label class="form-label mb-3 my-1 h4">@Model._tableStylingKeys[6]:</label>
+                @Html.DropDownListFor(m => m._tableStylingValues[6], new SelectList(Model._tableBorders), new {@class = "my-3 form-control"})
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary px-3 my-2">Confirm</button>
+    </form>
+
+</div>
+
+

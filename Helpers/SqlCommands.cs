@@ -3,6 +3,8 @@ using Inzynierka.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Data.SqlClient;
+using System.Xml.Linq;
+using NuGet.Common;
 
 namespace Inzynierka.Helpers
 {
@@ -166,6 +168,39 @@ namespace Inzynierka.Helpers
                 return null;
             }
         }
+        #endregion
+
+        #region Stylings
+        public int CreateStyling(XElement textStyling, XElement tableStyling, XElement specialStyling, 
+            string creatorName, int creatorId, string stylingName, string referenceToken)
+        {
+            string procedureName = "sp_Add_Stylings";
+            try
+            {
+                using (var conn = (SqlConnection)context.Database.GetDbConnection())
+                {
+                    conn.Open();
+                    var command = conn.CreateCommand();
+
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = procedureName;
+                    command.Parameters.AddWithValue("@textStyling", textStyling.ToString());
+                    command.Parameters.AddWithValue("@tableStyling", tableStyling.ToString());
+                    command.Parameters.AddWithValue("@specialStyling", specialStyling.ToString());
+                    command.Parameters.AddWithValue("@stylingName", stylingName);
+                    command.Parameters.AddWithValue("@creatorId", creatorId);
+                    command.Parameters.AddWithValue("@creatorUsername", creatorName);
+                    command.Parameters.AddWithValue("@referenceToken", referenceToken);
+
+                    return command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
         #endregion
     }
 }

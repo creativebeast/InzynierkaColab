@@ -63,12 +63,6 @@ namespace Inzynierka.Controllers
             HttpContext.Session.Clear();
         }
 
-        public void SendAuthenticatioNEmail(string email)
-        {
-            EmailSender emailSender = new EmailSender();
-            //emailSender.SendEmailAsync()
-        }
-
         public void CreateErrorMessage(string message, bool unsetSession)
         {
             if (unsetSession)

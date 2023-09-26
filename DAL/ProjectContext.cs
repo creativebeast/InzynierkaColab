@@ -1,5 +1,6 @@
 ﻿using Inzynierka.Models;
 using Inzynierka.Models.Generic;
+using Inzynierka.Models.Stylings;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inzynierka.DAL
@@ -22,6 +23,11 @@ namespace Inzynierka.DAL
         //Generic Tables
         public Microsoft.EntityFrameworkCore.DbSet<DefaultStyling> DefaultStylings { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Links> Links { get; set; }
+        //Styling Tables
+        public Microsoft.EntityFrameworkCore.DbSet<Styling> Stylings { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<TextStyling> TextStyling { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<TableStyling> TableStyling { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<SpecialStyling> SpecialStyling { get; set; }
         //Tables linking other tables together
         public Microsoft.EntityFrameworkCore.DbSet<InvoiceHistory> InvoiceHistory { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Worker> Workers { get; set; }

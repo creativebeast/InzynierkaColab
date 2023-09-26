@@ -26,7 +26,7 @@ namespace Inzynierka.Controllers
                 if (String.IsNullOrEmpty(item.ToString()))
                 {
                     CreateErrorMessage("Required fields left empty", false);
-                    return RedirectToAction("LoginTest", "Home");
+                    return RedirectToAction("Login", "Home");
                 }
                    
             }
@@ -36,18 +36,21 @@ namespace Inzynierka.Controllers
             if (String.IsNullOrEmpty(foundUser.Username))
             {
                 CreateErrorMessage("Wrong credencials entered", false);
-                return RedirectToAction("LoginTest", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
-            
-            string token = TokenHelper.CreateToken();
+            //string token = TokenHelper.CreateToken();
 
-            _sqlCommandsManager.CreateAuthToken(token, foundUser.ID.ToString(), false);
-            TokenHelper.SendTokenViaMail("sztucznawiedza@gmail.com", token);
+            //_sqlCommandsManager.CreateAuthToken(token, foundUser.ID.ToString(), false);
+
+            //if(foundUser.Email != null)
+            //    TokenHelper.SendTokenViaMail(foundUser.Email, token);
+            //else
+            //    TokenHelper.SendTokenViaMail("sztucznawiedza@gmail.com", token);
             SetSessionPrivilages(foundUser.Username, foundUser.Privilage.ToString(), foundUser.ID.ToString());
 
-            return RedirectToAction("LoginAuth", "User");
-
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("LoginAuth", "User");
         }
 
         public IActionResult LoginAuth()
@@ -62,7 +65,7 @@ namespace Inzynierka.Controllers
                 if (String.IsNullOrEmpty(item.ToString()))
                 {
                     CreateErrorMessage("Something went wrong!", true);
-                    return RedirectToAction("LoginTest", "Home");
+                    return RedirectToAction("Login", "Home");
                 }
             }
 
@@ -77,7 +80,7 @@ namespace Inzynierka.Controllers
             else
             {
                 CreateErrorMessage("Either couldn't find user or the entered token was wrong!", true);
-                return RedirectToAction("LoginTest", "Home");
+                return RedirectToAction("Login", "Home");
             }
         }
 
@@ -111,7 +114,7 @@ namespace Inzynierka.Controllers
 
             _sqlCommandsManager.CreateAccount(testUser, password.UserPassword, testCompany);
             TempData["Message"] = "Account created succesfully";
-            return RedirectToAction("LoginTest", "Home");
+            return RedirectToAction("Login", "Home");
         }
 
         public IActionResult RegisterWorker(IFormCollection collection)
@@ -130,7 +133,7 @@ namespace Inzynierka.Controllers
 
             _sqlCommandsManager.CreateAccount(newUser, password.UserPassword, refCode);
             TempData["Message"] = "Account created succesfully";
-            return RedirectToAction("LoginTest", "Home");
+            return RedirectToAction("Login", "Home");
         }
     }
 }

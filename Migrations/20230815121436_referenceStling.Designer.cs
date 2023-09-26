@@ -4,6 +4,7 @@ using Inzynierka.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inzynierka.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20230815121436_referenceStling")]
+    partial class referenceStling
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -414,7 +416,7 @@ namespace Inzynierka.Migrations
 
                     b.Property<string>("Values")
                         .IsRequired()
-                        .HasColumnType("xml");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -433,7 +435,7 @@ namespace Inzynierka.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpecialStylingId")
+                    b.Property<int>("SpecialStyling")
                         .HasColumnType("int");
 
                     b.Property<string>("StylingName")
@@ -443,7 +445,7 @@ namespace Inzynierka.Migrations
                     b.Property<int>("TableStylingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TextStylingId")
+                    b.Property<int>("TextStyling")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -473,7 +475,7 @@ namespace Inzynierka.Migrations
 
                     b.Property<string>("Values")
                         .IsRequired()
-                        .HasColumnType("xml");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -502,7 +504,7 @@ namespace Inzynierka.Migrations
 
                     b.Property<string>("Values")
                         .IsRequired()
-                        .HasColumnType("xml");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
