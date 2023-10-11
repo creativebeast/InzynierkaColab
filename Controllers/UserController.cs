@@ -135,5 +135,20 @@ namespace Inzynierka.Controllers
             TempData["Message"] = "Account created succesfully";
             return RedirectToAction("Login", "Home");
         }
+
+        public IActionResult Account()
+        {
+            return View();
+        }
+
+        public IActionResult AccountSettings()
+        {
+            return View();
+        }
+
+        public IActionResult StylingSettings()
+        {
+            return View();
+        }
     }
 }

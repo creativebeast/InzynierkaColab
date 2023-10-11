@@ -1,12 +1,37 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>MainPanel</title>
+</head>
+<body>
+    <div class="container">
+        <h4>Ustawienia użytkownika</h4>
+        <div class="text-center container">
+            <a asp-controller="User" asp-action="Account">Moje Dane</a>
+            <a asp-controller="User" asp-action="AccountSettings">Ustawienia Konta</a>
+            <a asp-controller="User" asp-action="StylingSettings">Ustawienia Stylizacji</a>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <!--Niektóre opcje widoczne tylko dla osób uprawnionych-->
+        <h4>Firmy</h4>
+        <div class="text-center container">
+            <label for="firmy">Wybierz Firme:</label>
+            <select name="firmy" id="firmy">
+              <option value="volvo">Firma A</option>
+              <option value="saab">Firma B</option>
+              <option value="mercedes">Firma C</option>
+            </select>
+            <a asp-controller="Company" asp-action="CompanyData">Zarządzaj Danymi Swojej Firmy</a>
+            <a asp-controller="Company" asp-action="Client">Zarządzaj Klientami</a>
+            <a asp-controller="Company" asp-action="Invoice">Zarzązaj Fakturami</a>
+            <a asp-controller="Company" asp-action="Worker">Zarządzaj Pracownikami</a>
+            <a asp-controller="Company" asp-action="Logs">Zobacz Historie Aktywności Firmy</a>
+        </div>
 
-    <br />
-    <a class="text-dark" asp-area="" asp-controller="Home" asp-action="UpdateStyling">Styling Settings</a>
-</div>
-
+    </div>
+    <script src="./js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
