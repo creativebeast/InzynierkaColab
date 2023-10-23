@@ -15,14 +15,14 @@
         <div class="center">
 
             <div id="panel">
-                <form>
+                <form asp-action="Login" asp-controller="User" method="post">
                     <label for="username">Nazwa użytkownika:</label>
-                    <input type="text" id="username" name="username">
+                    <input type="text" id="username" name=Username>
                     <label for="password">Hasło:</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name=Password>
                     <div id="lower">
                         <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Login" id="login_button">
                     </div>
                 </form>
             </div>

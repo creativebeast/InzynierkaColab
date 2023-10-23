@@ -1,17 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ustawienia Konta</title>
-</head>
-<body>
-    <div class="container-test-center">
-        <a href="">Aktualizuj Swoje Dane</a>
-        <a href="">Zmień Hasło</a>
-        <a href="">Zmień Numer Telefonu</a>
-        <a href="">??? Wybierz Sposób Dodatkowego Uwierzytelniania pprdzy Logowaniu ???</a>
-        <a href="">Odepnij się od danej Firmy</a>
-    </div>
-</body>
-</html>
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Company>? companies = ViewData["Companies"] as List<Company>;
+}
+
+<div class="container-test-center">
+    <hr />
+    <!-- Zmień Hasło -->
+    <h5>Zmiana Hasła</h5>
+    <form asp-action="ChangePassword" asp-controller="User" method="post">
+        <label for="oldPassword">Stare hasło:</label>
+        <input type="password" id="oldPassword" name=oldPassword>
+
+        <label for="newPassword">Nowe Hasło:</label>
+        <input type="password" id="newPassword" name=newPassword>
+        <label for="newPassword2">Powtórz Nowe Hasło:</label>
+        <input type="password" id="newPassword2" name=newPassword2><br />
+
+        <input type="submit" value="Submit">
+    </form>
+    <hr />
+    <!-- Zmień Nr.Telefonu -->
+    <h5>Zmiana Nr.Telefonu</h5>
+    <form asp-action="ChangePhoneNumber" asp-controller="User" method="post">
+        <label for="password">Podaj Hasło:</label>
+        <input type="password" name=password>
+
+        <label for="mail" style="width: 100%;">Podaj Mail (Na który przyjdzie kod potwierdzający zmiane):</label>
+        <input type="text" id="mail" name=mail style="width: 100%;">
+
+        <label for="phoneNumber">Podaj Nowy Numer Telefonu:</label>
+        <input type="text" id="phoneNumber" name=phoneNumber><br />
+
+        <input type="submit" value="Submit">
+    </form>
+    <hr />
+    <!-- Wybierz Uwierzytlenianie przez X -->
+    <hr />
+    <!-- Usuń Się z danej firmy -->
+    <h5>Odepnij się od danej firmy</h5>
+    @if(companies == null || companies.Count == 0){
+        <p>No companies found to be assigned to user</p>
+    } else {
+        <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post">
+            <label for="password">Podaj Hasło:</label>
+            <input type="password" name=password>
+
+            <label for="company">Wybierz firme z której chesz się usunąć:</label>
+            <select name="company" id="company">
+                @foreach (var company in companies)
+                {
+                    <option value="@company.ID">@company.Name</option>
+                }
+            </select><br />
+
+            <input type="submit" value="Submit">
+        </form>
+    }
+    
+    <hr />
+    <a href="">??? Wybierz Sposób Dodatkowego Uwierzytelniania przy Logowaniu ???</a><br />
+    <a href="">Odepnij się od danej Firmy</a><br />
+</div>

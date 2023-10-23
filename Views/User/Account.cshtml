@@ -1,28 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moje Dane Użytkownika</title>
-</head>
+﻿@{
+    ViewData["Title"] = "Account Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Inzynierka.Models.User currentUser = (Inzynierka.Models.User)ViewData["User"];
+}
+
 <body>
     <div class="container text-center">
-        <p>Nazwa Użytkownika: </p> <span></span>
+        <p>Nazwa Użytkownika: 
+            <span> @currentUser.Username </span>
+        </p>
 
-        <p>Imie i Nazwisko: </p> <span></span>
+        <p>Email: 
+            <span> @currentUser.Email </span> 
+        </p> 
 
-        <p>Email: </p> <span></span>
+        <p>Numer Telefonu: 
+            <span> @currentUser.Phone </span>
+        </p> 
+        <!--Worker view-->
+        @if (currentUser.Privilage == 2){
+            <p>
+                Przypisane Firmy: -
+                @foreach (Company comp in (List<Company>)ViewData["Companies"])
+                {
+                    <span>@comp.Name - </span>
+                }
+            </p>
+        }
 
-        <p>Numer Telefonu: </p> <span></span>
+        <!--Owner view-->
+        @if(currentUser.Privilage == 0){
+            <!--Tylko dla właścicieli Firm-->
+            <p>Moje Firmy: -
+                @foreach (Company comp in (List<Company>)ViewData["Companies"])
+                {
+                    <span>@comp.Name | </span>
+                }
+                - 
+            </p>
+        }
 
-        <p>Liczba Przypisanych Firm: </p> <span></span>
-
-        <!--Tylko dla właścicieli Firm-->
-        <p>Liczba Moich Firm: </p> <span></span>
-
-        <p>Łączna Liczba Pracowników w Moich Firmach: </p> <span></span>
-
-        <p>Data Utworzenia Konta: </p> <span></span>
+        <p>Data Utworzenia Konta:
+            <span> @currentUser.CreationDate </span>
+        </p>
+        
     </div>
 </body>
-</html>

@@ -18,6 +18,16 @@ namespace Inzynierka.Controllers
 
         public IActionResult Index()
         {
+            List<Company> companies = new List<Company>();
+
+            int privilages = GetSessionPrivilages();
+            if(privilages == 2)
+                companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
+            else if(privilages == 0)
+                companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
+
+            ViewData["Companies"] = companies;
+            ViewData["Privilages"] = GetSessionPrivilages();
             return View();
         }
 
@@ -67,7 +77,7 @@ namespace Inzynierka.Controllers
             XElement completeStyling = XMLManager.JoinMulitpleStyles(new XElement[] { textStyling, tableStyling, specialStyling });
 
             string creatorName = GetSessionUsername();
-            int userId = int.Parse(GetSessionUserID());
+            int userId = GetSessionUserID();
             if(creatorName == null)
             {
                 TempData["error"] = "Error: Couldn't find session data";

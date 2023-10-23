@@ -9,7 +9,7 @@ namespace Inzynierka.Models
         [Key]
         public int ID { get; set; }
         public string UserPassword {
-            get => _userPassword;
+            get => Encryption.Decrypt(_userPassword);
             set {
                 if(value != null)
                 {

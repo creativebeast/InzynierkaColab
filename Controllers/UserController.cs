@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Inzynierka.DAL;
 using Inzynierka.Models;
-using Microsoft.Extensions.FileSystemGlobbing;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Inzynierka.Helpers;
 
 namespace Inzynierka.Controllers
@@ -30,10 +27,11 @@ namespace Inzynierka.Controllers
                 }
                    
             }
-
-            User foundUser = _sqlCommandsManager.CheckForUserLogin(collection["username"], collection["Password"]);
-
-            if (String.IsNullOrEmpty(foundUser.Username))
+            string username = collection["username"];
+            string password = collection["Password"];
+            //User foundUser = _sqlCommandsManager.CheckForUserLogin(collection["username"], collection["Password"]);
+            User? foundUser = Inzynierka.Models.User.GetUserByUsernamePassword(_context, username, password);
+            if (foundUser == null)
             {
                 CreateErrorMessage("Wrong credencials entered", false);
                 return RedirectToAction("Login", "Home");
@@ -72,7 +70,7 @@ namespace Inzynierka.Controllers
             bool foundMatch;
             AuthToken auth = _sqlCommandsManager.FindLoginAuthToken(collection["Token"], out foundMatch);
 
-            if(foundMatch && auth.UserID.ToString() == GetSessionUserID())
+            if(foundMatch && auth.UserID == GetSessionUserID())
             {
                 TempData["Success"] = "Loged in succesfully!";
                 return RedirectToAction("Index", "Home");
@@ -138,16 +136,122 @@ namespace Inzynierka.Controllers
 
         public IActionResult Account()
         {
+            User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            ViewData["User"] = currentUser;
+
+            List<Company> companies;
+            if (currentUser.Privilage == 0)
+                companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
+            else
+                companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
+
+            ViewData["Companies"] = companies;
+
             return View();
         }
 
         public IActionResult AccountSettings()
         {
+            List<Company> companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
+            ViewData["Companies"] = companies;
             return View();
+        }
+
+        public IActionResult ChangePassword(IFormCollection collection)
+        {
+            string oldPassword = collection["oldPassword"];
+            string newPassword = collection["newPassword"];
+            string newPassword2 = collection["newPassword2"];
+            int userId = GetSessionUserID();
+
+            if(newPassword == newPassword2)
+            {
+                if(Inzynierka.Models.User.CheckIfPasswordMatch(_context, userId, oldPassword))
+                {
+                    int success = Inzynierka.Models.User.UpdateUserPassword(_context, userId, newPassword);
+
+                    if (success == 1)
+                        TempData["Success"] = "Password changed successfully!";
+                    else
+                        TempData["Error"] = "Incorrect credentials...";
+
+                    return RedirectToAction("Index", "Home");
+                } else {
+                    TempData["Error"] = "Incorrect credentials...";
+                    return RedirectToAction("Index", "Home");
+                }
+            } else {
+                TempData["Error"] = "Passwords don't match";
+                return RedirectToAction("AccountSettings", "User");
+            }
+            
+        }
+
+        public IActionResult ChangePhoneNumber(IFormCollection collection)
+        {
+            if(collection.Count < 3)
+            {
+                TempData["Error"] = "Some fields were left empty";
+                return RedirectToAction("AccountSettings", "User");
+            }
+
+            foreach (var value in collection)
+            {
+                if (String.IsNullOrEmpty(value.Value))
+                {
+                    TempData["Error"] = "Some fields were left empty";
+                    return RedirectToAction("AccountSettings", "User");
+                }
+            }
+
+            string newPhoneNumber = collection["phoneNumber"];
+            string userPassword = collection["password"];
+            string userEmail = collection["mail"];
+
+            if (!Inzynierka.Models.User.CheckIfPasswordMatch(_context, GetSessionUserID(), userPassword))
+                return RedirectToAction("AccountSettings", "User");
+
+            if(!Inzynierka.Models.User.UpdatePhoneNumber(_context, GetSessionUserID(), newPhoneNumber))
+            {
+                TempData["Error"] = "Couldn't update phone number";
+                return RedirectToAction("AccountSettings", "User");
+            }
+
+            TempData["Success"] = "Phone number changed successfully~";
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult RemoveSelfFromCompany(IFormCollection collection)
+        {
+            if(collection == null || collection.Count < 2)
+            {
+                TempData["Error"] = "Something went wrong...";
+                return RedirectToAction("AccountSettings", "User");
+            }
+
+            foreach(var input in collection)
+            {
+                if (String.IsNullOrEmpty(input.Value))
+                {
+                    TempData["Error"] = "Some fields were left empty";
+                    return RedirectToAction("AccountSettings", "User");
+                }
+            }
+
+            int companyId = int.Parse(collection["company"].ToString());
+            if (!Company.removeUserFromCompany(_context, GetSessionUserID(), companyId))
+            {
+                TempData["Error"] = "Couldn't remove record from database...";
+                return RedirectToAction("AccountSettings", "User");
+            }
+
+            TempData["Success"] = "Removed self from company~";
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult StylingSettings()
         {
+            
             return View();
         }
     }

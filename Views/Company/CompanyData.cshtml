@@ -1,15 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dane Firmy</title>
-</head>
-<body>
-    <div class="container text-center">
-        <a href="">Dodaj Firme</a>
-        <a href="">Modyfikuj Dane Firmy</a>
-        <a href="">???Usuń Firmę???</a>
-    </div>
-</body>
-</html>
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Company? company = ViewData["Company"] as Company ?? null;
+}
+
+<div class="container text-center">
+    @if(company == null){
+        <h3>Something went wrong...</h3>
+    } else {
+    <h5>Dodaj Nową Firme</h5>
+    <from>
+        <form asp-action="CreateCompany" asp-controller="Company" method="post">
+            <label for="companyName">Company Name:</label>
+            <input type="text" name="companyName" required>
+
+            <label for="companyOwnerName">Owner Name:</label>
+            <input type="text" name="companyOwnerName" required>
+
+            <label for="companyPostalCode">Postal Code:</label>
+            <input type="text" name="companyPostalCode" required>
+
+            <label for="companyCity">City:</label>
+            <input type="text" name="companyCity" required>
+
+            <label for="companyProvince">Province:</label>
+            <input type="text" name="companyProvince">
+
+            <label for="companyStreet">Street:</label>
+            <input type="text" name="companyStreet" required>
+
+            <label for="companyLocaleNumber">Locale Number:</label>
+            <input type="text" name="companyLocaleNumber" required>
+
+            <label for="companyNIP">NIP:</label>
+            <input type="text" name="companyNIP" required>
+                <br><br>
+
+            <input type="submit" value="Dodaj Firme">
+        </form>
+    </from> <hr />
+
+    <h5>Modyfikuj Dane Firmy - <b>@company.Name</b> </h5>
+        <form asp-action="UpdateCompany" asp-controller="Company" method="post">
+            <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+
+            <label for="companyName">Company Name:</label>
+            <input type="text" name="companyName" placeholder="Nowa Nazwa Firmy">
+            <span>|  Obecnie: @company.Name</span>
+
+            <label for="companyOwnerName">Owner Name:</label>
+            <input type="text" name="companyOwnerName" placeholder="Imie i Nazwisko Nowego Właściciela">
+            <span>|  Obecnie: @company.OwnerName</span>
+
+            <label for="companyPostalCode">Postal Code:</label>
+            <input type="text" name="companyPostalCode" placeholder="Nowy Kod Pocztowy">
+            <span>|  Obecnie: @company.PostalCode</span>
+
+            <label for="companyCity">City:</label>
+            <input type="text" name="companyCity" placeholder="Nowe Miasto">
+            <span>|  Obecnie: @company.City</span>
+
+            <label for="companyProvince">Province:</label>
+            <input type="text" name="companyProvince" placeholder="Nowa Dzielnica (Opcjonalne)">\
+            <span>|  Obecnie: @company.Province</span>
+
+            <label for="companyStreet">Street:</label>
+            <input type="text" name="companyStreet" placeholder="Nowa Ulica">
+            <span>|  Obecnie: @company.Street</span>
+
+            <label for="companyLocaleNumber">Locale Number:</label>
+            <input type="text" name="companyLocalNumber" placeholder="Nowy Numer Lokalu">
+            <span>|  Obecnie: @company.LocalNumber</span>
+
+            <label for="companyNIP">NIP:</label>
+            <input type="text" name="companyNIP" placeholder="Nowy NIP">
+            <span>|  Obecnie: @company.NIP</span><br><br>
+
+            <input type="submit" value="Modyfikuj Firme">
+        </form>
+    <hr />
+
+    <h5>Usuń Firmę - <b>@company.Name</b> </h5>
+    <from>
+        <form asp-action="DeleteCompany" asp-controller="Company" method="post">
+            <h6>Firma która ulegnie usunięciu: <b><h5>@company.Name</h5></b> </h6>
+            <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+            <input type="submit" value="Usuń Firme" style="background-color: red; color: navajowhite;">
+        </form>
+    </from>
+    }
+    
+</div>

@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Company? company = ViewData["Company"] as Company ?? null;
+    List<Client> avalibleClients = ViewData["Clients"] as List<Client> ?? new List<Client>();
+}
+
+<div class="container-fluid text-start">
+    @if (company == null)
+    {
+        <h3>Something went wrong...</h3>
+    }
+    else
+    {
+        <h5>Dodaj Klienta Do Firmy @company.Name</h5>
+        <form asp-action="CreateClient" asp-controller="client" method="post">
+            <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
+
+            <label for="clientName">Client Name:</label>
+            <input type="text" name="clientName" required>
+
+            <label for="clientOwnerName">Client Owner Name:</label>
+            <input type="text" name="clientOwnerName" required>
+
+            <label for="clientPostalCode">Client Postal Code:</label>
+            <input type="text" name="clientPostalCode" required>
+
+            <label for="clientCity">Client City:</label>
+            <input type="text" name="clientCity" required>
+
+            <label for="clientProvince">Client Province:</label>
+            <input type="text" name="clientProvince">
+
+            <label for="clientStreet">Client Street:</label>
+            <input type="text" name="clientStreet" required>
+
+            <label for="clientLocaleNumber">Client Locale Number:</label>
+            <input type="text" name="clientLocaleNumber" required>
+
+            <label for="clientNIP">Client NIP:</label>
+            <input type="text" name="clientNIP" required>
+
+            <h6>Clients is a Company</h6>
+            <input type="radio" id="clientIsCompany" name="clientIsCompany" value="0" selected>
+            <label for="html">Yes</label>
+            <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
+            <label for="css">No</label>
+
+            <br>
+
+            <input type="submit" value="Dodaj Firme">
+        </form> <hr />
+
+        @if(avalibleClients != null && avalibleClients.Count > 0){
+            <h5>Modyfikuj Dane Klienta dla Klientów Firmy <b>@company.Name</b> </h5>
+            <table>
+                <tr>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Owner Name</th>
+                    <th scope="col">Client City</th>
+                    <th scope="col">Client Province</th>
+                    <th scope="col">Client Street</th>
+                    <th scope="col">Client Locale Number</th>
+                    <th scope="col">Client Postal Code</th>
+                    <th scope="col">Client NIP</th>
+                    <th scope="col">Is Company</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+
+                @foreach (Client client in avalibleClients)
+                {
+                    <tr>
+                        <form asp-action="UpdateClient" asp-controller="Client" method="post">
+                            <input type="number" value=@client.ID name="clientID" hidden>
+                            <input type="number" value=@company.ID name="companyID" hidden>
+                            <td> <input type="text" value=@client.Name name="clientName" required></td>
+                            <td> <input type="text" value=@client.OwnerName name="clientOwnerName" required></td>
+                            <td> <input type="text" value=@client.City name="clientCity" required></td>
+                            <td> <input type="text" value=@client.Province name="clientProvince"></td>
+                            <td> <input type="text" value=@client.Street name="clientStreet" required></td>
+                            <td> <input type="text" value=@client.LocalNumber name="clientLocaleNumber" required></td>
+                            <td> <input type="text" value=@client.PostalCode name="clientPostalCode" required></td>
+                            <td> <input type="text" value=@client.NIP name="clientNIP" required></td>
+                            <td>
+                                @if(client.IsCompany != true){
+                                    <label for="clientIsNotCompany">No</label><br>
+                                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" checked>
+                                    <label for="clientIsCompany">Yes</label><br>
+                                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
+                                } else {
+                                    <label for="clientIsNotCompany">No</label><br>
+                                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0">
+                                    <label for="clientIsCompany">Yes</label><br>
+                                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1" checked>
+                                }
+                            </td>
+                            <td> <input type="submit" value="Modify"></td>
+                        </form>
+                        <form asp-action="DeleteClient" asp-controller="Client" method="post">
+                            <td>
+                                <input type="number" value=@client.ID name="ClientID" hidden>
+                                <input type="number" value=@company.ID name="companyID" hidden>
+                                <input type="submit" value="Delete" style="background-color: red; color: navajowhite;">
+                            </td>
+                        </form>
+                    </tr>
+                }
+            </table>
+        }
+        
+    }
+    @section Scripts
+    {
+    }
+
+</div>

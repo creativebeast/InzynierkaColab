@@ -1,37 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>MainPanel</title>
-</head>
-<body>
-    <div class="container">
-        <h4>Ustawienia użytkownika</h4>
-        <div class="text-center container">
-            <a asp-controller="User" asp-action="Account">Moje Dane</a>
-            <a asp-controller="User" asp-action="AccountSettings">Ustawienia Konta</a>
-            <a asp-controller="User" asp-action="StylingSettings">Ustawienia Stylizacji</a>
-        </div>
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Company> companies = (List<Company>)ViewData["Companies"];
+    int privilages = ViewData["Privilages"] != null ? int.Parse(ViewData["Privilages"].ToString()) : -1;
+}
 
-        <!--Niektóre opcje widoczne tylko dla osób uprawnionych-->
-        <h4>Firmy</h4>
-        <div class="text-center container">
-            <label for="firmy">Wybierz Firme:</label>
-            <select name="firmy" id="firmy">
-              <option value="volvo">Firma A</option>
-              <option value="saab">Firma B</option>
-              <option value="mercedes">Firma C</option>
-            </select>
-            <a asp-controller="Company" asp-action="CompanyData">Zarządzaj Danymi Swojej Firmy</a>
-            <a asp-controller="Company" asp-action="Client">Zarządzaj Klientami</a>
-            <a asp-controller="Company" asp-action="Invoice">Zarzązaj Fakturami</a>
-            <a asp-controller="Company" asp-action="Worker">Zarządzaj Pracownikami</a>
-            <a asp-controller="Company" asp-action="Logs">Zobacz Historie Aktywności Firmy</a>
-        </div>
-
+<div class="container">
+    <h4>Ustawienia użytkownika</h4>
+    <div class="text-start container">
+        <a asp-controller="User" asp-action="Account">Moje Dane</a><br />
+        <a asp-controller="User" asp-action="AccountSettings">Ustawienia Konta</a><br />
+        <a asp-controller="User" asp-action="StylingSettings">Ustawienia Stylizacji</a><br />
     </div>
-    <script src="./js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
-</html>
+
+    <!--Niektóre opcje widoczne tylko dla osób uprawnionych-->
+    <h4>Firmy</h4>
+    <div class="text-start container">
+        <label for="firmy">Wybierz Firme:</label>
+        @if(companies != null && companies.Count > 0 && privilages == 0){
+            <select name="Companies" id="Companies">
+                @foreach (var company in companies)
+                {
+                    <option value="@company.ID">@company.Name</option>
+                }
+            </select>
+            <br />
+
+            <form asp-action="CompanyData" asp-controller="Company" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+                <input type="submit" value="Zarządzaj Swoimi Firmami">
+            </form>
+
+            <form asp-action="ClientData" asp-controller="Client" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId"  hidden>
+                <input type="submit" value="Zarządzaj Klientami">
+            </form>
+
+            <form asp-action="Invoice" asp-controller="Company" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId"  hidden>
+                <input type="submit" value="Zarzązaj Fakturami">
+            </form>
+
+            <form asp-action="Worker" asp-controller="Company" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId"  hidden>
+                <input type="submit" value="Zarządzaj Pracownikami">
+            </form>
+
+            <form asp-action="Logs" asp-controller="Company" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId"  hidden>
+                <input type="submit" value="Zobacz Historie Aktywności Firmy">
+            </form>
+        }
+        
+    </div>
+    @section Scripts
+    {
+        <script type="text/javascript">
+            var formCompanyIdInputs = document.querySelectorAll("#CompanyId");
+            var companiesSelect = document.querySelector("#Companies");
+            console.log('Start');
+            console.log(companiesSelect.value);
+
+            companiesSelect.addEventListener('change', function () {
+                console.log('Select event, value: ' + companiesSelect.value);
+
+                formCompanyIdInputs.forEach(function (item) {
+                    item.value = companiesSelect.value;
+                });
+            });
+
+            formCompanyIdInputs.forEach(function (item) {
+                console.log(companiesSelect.value);
+                item.value = companiesSelect.value;
+            });
+        </script>
+    }
+</div>

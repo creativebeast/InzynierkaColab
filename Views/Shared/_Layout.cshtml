@@ -31,6 +31,11 @@
         </nav>
     </header>
     <div class="container">
+        @if(TempData["Success"] != null){
+            <p> @TempData["Success"] </p>
+        } else if (TempData["Error"] != null){
+            <p> @TempData["Error"] </p>
+        }
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

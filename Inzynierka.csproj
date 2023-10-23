@@ -7,27 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Company\Client.cshtml" />
-    <Content Remove="Views\Company\CompanyData.cshtml" />
-    <Content Remove="Views\Company\Invoice.cshtml" />
-    <Content Remove="Views\Company\Logs.cshtml" />
-    <Content Remove="Views\Company\Worker.cshtml" />
-    <Content Remove="Views\Home\Index.cshtml" />
-    <Content Remove="Views\User\Account.cshtml" />
-    <Content Remove="Views\User\AccountSettings.cshtml" />
-    <Content Remove="Views\User\StylingSettings.cshtml" />
+    <Content Remove="Views\Home\Old.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Company\Logs.cshtml" />
-    <None Include="Views\Company\CompanyData.cshtml" />
-    <None Include="Views\Company\Invoice.cshtml" />
-    <None Include="Views\Company\Client.cshtml" />
-    <None Include="Views\Company\Worker.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\User\Account.cshtml" />
-    <None Include="Views\User\AccountSettings.cshtml" />
-    <None Include="Views\User\StylingSettings.cshtml" />
+    <None Include="Views\Home\Old.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

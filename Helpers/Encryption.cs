@@ -5,7 +5,7 @@ namespace Inzynierka.Helpers
 {
     public class Encryption
     {
-
+        string EncryptionKey = "MCA423KC2A4L6P5";
         public static string Encrypt(string clearText)
         {
             //Old Key "MAKV2SPBNI99212"

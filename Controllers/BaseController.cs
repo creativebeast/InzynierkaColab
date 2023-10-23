@@ -34,15 +34,15 @@ namespace Inzynierka.Controllers
             }
         }
 
-        public string GetSessionUserID()
+        public int GetSessionUserID()
         {
             if (!String.IsNullOrWhiteSpace(HttpContext.Session.GetString("UserID")))
             {
-                return HttpContext.Session.GetString("UserID");
+                return int.Parse(HttpContext.Session.GetString("UserID"));
             }
             else
             {
-                return "";
+                return -1;
             }
         }
 
