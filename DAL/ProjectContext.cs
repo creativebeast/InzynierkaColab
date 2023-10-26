@@ -18,6 +18,7 @@ namespace Inzynierka.DAL
         //Invoice related Tables
         public Microsoft.EntityFrameworkCore.DbSet<Invoice> Invoices { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Product> Products { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<ProductList> ProductsList { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<ArchInvoice> ArchInvoices { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<ArchProduct> ArchProducts { get; set; }
         //Generic Tables

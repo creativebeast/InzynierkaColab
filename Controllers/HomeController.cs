@@ -101,6 +101,12 @@ namespace Inzynierka.Controllers
                 return RedirectToAction("Index");
         }
 
+        public IActionResult Logout()
+        {
+            UnsetSession();
+            return RedirectToAction("Login");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

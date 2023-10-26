@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Company? company = ViewData["Companies"] as Company;
+    List<Invoice>? invoices = ViewData["Invoices"] as List<Invoice>;
+}
+
+<div class="container text-center">
+    @if (company == null)
+    {
+        <h3>Something went wrong...</h3>
+    } 
+    else if (invoices == null || invoices.Count <= 0)
+    {
+        <h3>No invoices found</h3>
+        @*
+        Dodaj nową fakture
+        Dodaj nową cykliczną fakture
+        Dodaj nowy wzorzec faktury
+        *@
+    }
+    else
+    {
+        @*
+        Dodaj nową fakture
+        Dodaj nową cykliczną fakture
+        Dodaj nowy wzorzec faktury
+        Zarządzaj fakturami cyklicznymi -- Modyfikuj, usuń
+        Zarządzaj wzorcami faktur --Modyfikuj, usuń
+        Przeglądaj wystawione faktury
+        ?Przenieś faktury z danego okresu do archiwum?
+        *@
+    }
+
+</div>

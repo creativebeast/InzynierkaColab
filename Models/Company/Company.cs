@@ -132,6 +132,12 @@ namespace Inzynierka.Models
             return targetCompany;
         }
 
+        public static Company? getCompanyByID(ProjectContext context, int companyId)
+        {
+            Company? targetCompany = context.Companies.Where(w => w.ID == companyId)?.FirstOrDefault();
+            return targetCompany;
+        }
+
         public static bool CreateNewCompany(ProjectContext context, IFormCollection collection, int ownerId, out string companyName)
         {
             Company newCompany = new Company()

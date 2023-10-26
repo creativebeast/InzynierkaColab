@@ -42,6 +42,24 @@ namespace Inzynierka.Helpers
             return str;
         }
 
+        public static string CreateReferalToken()
+        {
+            // Creating object of random class
+            Random rand = new Random();
+
+            const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789!@$?_-";
+            const int referalTokenSize = 64;
+            char[] chars = new char[referalTokenSize];
+
+
+            for (int i = 0; i < referalTokenSize; i++)
+            {
+                chars[i] = allowedChars[rand.Next(0, allowedChars.Length)];
+            }
+
+            return new String(chars);
+        }
+
         public static void SendTokenViaMail(string targetEmail, string token)
         {
             string senderEmail = "inzynierkaomiel@gmail.com";
