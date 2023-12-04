@@ -1,0 +1,37 @@
+﻿    @{
+        ViewData["Title"] = "Rejestracja";
+        Layout = "~/Views/Shared/_Logo.cshtml";
+    }
+
+    @{
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+            <link href="arkusz.css" rel="stylesheet" type="text/css">
+            <title>Stylowy nagłówek</title>
+
+        </head>
+        <body>
+            <div class="center">
+
+                <div id="panel">
+                    <form>
+                        <label for="username">Nazwa użytkownika:</label>
+                        <input type="text" id="username" name="username">
+                        <label for="nip">NIP firmy:</label>
+                        <input type="text" id="nip" name="nip">
+                        <label for="password">Hasło:</label>
+                        <input type="password" id="password" name="password">
+                        <label for="referalCode">Kod referencyjny:</label>
+                        <input type="text" id="referalCode" name="referalCode">
+                        <div id="lower">
+                            <div id="checkbox">
+                                <input type="submit" value="Zarejestruj się!">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </body>
+        </html>
+    }
