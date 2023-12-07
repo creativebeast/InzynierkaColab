@@ -4,6 +4,7 @@ using Inzynierka.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inzynierka.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20231029171523_MissingClientData")]
+    partial class MissingClientData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,9 +260,6 @@ namespace Inzynierka.Migrations
                     b.Property<string>("BuyerEmail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BuyerNIP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BuyerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -295,6 +294,9 @@ namespace Inzynierka.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductList")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductListId")
                         .HasColumnType("int");
 
@@ -311,12 +313,6 @@ namespace Inzynierka.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SellerNIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerName")
@@ -401,6 +397,7 @@ namespace Inzynierka.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("NettoValue")
@@ -412,19 +409,17 @@ namespace Inzynierka.Migrations
                     b.Property<int>("ProductListID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalBruttoValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalNettoValue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalValue")
+                    b.Property<decimal>("VAT")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("VAT")
+                    b.Property<decimal>("VATValue")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
@@ -448,14 +443,8 @@ namespace Inzynierka.Migrations
                     b.Property<int>("InvoiceID")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalBruttoValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalNettoValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPostDiscountValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("ProductListID")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

@@ -20,7 +20,11 @@ namespace Inzynierka.Models
         public string Province { get; set; }
         public string Street { get; set; }
         public string LocalNumber { get; set; }
+        public string ContactNumber { get; set; }
+        public string ContactMail { get; set; }
         public string NIP { get; set; }
+        public string BankName { get; set; }
+        public string BankAccountNumber { get; set; }
         public bool IsCompany { get; set; }
         public string? LastModified { get; set; }
 
@@ -58,6 +62,10 @@ namespace Inzynierka.Models
                                 Province = reader["Province"].ToString(),
                                 Street = reader["Street"].ToString(),
                                 LocalNumber = reader["LocalNumber"].ToString(),
+                                BankAccountNumber = reader["BankAccountNumber"].ToString(),
+                                BankName = reader["BankName"].ToString(),
+                                ContactMail = reader["ContactMail"].ToString(),
+                                ContactNumber = reader["ContactNumber"].ToString(),
                                 NIP = reader["NIP"].ToString(),
                                 IsCompany = bool.Parse(reader["isCompany"].ToString()),
                                 LastModified = reader["Name"].ToString()
@@ -76,6 +84,12 @@ namespace Inzynierka.Models
             }
         }
 
+        public static Client? GetClientByID(ProjectContext context, int clientID)
+        {
+            Client? client = context.Clients.FirstOrDefault(c => c.ID == clientID);
+            return client;
+        }
+
         public static bool CreateNewClient(ProjectContext context, IFormCollection collection, int companyId, out string companyName)
         {
             Client newClient = new Client()
@@ -88,7 +102,11 @@ namespace Inzynierka.Models
                 Province = collection["clientProvince"].ToString() ?? String.Empty,
                 Street = collection["clientStreet"].ToString() ?? String.Empty,
                 LocalNumber = collection["clientLocalNumber"].ToString() ?? String.Empty,
+                ContactNumber = collection["clientContactNumber"].ToString() ?? String.Empty,
+                ContactMail = collection["clientContactMail"].ToString() ?? String.Empty,
                 NIP = collection["clientNIP"].ToString() ?? String.Empty,
+                BankName = collection["clientBankName"].ToString() ?? String.Empty,
+                BankAccountNumber = collection["clientBankAccountNumber"].ToString() ?? String.Empty,
                 IsCompany = collection["clientIsCompany"].ToString() == "0" ? false : true,
                 LastModified = DateTime.Now.ToString()
             };
