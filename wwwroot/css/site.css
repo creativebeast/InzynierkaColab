@@ -136,3 +136,104 @@ label {
     text-shadow: 0 0 1px silver;
 
 }
+.dataForm:focus{
+    outline: 5px solid #e5f2f8;
+}
+.menu {
+    font-family: Arial, sans-serif;
+    background-color: #e0f2e9; /* Light green background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the top-level menu items */
+.menu__list {
+    list-style: none;
+    padding: 0;
+}
+
+.menu__item {
+    margin: 5px 0;
+}
+
+.menu__link {
+    text-decoration: none;
+    color: #005f85; /* Dark green text color */
+    display: block;
+    padding: 8px 12px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+    .menu__link:hover {
+        background-color: #215b44; /* Lighter green on hover */
+    }
+
+/* Submenu styles */
+.menu__sublist {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background-color: #d3f0df; /* Medium green for submenu */
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu__item--parent:hover .menu__sublist {
+    display: block;
+    z-index: 1;
+}
+
+.menu__sublist--right {
+    top: 0;
+    left: 100%;
+}
+
+.menu__sublist--bottom {
+    top: 100%;
+    left: 0;
+}
+
+/* Adjustments for nested submenus */
+.menu__sublist .menu__item--parent:hover > .menu__sublist {
+    display: block;
+    top: 0;
+    left: 100%;
+}
+.menu__sublist {
+    display: none;
+    position: absolute;
+    background-color: #d3f0df; /* Medium green for submenu */
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure submenu appears above other content */
+}
+
+.menu__item--parent:hover .menu__sublist {
+    display: block; /* Show submenu on parent hover */
+}
+
+.menu__sublist--right {
+    top: 0;
+    left: 100%;
+}
+.menu__sublist {
+    display: none;
+    position: absolute;
+    background-color: #d3f0df;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.menu__item--parent:hover > .menu__sublist {
+    display: block;
+}
+
+.menu__sublist--right {
+    top: 0;
+    left: 100%;
+}

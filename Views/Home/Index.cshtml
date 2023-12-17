@@ -4,14 +4,66 @@
     List<Company> companies = (List<Company>)ViewData["Companies"];
     int privilages = ViewData["Privilages"] != null ? int.Parse(ViewData["Privilages"].ToString()) : -1;
 }
-
 <div class="container">
+    <nav class="menu">
+        <ul class="menu__list">
+            <li class="menu__item">
+                <a href="#home" class="menu__link">Strona główna</a>
+            </li>
+            <li class="menu__item menu__item--parent">
+                <a href="#user-panel" class="menu__link">Panel Użytkownika</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item">
+                        <a href="#user-data" class="menu__link">Moje Dane</a>
+                    </li>
+                    <li class="menu__item menu__item--parent">
+                        <a href="#user-settings" class="menu__link">Ustawienia</a>
+                        <ul class="menu__sublist menu__sublist--right">
+                            <li class="menu__item">
+                                <a href="#modify-account" class="menu__link">Modyfikuj dane konta</a>
+                            </li>
+                            <li class="menu__item">
+                                <a href="#modify-style" class="menu__link">Modyfikuj style</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item menu__item--parent">
+                <a href="#company-panel" class="menu__link">Panel Firmy</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item">
+                        <a href="#company-data" class="menu__link">Dane Firmy</a>
+                    </li>
+                    <li class="menu__item menu__item--parent">
+                        <a href="#employee-panel" class="menu__link">Panel Pracowników</a>
+                        <ul class="menu__sublist menu__sublist--right">
+                            <li class="menu__item">
+                                <a href="#add-employee" class="menu__link">Dodaj</a>
+                            </li>
+                            <li class="menu__item">
+                                <a href="#remove-employee" class="menu__link">Usuń</a>
+                            </li>
+                            <!-- More employee actions -->
+                        </ul>
+                    </li>
+                    <!-- More company-related actions -->
+                </ul>
+            </li>
+            <!-- Other menu items -->
+            <li class="menu__item">
+                <a href="#contact" class="menu__link">Kontakt</a>
+            </li>
+        </ul>
+    </nav>
+
     <h4>Ustawienia użytkownika</h4>
     <div class="text-start container">
         <a asp-controller="User" asp-action="Account">Moje Dane</a><br />
         <a asp-controller="User" asp-action="AccountSettings">Ustawienia Konta</a><br />
         <a asp-controller="User" asp-action="StylingSettings">Ustawienia Stylizacji</a><br />
     </div>
+
 
     <!--Niektóre opcje widoczne tylko dla osób uprawnionych-->
     <h4>Firmy</h4>
