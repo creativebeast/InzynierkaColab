@@ -1,0 +1,368 @@
+﻿@using Inzynierka.Models.ViewModels
+@model List<ProductTemplate>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Company? company = ViewData["Company"] as Company ?? null;
+    List<Client>? clients = ViewData["Clients"] as List<Client> ?? null;
+}
+
+
+<div class="container-fluid text-center">
+    @if(company != null){
+        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post">
+            <div class="row text-start">
+                <label for="invoiceName">Invoice Name:</label>
+                <input type="text" name="invoiceName" required>
+
+                <div class="col-6 text-start" id="CompanyData">
+                    <h4>Seller</h4>
+                    <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
+
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" name="companyName" value=@company.Name required readonly="readonly">
+
+                    <label for="companyPostalCode">Company Postal Code:</label>
+                    <input type="text" name="companyPostalCode" value=@company.PostalCode required readonly="readonly">
+                    
+                    <label for="companyCity">Company City:</label>
+                    <input type="text" name="companyCity" value=@company.City required readonly="readonly">
+
+                    <label for="companyProvince">Company Province:</label>
+                    @if (String.IsNullOrWhiteSpace(company.Province)){
+                        <input type="text" name="companyProvince" value="" readonly="readonly">
+                    } else {
+                        <input type="text" name="companyProvince" value=@company.Province readonly="readonly">
+                    }
+
+                    <label for="companyStreet">Company Street:</label>
+                    <input type="text" name="companyStreet" value=@company.Street required readonly="readonly">
+
+                    <label for="companyLocalNumber">Company Locale Number:</label>
+                    <input type="text" name="companyLocalNumber" value=@company.LocalNumber required readonly="readonly">
+
+                    <label for="companyContactNumber">Company Contact Number:</label>
+                    <input type="text" name="companyContactNumber" value=@company.ContactNumber required readonly="readonly">
+
+                    <label for="companyContactEmail">Company Contact Email:</label>
+                    <input type="text" name="companyContactEmail" value=@company.ContactMail required readonly="readonly">
+
+                    <label for="companyNIP">Company NIP:</label>
+                    <input type="text" name="companyNIP" value=@company.NIP required readonly="readonly">
+
+                    <label for="companyBankName">Bank Name:</label>
+                    <input type="text" name="companyBankName" value=@company.BankName required readonly="readonly">
+
+                    <label for="companyBankAccountNumber">Bank Account Number:</label>
+                    <input type="text" name="companyBankNumber" value=@company.BankAccountNumber required readonly="readonly">
+                </div>
+
+                <div class="col-6 text-start" id="ClientData">
+                    <input type="number" value="" name="clientId" id="clientId" hidden>
+                    <h4>Buyer</h4>
+                    @if (clients != null && clients.Count > 0)
+                    {
+                        <label for="existing-client">Use Existing Client</label>
+
+                        <br>
+                        <input type="checkbox" id="existing-client" name="useExistingClient" value="useExistingClient">
+
+                        <select name="ClientData" id="client-select" hidden>
+                            <option value="-1" selected>------</option>
+                            @foreach (var client in clients)
+                            {
+                                <option value="@client.ID">@client.Name</option>
+                            }
+                        </select>
+                    }
+
+                    <label for="clientName">Client Name:</label>
+                    <input type="text" name="clientName" id="clientName" class="clientData" required>
+
+                    <label for="clientPostalCode">Client Postal Code:</label>
+                    <input type="text" name="clientPostalCode" id="clientPostalCode" class="clientData" required>
+
+                    <label for="clientCity">Client City:</label>
+                    <input type="text" name="clientCity" id="clientCity" class="clientData" required>
+
+                    <label for="clientProvince">Client Province:</label>
+                    <input type="text" name="clientProvince" id="clientProvince" class="clientData">
+
+                    <label for="clientStreet">Client Street:</label>
+                    <input type="text" name="clientStreet" id="clientStreet" class="clientData" required>
+
+                    <label for="clientLocaleNumber">Client Locale Number:</label>
+                    <input type="text" name="clientLocalNumber" id="clientLocalNumber" class="clientData" required>
+
+                    <label for="clientNIP">Client NIP:</label>
+                    <input type="text" name="clientNIP" id="clientNIP" class="clientData" required>
+
+                    <label for="clientContactEmail">Client Email:</label>
+                    <input type="text" name="clientContactEmail" id="clientContactEmail" class="clientData">
+
+                    <label for="clientContactPhone">Client Phone:</label>
+                    <input type="text" name="clientContactPhone" id="clientContactPhone" class="clientData">
+
+                    <h6>Clients is a Company</h6>
+                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" selected>
+                    <label for="clientIsNotCompany">Yes</label>
+                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
+                    <label for="clientIsCompany">No</label>
+                </div>
+            </div>
+
+            <label for="IncludesDelivery">Invoice Includes Delivery:</label>
+            <input type="checkbox" name="IncludesDelivery">
+
+            <label for="PaymentDueDate">Payment Due Date:</label>
+            <input type="date" name="PaymentDueDate" required>
+
+            <table id="product-table" class="text-start">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">VAT %</th>
+                    <th scope="col">Discount %</th>
+                    <th scope="col">Product Netto Value</th>
+                    <th scope="col">Product Brutto Value</th>
+                    <th scope="col">Post Disc. Netto Value</th>
+                    <th scope="col">Total Netto Value</th>
+                    <th scope="col">Total Brutto Value</th>
+                    <th scope="col">Total Value</th>
+                    @*<th scope="col">Discriminator</th>*@
+                </tr>
+                <tr id="product-data">
+                    <td> # </td>
+                    <td> <input type="text" name="newProductName" id="newProductName" /> </td>
+                    <td> <input type="number" name="newProductQuantity" id="newProductQuantity" min="0" step="1" /> </td>
+                    <td> <input type="number" name="newProductVAT" id="newProductVAT" min="0" max="100" step="1" /> </td>
+                    <td> <input type="number" name="newProductDiscount" id="newProductDiscount" min="0" max="100" step="1" /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductNettoPerProd" id="newProductNettoPerProd" /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductBruttoPerProd" id="newProductBruttoPerProd" disabled /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductPostDiscount" id="newProductPostDiscount" disabled /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductNettoTotal" id="newProductNettoTotal" disabled /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductBruttoTotal" id="newProductBruttoTotal" disabled /> </td>
+                    <td> <input type="number" min="0.00" step="0.01" name="newProductDiscountTotal" id="newProductPostDiscountTotal" disabled /> </td>
+                </tr>
+            </table>
+            <button type="button" id="addNewProduct">Add Product!</button>
+            <br><br>
+            @*@Html.EditorFor(m => m[0].Name)*@
+            @*<input type='text' name="[0].Name" value='Test'>*@
+            <input type="submit" value="Stwórz Fakture">
+        </form>
+    }
+    @section Scripts
+        {
+        <script type="text/javascript">
+            var addInvoiceForm = document.querySelector("#invoice-form");
+            var useExistingClientBox = document.querySelector("#existing-client");
+            var clientSelect = document.querySelector("#client-select");
+            var clientsData = @Html.Raw(Json.Serialize(clients));
+
+            useExistingClientBox.addEventListener('change', function(){
+                if (useExistingClientBox.checked){
+                    clientSelect.hidden = false;
+                    fillForm();
+                } else {
+                    clientSelect.hidden = true;
+                    clearForm();
+                }
+            });
+
+            clientSelect.addEventListener('change', function(){
+                if(clientSelect.value != '-1'){
+                    var selectedClientId = clientSelect.value;
+                    clientsData.forEach(function (item) {
+                        //var keys = Object.keys(item);
+                        //alert(keys);
+                        //alert(item.id + ' ' + selectedClientId);
+
+                        if (item.id == selectedClientId){
+                            document.querySelector("#clientId").value = item.id;
+                            document.querySelector("#clientName").value = item.name;
+                            document.querySelector("#clientPostalCode").value = item.postalCode; 
+                            document.querySelector("#clientCity").value = item.city;
+                            document.querySelector("#clientContactEmail").value = item.contactMail;
+                            document.querySelector("#clientContactPhone").value = item.contactNumber;
+                            document.querySelector("#clientProvince").value = item.province;
+                            document.querySelector("#clientStreet").value = item.street;
+                            document.querySelector("#clientLocalNumber").value = item.localNumber;
+                            document.querySelector("#clientNIP").value = item.nip;
+
+                            if(item.isCompany == 1){
+                                document.querySelector("#clientIsNotCompany").checked = true;
+                            } else {
+                                document.querySelector("#clientIsCompany").checked = true;
+                            }
+                        }
+                    });
+                }
+            });
+
+            function clearForm(){
+                var fieldToClear = addInvoiceForm.querySelectorAll('.clientData');
+                fieldToClear.forEach(function (item) {
+                    item.value = '';
+                });
+            }
+
+            function fillForm(){
+                var fieldToClear = addInvoiceForm.querySelectorAll('.clientData');
+                fieldToClear.forEach(function (item) {
+                    item.value = '';
+                });
+            } 
+        
+            var newProductDiscount = document.querySelector("#newProductDiscount");
+            var newProductName = document.querySelector("#newProductName");
+            var newProductQuantity = document.querySelector("#newProductQuantity");
+            var newProductVAT = document.querySelector("#newProductVAT");
+            var newProductNettoPrice = document.querySelector("#newProductNettoPerProd");
+
+            function calculateProductInputs(){
+                console.log('CalculatingPrice');
+                //var areNumeric = checkIfInputsAreNumeric();
+                if (newProductQuantity.value > 0 && newProductNettoPrice.value > 0 && newProductVAT.value > 0) {
+                    //Correct input fields if they go out of bound parseFloat($(this).val()).toFixed(2)
+                    newProductNettoPrice.value = parseFloat(newProductNettoPrice.value).toFixed(2);
+
+                    var bruttoPerProdValue = parseFloat(newProductNettoPrice.value) + ( (parseFloat(newProductNettoPrice.value) / 100) * parseFloat(newProductVAT.value) );
+                    document.querySelector("#newProductBruttoPerProd").value = bruttoPerProdValue.toFixed(2);
+                    
+                    var pricePostDiscount = bruttoPerProdValue - ((bruttoPerProdValue / 100) * newProductDiscount.value);
+                    document.querySelector("#newProductPostDiscount").value = pricePostDiscount.toFixed(2);
+                    
+                    var nettoTotal = newProductQuantity.value * newProductNettoPrice.value;
+                    document.querySelector("#newProductNettoTotal").value = nettoTotal.toFixed(2);
+                    
+                    var bruttoTotal = newProductQuantity.value * bruttoPerProdValue;
+                    document.querySelector("#newProductBruttoTotal").value = bruttoTotal.toFixed(2);
+                    
+                    var postDiscountTotal = newProductQuantity.value * pricePostDiscount;
+                    document.querySelector("#newProductPostDiscountTotal").value = postDiscountTotal.toFixed(2);
+                } else 
+                {
+                    document.querySelector("#newProductBruttoPerProd").value = "";
+                    document.querySelector("#newProductPostDiscount").value = "";
+                    document.querySelector("#newProductNettoTotal").value = "";
+                    document.querySelector("#newProductBruttoTotal").value = "";
+                    document.querySelector("#newProductPostDiscountTotal").value = "";
+                }
+            }
+
+            function checkIfInputsAreNumeric(){
+                console.log('test check');
+                //newProductVAT.value
+                var VatMatch = newProductVAT.value.match('/\d{1,2}/');
+                //newProductDiscount.value
+                var DiscountMatch = newProductDiscount.value.match('/\d{1,2}/');
+                //newProductNettoPrice.value.toFixed(2)
+                var NettoPriceMatch = newProductNettoPrice.value.match('/\d{1,}.\d{2,}/');
+                //alert(VatMatch + " " + DiscountMatch + " " + NettoPriceMatch;
+                if (VatMatch == true && DiscountMatch == true && NettoPriceMatch == true) {
+                    return true;
+                } else
+                {
+                    var wrongFields = "";
+                    if(VatMatch == false){
+                        wrongFields = wrongFields + newProductVAT.value + ", ";
+                    }
+
+                    if(DiscountMatch == false){
+                        wrongFields = wrongFields + newProductDiscount.value + ", ";
+                    }
+
+                    if(NettoPriceMatch == false){
+                        wrongFields = wrongFields + newProductNettoPrice.value + ", ";
+                    }
+
+                    //alert(VatMatch + " " + DiscountMatch + " " + NettoPriceMatch + ':Wrong Inputs, correct those first: ' + wrongFields)
+                    return false;
+                }
+                
+            }
+
+            newProductDiscount.addEventListener('change', calculateProductInputs);
+            newProductQuantity.addEventListener('change', calculateProductInputs);
+            newProductVAT.addEventListener('change', calculateProductInputs);
+            newProductNettoPrice.addEventListener('change', calculateProductInputs);
+
+            var addNewProductButton = document.querySelector('#addNewProduct');
+            var productListCount = 0;
+
+            addNewProductButton.addEventListener('click', function () {
+                if (newProductQuantity.value > 0 && newProductNettoPrice.value > 0 && newProductVAT.value > 0){
+                    console.log('AddingProduct');
+                    const InvoiceData =
+                    {
+                        name: document.querySelector("#newProductName").value,
+                        quantity: newProductQuantity.value,
+                        VAT: newProductVAT.value,
+                        discount: newProductDiscount.value,
+                        nettoPrice: newProductNettoPrice.value,
+                        newProductBruttoPerProd: parseFloat(document.querySelector('#newProductBruttoPerProd').value),
+                        newProductPostDiscount: parseFloat(document.querySelector('#newProductPostDiscount').value),
+                        newProductNettoTotal: parseFloat(document.querySelector('#newProductNettoTotal').value),
+                        newProductBruttoTotal: parseFloat(document.querySelector('#newProductBruttoTotal').value),
+                        newProductPostDiscountTotal: parseFloat(document.querySelector('#newProductPostDiscountTotal').value)
+                    };
+
+                    var deleteProdButtonID = 'DeleteProduct' + productListCount;
+                    var productTable = document.querySelector('#product-table');
+                    var productNode = document.createElement("tr");
+                    var productData = "";
+
+                    productData += `<td> ${productListCount} </td>`;
+                    productData += `<td> <input type='text' name="[${productListCount}].Name"  value='${InvoiceData.name}' readonly="readonly"> </td>`;
+                    productData += `<td> <input type="number" name="[${productListCount}].Quantity" value='${InvoiceData.quantity}' readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" name="[${productListCount}].VAT" value="${InvoiceData.VAT}" readonly="readonly"/>  </td>`;
+                    productData += `<td> <input type="number" name="[${productListCount}].Discount" value="${InvoiceData.discount}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].NettoValue" value="${InvoiceData.nettoPrice}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].BruttoValue" value="${InvoiceData.newProductBruttoPerProd}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].PostDiscountNettoValue" value="${InvoiceData.newProductPostDiscount}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].TotalNettoValue" value="${InvoiceData.newProductNettoTotal}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].TotalBruttoValue" value="${InvoiceData.newProductBruttoTotal}" readonly="readonly"/> </td>`;
+                    productData += `<td> <input type="number" step="0.01" name="[${productListCount}].TotalValue" value="${InvoiceData.newProductPostDiscountTotal}" readonly="readonly"/> </td>`;
+                    productData += `<td> <button type="button" id="deleteProduct">${deleteProdButtonID}</button> </td>`;
+
+                    productNode.innerHTML = productData;
+                    productTable.append(productNode);
+
+                    productListCount += 1;
+
+                    AddEventsToDeleteButtons();
+                    ReApplyEvents();
+                }
+            });
+
+            function AddEventsToDeleteButtons(){
+                var deleteProdButtons = document.querySelectorAll('#deleteProduct');
+                deleteProdButtons.forEach( element => {
+                    element.addEventListener('click', function(){
+                        element.parentElement.parentElement.remove();
+                    });
+                });
+            }
+
+            function ReApplyEvents(){
+                newProductDiscount = document.querySelector("#newProductDiscount");
+                newProductName = document.querySelector("#newProductName");
+                newProductQuantity = document.querySelector("#newProductQuantity");
+                newProductVAT = document.querySelector("#newProductVAT");
+                newProductNettoPrice = document.querySelector("#newProductNettoPerProd");
+
+                newProductQuantity.value = 0;
+                newProductVAT.value = 0;
+                newProductDiscount.value = 0;
+                newProductNettoPrice.value = 0;
+
+                newProductDiscount.addEventListener('change', calculateProductInputs);
+                newProductQuantity.addEventListener('change', calculateProductInputs);
+                newProductVAT.addEventListener('change', calculateProductInputs);
+                newProductNettoPrice.addEventListener('change', calculateProductInputs);
+            }
+        </script>
+    }
+</div>

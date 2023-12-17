@@ -20,8 +20,11 @@ namespace Inzynierka.Models
         public string Province { get; set; }
         public string Street { get; set; }
         public string LocalNumber { get; set; }
+        public string ContactNumber { get; set; }
+        public string ContactMail { get; set; }
         public string NIP { get; set; }
-
+        public string BankName { get; set; }
+        public string BankAccountNumber { get; set; }
         public string ?LastModified { get; set; }
 
         public static List<Company> getCompaniesRelatedToWorker(ProjectContext context, int userId)
@@ -150,7 +153,11 @@ namespace Inzynierka.Models
                 Province = collection["companyProvince"].ToString() ?? String.Empty,
                 Street = collection["companyName"].ToString() ?? String.Empty,
                 LocalNumber = collection["companyOwnerName"].ToString() ?? String.Empty,
+                ContactNumber = collection["companyContactNumber"].ToString() ?? String.Empty,
+                ContactMail = collection["companyContactMail"].ToString() ?? String.Empty,
                 NIP = collection["companyPostalCode"].ToString() ?? String.Empty,
+                BankName = collection["companyBankName"].ToString() ?? String.Empty,
+                BankAccountNumber = collection["companyBankAccountNumber"].ToString() ?? String.Empty,
                 LastModified = DateTime.Now.ToString()
             };
 

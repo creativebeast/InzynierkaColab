@@ -15,14 +15,23 @@
         <div class="center">
 
             <div id="panel">
-                <form asp-action="Login" asp-controller="User" method="post">
+                <form asp-action="Login" asp-controller="User" method="post" class="dataForm">
                     <label for="username">Nazwa użytkownika:</label>
-                    <input type="text" id="username" name=Username>
+                    <input type="text" id="username" name="username">
                     <label for="password">Hasło:</label>
-                    <input type="password" id="password" name=Password>
+                    <input type="password" id="password" name="password">
                     <div id="lower">
-                        <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
-                        <input type="submit" value="Login" id="login_button">
+                        <div id="checkbox">
+                            <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
+                            </div>
+                        <input type="submit" value="Login">
+                        <span class="text-center">
+                        <div class="registerForm">
+                            <a asp-area="" asp-controller="User" asp-action="RegisterComp">Nie masz konta? Zarejestruj się teraz!</a>
+                            <div>   </div>
+                                <a asp-area="" asp-controller="User" asp-action="Register">Kliknij aby skorzystać z tokenu!</a>
+                        </div>
+                        </span>
                     </div>
                 </form>
             </div>

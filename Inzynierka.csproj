@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Old.cshtml" />
+    <Content Remove="wwwroot\css\site.css" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Home\Old.cshtml" />
+    <None Include="wwwroot\css\site.css" />
   </ItemGroup>
 
   <ItemGroup>

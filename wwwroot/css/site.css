@@ -67,19 +67,30 @@ label {
 
 #lower {
     background: #ecf2f5;
-    width: 900px;
+    width: 398px;
     padding: 15px 20px;
     margin-top: 20px;
 }
-
+.checkbox {
+    position:relative;bottom:25px;
+}
 .check {
+    position:relative;
+    margin-top: 1px;
     display: inline;
     float: none;
     font-size: 11px;
     padding: 5px;
 }
+.text-center {
+    margin-left:5px;
 
-#login_button {
+}
+.registerForm {
+    position:relative;left:35px;
+}
+
+.dataForm * input[type="submit"] {
     width: 70px;
     padding: 5px 13px;
     border: 1px solid #005f85;

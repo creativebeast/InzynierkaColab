@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Company? company = ViewData["Companies"] as Company;
+    Company? company = ViewData["Company"] as Company;
     List<Invoice>? invoices = ViewData["Invoices"] as List<Invoice>;
 }
 
@@ -12,17 +12,24 @@
     } 
     else if (invoices == null || invoices.Count <= 0)
     {
-        <h3>No invoices found</h3>
-        @*
-        Dodaj nową fakture
-        Dodaj nową cykliczną fakture
-        Dodaj nowy wzorzec faktury
-        *@
+        <h3>Wystaw nową fakture</h3>
+        <form asp-action="AddInvoice" asp-controller="Invoice" method="post">
+            <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+            <input type="submit" value="Create new Invoice">
+        </form>
+
+        <h3>Eksportuj faktury</h3>
+        <form asp-action="ExportInvoice" asp-controller="Invoice" method="post">
+            <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+            <input type="submit" value="Export Invoices">
+        </form>
+
+        <h3>Dodaj nową cykliczną fakture</h3>
     }
     else
     {
         @*
-        Dodaj nową fakture
+        Wystaw nową fakture
         Dodaj nową cykliczną fakture
         Dodaj nowy wzorzec faktury
         Zarządzaj fakturami cyklicznymi -- Modyfikuj, usuń

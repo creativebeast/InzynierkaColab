@@ -4,6 +4,7 @@ using Inzynierka.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inzynierka.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20231115190517_ProductListID")]
+    partial class ProductListID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,9 +260,6 @@ namespace Inzynierka.Migrations
                     b.Property<string>("BuyerEmail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BuyerNIP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BuyerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -311,12 +310,6 @@ namespace Inzynierka.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SellerNIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerName")

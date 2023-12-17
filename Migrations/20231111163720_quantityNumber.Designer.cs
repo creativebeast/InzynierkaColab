@@ -4,6 +4,7 @@ using Inzynierka.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inzynierka.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20231111163720_quantityNumber")]
+    partial class quantityNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,9 +260,6 @@ namespace Inzynierka.Migrations
                     b.Property<string>("BuyerEmail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BuyerNIP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BuyerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -311,12 +310,6 @@ namespace Inzynierka.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SellerNIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SellerName")
@@ -401,6 +394,7 @@ namespace Inzynierka.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("NettoValue")
@@ -415,16 +409,13 @@ namespace Inzynierka.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalBruttoValue")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal>("TotalNettoValue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalValue")
+                    b.Property<decimal>("VAT")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("VAT")
+                    b.Property<decimal>("VATValue")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
@@ -446,6 +437,9 @@ namespace Inzynierka.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("InvoiceID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductListID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalBruttoValue")

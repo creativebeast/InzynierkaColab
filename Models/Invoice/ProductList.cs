@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Inzynierka.Models.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inzynierka.Models
 {
@@ -6,8 +7,11 @@ namespace Inzynierka.Models
     {
         [Key]
         public int ID { get; set; }
-        public int ProductListID { get; set; }
         public int InvoiceID { get; set; }
+        public Decimal TotalNettoValue { get; set; }
+        public Decimal TotalBruttoValue { get; set; }
+        public Decimal TotalPostDiscountValue { get; set; }
         public DateTime CreationDate { get; set; }
+
     }
 }
