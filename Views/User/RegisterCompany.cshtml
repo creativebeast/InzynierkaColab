@@ -7,17 +7,21 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <link href="site.css" rel="stylesheet" type="text/css">
         <title>Stylowy nagłówek</title>
-
     </head>
+    <style>
+       
+    </style>
     <body>
         <div class="center">
 
-            <div id="panel">
+            <div id="panel" class="dataForm">
                 <form class="dataForm">
                     <label for="username">Imię i nazwisko:</label>
                     <input type="text" id="ownername" name="ownername">
-                    <input type="password" id="password" name="password">
-                    <label for="referalCode">Kod referencyjny:</label>
+                    <label for="companyname">Nazwa firmy:</label>
+                    <input type="text" id="companyname" name="companyname">
+                    <label for="password">Hasło:</label>
+                    <input type="password" id="text" name="password">
                     <label for="nip">NIP firmy:</label>
                     <input type="text" id="nip" name="nip">
                     <label for="city">Ulica:</label>
@@ -29,11 +33,9 @@
                     <label for="city">Miasto:</label>
                     <input type="text" id="city" name="city">
                     <label for="city">Województwo:</label>
-                    <input type="text" id="province" name="province">
-                    <label for="password">Hasło:</label>
-                    <input type="text" id="referalCode" name="referalCode">
-                    <div id="lower">
-                        <div id="checkbox">
+                    <input type="text" id="province" name="province">                   
+                    <div id="lowerCompany">
+                        <div id="lower">
                             <input type="submit" value="Zarejestruj firmę!">
                         </div>
                     </div>
