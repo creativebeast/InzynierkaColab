@@ -149,12 +149,12 @@ namespace Inzynierka.Models
             newInvoice.PaymentDate = collection["PaymentDueDate"];
             newInvoice.ProductListId = newProductList.ID;
             newInvoice.PaymentMethod = "Test";
-            
 
             newProductList.TotalNettoValue = TotalNettoValue;
             newProductList.TotalBruttoValue = TotalBruttoValue;
             newProductList.TotalPostDiscountValue = TotalValue;
             newProductList.CreationDate = DateTime.Now;
+
             
             if(context.SaveChanges() < 0)
             {

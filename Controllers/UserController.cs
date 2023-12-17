@@ -28,7 +28,7 @@ namespace Inzynierka.Controllers
                    
             }
             string username = collection["username"];
-            string password = collection["Password"];
+            string password = collection["password"];
             //User foundUser = _sqlCommandsManager.CheckForUserLogin(collection["username"], collection["Password"]);
             User? foundUser = Inzynierka.Models.User.GetUserByUsernamePassword(_context, username, password);
             if (foundUser == null)
@@ -83,11 +83,15 @@ namespace Inzynierka.Controllers
         }
 
 
-        public IActionResult RegisterTest()
+        public IActionResult Register()
         {
             return View();
         }
 
+        public IActionResult RegisterComp()
+        {
+            return View("RegisterCompany");
+        }
         public IActionResult RegisterCompany(IFormCollection collection)
         {
             User testUser = new User()
@@ -119,15 +123,21 @@ namespace Inzynierka.Controllers
         {
             User newUser = new User()
             {
-                Username = collection["Username"],
+                Username = collection["username"],
                 Email = collection["Email"]
             };
 
             if (!String.IsNullOrEmpty(collection["Phone"]))
-                newUser.Phone = collection["Phone"];
+                newUser.Phone = String.Empty;
+
+            if (String.IsNullOrWhiteSpace(collection["password"]))
+            {
+                TempData["Message"] = "Empty password - remember to fill password field!";
+                return RedirectToAction("Login", "Home");
+            }
 
             Password password = new Password(){ UserPassword = collection["Password"] };
-            string refCode = collection["ReferalCode"];
+            string refCode = collection["referalCode"];
 
             _sqlCommandsManager.CreateAccount(newUser, password.UserPassword, refCode);
             TempData["Message"] = "Account created succesfully";

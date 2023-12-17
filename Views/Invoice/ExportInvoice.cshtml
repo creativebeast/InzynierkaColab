@@ -6,6 +6,37 @@
 }
 
 <div class="container text-center">
+    <table>
 
-
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Seller Data</th>
+            <th>Buyer Data</th>
+            <th>Payment Method</th>
+            <th>Payment date</th>
+            <th>Includes Delivery</th>
+            <th>Price</th>
+            <th>Products</th>
+        </tr>
+    
+    @foreach (InvoiceData data in Model)
+    {
+        <tr>
+            <td>@data.InvoiceInfo.Name</td>
+            <td>@data.InvoiceInfo.Number</td>
+            <td>@data.InvoiceInfo.SellerName</td>
+            <td>@data.InvoiceInfo.BuyerName</td>
+            <td>@data.InvoiceInfo.PaymentMethod</td>
+            <td>@data.InvoiceInfo.PaymentDate</td>
+            <td>@data.InvoiceInfo.IncludesDelivery</td>
+            <td>@data.ProductListInfo.TotalPostDiscountValue</td>
+            <td>
+                @foreach(Product product in data.ProductsInfo){
+                    <span>@product.Name, w ilości @product.Quantity : @product.TotalValue,</span>
+                }
+            </td>
+        </tr>
+    }
+    </table>
 </div>
