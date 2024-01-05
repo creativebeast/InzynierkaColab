@@ -2,6 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using Inzynierka.Models.ViewModels;
 using Inzynierka.Migrations;
+using Inzynierka.Helpers;
+using System.Collections;
+using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
 
 namespace Inzynierka.Models
 {
@@ -32,6 +36,8 @@ namespace Inzynierka.Models
         public string ?BuyerNIP { get; set; }
         public string BuyerBankName { get; set; }
         public string BuyerBankNumber { get; set; }
+        public string? MadeBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
         //public int ProductList { get; set; }
 
 
@@ -58,8 +64,8 @@ namespace Inzynierka.Models
                 BuyerEmail = client.ContactMail,
                 BuyerPhone = client.ContactNumber,
                 BuyerBankName = client.BankName,
-                BuyerBankNumber = client.BankAccountNumber
-
+                BuyerBankNumber = client.BankAccountNumber,
+                CreatedAt = DateTime.Now
             };
 
             //ExpandItLater
@@ -76,46 +82,11 @@ namespace Inzynierka.Models
             string paymentMethod, string paymentDueDate, bool includesDelivery, List<ProductTemplate>? products)
         {
             //1.Create Invoice
-            //4.Insert empty Invoice to db to give it ID
-            Invoice newInvoice = new Invoice();
-            context.Invoices.Add(newInvoice);
             //2.Create ProductList
             //3.Insert empty ProductList to db to give it ID
-            ProductList newProductList = new ProductList()
-            {
-                InvoiceID = newInvoice.ID
-            };
+            //4.Insert empty Invoice to db to give it ID
 
-            context.ProductsList.Add(newProductList);
-
-            Decimal TotalNettoValue = 0;
-            Decimal TotalBruttoValue = 0;
-            Decimal TotalValue = 0;
-            List<Product> productsToAdd = new List<Product>();
-            foreach(ProductTemplate product in products)
-            {
-                Product productToAdd = new Product();
-                productToAdd.ProductListID = newProductList.ID;
-                productToAdd.Name = product.Name;
-                productToAdd.Quantity = product.Quantity;
-                productToAdd.NettoValue = String.IsNullOrEmpty(product.NettoValue) ? 0 : Decimal.Parse(product.NettoValue.Replace(".", ","));
-                productToAdd.BruttoValue = String.IsNullOrEmpty(product.BruttoValue) ? 0 : Decimal.Parse(product.BruttoValue.Replace(".", ","));
-                productToAdd.PostDiscountNettoValue = String.IsNullOrEmpty(product.PostDiscountNettoValue) ? 0 : Decimal.Parse(product.PostDiscountNettoValue.Replace(".", ","));
-                productToAdd.Discount = product.Discount == null || product.Discount <= 0 ? 0 : (Decimal)product.Discount;
-                productToAdd.VAT = String.IsNullOrEmpty(product.VAT) ? 0 : Decimal.Parse(product.VAT.Replace(".", ","));
-                TotalNettoValue = String.IsNullOrEmpty(product.TotalNettoValue) ? 0 : Decimal.Parse(product.TotalNettoValue.Replace(".", ","));
-                TotalBruttoValue = String.IsNullOrEmpty(product.TotalBruttoValue) ? 0 : Decimal.Parse(product.TotalBruttoValue.Replace(".", ","));
-                TotalValue = String.IsNullOrEmpty(product.TotalValue) ? 0 : Decimal.Parse(product.TotalValue.Replace(".", ","));
-
-                TotalNettoValue += productToAdd.TotalNettoValue;
-                TotalBruttoValue += productToAdd.TotalBruttoValue;
-                TotalValue += productToAdd.TotalValue;
-
-                productsToAdd.Add(productToAdd);
-            }
-
-            context.Products.AddRange(productsToAdd);
-
+            Invoice newInvoice = new Invoice();
             //-----Create Invoice-----
             //--Seller Data--
             newInvoice.Name = collection["invoiceName"].ToString() ?? "";
@@ -133,10 +104,11 @@ namespace Inzynierka.Models
             newInvoice.SellerEmail = collection["companyContactEmail"];
             //--Buyer Data--
             newInvoice.BuyerName = collection["clientName"];
-            newInvoice.BuyerAdress = collection["clientCity"] + ", " + collection["clientAdress"] + " " + collection["clientLocalNumber"];
-            newInvoice.BuyerAdress += String.IsNullOrWhiteSpace(collection["clientProvince"]) ? "" : collection["clientProvince"] + " ";
+            newInvoice.BuyerAdress = collection["clientCity"] + ", " + collection["clientAdress"] + " " + collection["clientLocalNumber"] + ", ";
+            newInvoice.BuyerAdress += String.IsNullOrWhiteSpace(collection["clientProvince"]) ? "" : collection["clientProvince"] + ", ";
             newInvoice.BuyerAdress += collection["clientPostalCode"];
-            if (int.Parse(collection["clientIsCompany"].ToString()) == 1){
+            if (int.Parse(collection["clientIsCompany"].ToString()) == 1)
+            {
                 newInvoice.BuyerNIP = collection["clientNIP"];
             }
             newInvoice.BuyerPostalCode = collection["clientPostalCode"];
@@ -147,15 +119,53 @@ namespace Inzynierka.Models
             //--Misc--
             newInvoice.IncludesDelivery = collection["IncludesDelivery"] == "0" ? false : true;
             newInvoice.PaymentDate = collection["PaymentDueDate"];
-            newInvoice.ProductListId = newProductList.ID;
             newInvoice.PaymentMethod = "Test";
 
+            context.Invoices.Add(newInvoice);
+
+            context.SaveChanges();
+
+            ProductList newProductList = new ProductList()
+            {
+                InvoiceID = newInvoice.ID,
+                CreationDate = DateTime.Now
+            };
+            context.ProductsList.Add(newProductList);
+
+            context.SaveChanges();
+            newInvoice.ProductListId = newProductList.ID;
+            
+            Decimal TotalNettoValue = 0;
+            Decimal TotalBruttoValue = 0;
+            Decimal TotalValue = 0;
+
+            List<Product> productsToAdd = new List<Product>();
+            foreach(ProductTemplate product in products)
+            {
+                Product productToAdd = new Product();
+                productToAdd.ProductListID = newProductList.ID;
+                productToAdd.Name = product.Name;
+                productToAdd.Quantity = product.Quantity;
+                productToAdd.NettoValue = String.IsNullOrEmpty(product.NettoValue) ? 0 : Decimal.Parse(product.NettoValue.Replace(".", ","));
+                productToAdd.BruttoValue = String.IsNullOrEmpty(product.BruttoValue) ? 0 : Decimal.Parse(product.BruttoValue.Replace(".", ","));
+                productToAdd.PostDiscountNettoValue = String.IsNullOrEmpty(product.PostDiscountNettoValue) ? 0 : Decimal.Parse(product.PostDiscountNettoValue.Replace(".", ","));
+                productToAdd.Discount = product.Discount == null || product.Discount <= 0 ? 0 : (Decimal)product.Discount;
+                productToAdd.VAT = String.IsNullOrEmpty(product.VAT) ? 0 : Decimal.Parse(product.VAT.Replace(".", ","));
+                productToAdd.TotalNettoValue = String.IsNullOrEmpty(product.TotalNettoValue) ? 0 : Decimal.Parse(product.TotalNettoValue.Replace(".", ","));
+                productToAdd.TotalBruttoValue = String.IsNullOrEmpty(product.TotalBruttoValue) ? 0 : Decimal.Parse(product.TotalBruttoValue.Replace(".", ","));
+                productToAdd.TotalValue = String.IsNullOrEmpty(product.TotalValue) ? 0 : Decimal.Parse(product.TotalValue.Replace(".", ","));
+
+                TotalNettoValue += productToAdd.TotalNettoValue;
+                TotalBruttoValue += productToAdd.TotalBruttoValue;
+                TotalValue += productToAdd.TotalValue;
+
+                productsToAdd.Add(productToAdd);
+            }
             newProductList.TotalNettoValue = TotalNettoValue;
             newProductList.TotalBruttoValue = TotalBruttoValue;
             newProductList.TotalPostDiscountValue = TotalValue;
-            newProductList.CreationDate = DateTime.Now;
+            context.Products.AddRange(productsToAdd);
 
-            
             if(context.SaveChanges() < 0)
             {
                 return false;
@@ -166,8 +176,12 @@ namespace Inzynierka.Models
 
         public static List<InvoiceData> GetRelatedCompanyInvoices(ProjectContext context, int companyId)
         {
-            List<Invoice> invoices = context.Invoices.Where(i => i.SellerID == companyId).ToList();
+            List<Invoice>? invoices = context.Invoices.Where(i => i.SellerID == companyId)?.ToList();
             List<InvoiceData> invoiceDataList = new List<InvoiceData>();
+            if(invoices == null)
+            {
+                return invoiceDataList;
+            }
 
             foreach(Invoice invoice in invoices)
             {
@@ -187,6 +201,59 @@ namespace Inzynierka.Models
             }
 
             return invoiceDataList;
+        }
+
+        public static InvoiceData? GetInvoiceByID(ProjectContext context, int invoiceId)
+        {
+            Invoice? targetInvoice = context.Invoices.FirstOrDefault(i => i.ID == invoiceId);
+            if(targetInvoice == null)
+                return null;
+
+            ProductList? productList = context.ProductsList.Where(p => p.InvoiceID == targetInvoice.ID).FirstOrDefault();
+            if (productList == null)
+                return null;
+
+            List<Product> products = context.Products.Where(p => p.ProductListID == productList.ID).ToList();
+            if (products == null)
+                return null;
+
+            InvoiceData invoiceData = new InvoiceData(targetInvoice, productList, products);
+            return invoiceData;
+        }
+        public Address GetAdress(CompanyEnu comp)
+        {
+            if(CompanyEnu.Buyer == comp)
+            {
+                Address buyerAdress = new Address();
+
+                buyerAdress.CompanyName = this.BuyerName;
+                buyerAdress.Street = this.BuyerAdress;
+                Match result = Regex.Match(this.SellerAdress, @"^.*?(?=-)");
+                buyerAdress.City = result.Success ? result.Value : "";
+                buyerAdress.Email = this.BuyerEmail ?? "";
+                buyerAdress.Phone = this.BuyerPhone ?? "";
+
+                return buyerAdress;
+            } 
+            else
+            {
+                Address sellerAdress = new Address();
+
+                sellerAdress.CompanyName = this.SellerName;
+                sellerAdress.Street = this.SellerAdress;
+                Match result = Regex.Match(this.SellerAdress, @"^.*?(?=-)");
+                sellerAdress.City = result.Success ? result.Value : "";
+                sellerAdress.Email = this.SellerEmail ?? "";
+                sellerAdress.Phone = this.SellerPhone ?? "";
+
+                return sellerAdress;
+            }
+        }
+
+        public enum CompanyEnu
+        {
+            Buyer,
+            Seller
         }
     }
 }

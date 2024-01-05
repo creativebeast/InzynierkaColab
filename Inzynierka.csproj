@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="EPPlus" Version="7.0.5" />
+    <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.3" />
     <PackageReference Include="MailKit" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.18" />
@@ -27,6 +29,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
+    <PackageReference Include="QuestPDF" Version="2023.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestInvoices\EXCEL\" />
+    <Folder Include="TestInvoices\XPS\" />
+    <Folder Include="TestInvoices\PDF\" />
   </ItemGroup>
 
 </Project>

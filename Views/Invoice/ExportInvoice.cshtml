@@ -17,7 +17,9 @@
             <th>Payment date</th>
             <th>Includes Delivery</th>
             <th>Price</th>
-            <th>Products</th>
+            <th scope="col">Products</th>
+            <th>PDF</th>
+            <th>XPS</th>
         </tr>
     
     @foreach (InvoiceData data in Model)
@@ -33,8 +35,20 @@
             <td>@data.ProductListInfo.TotalPostDiscountValue</td>
             <td>
                 @foreach(Product product in data.ProductsInfo){
-                    <span>@product.Name, w ilości @product.Quantity : @product.TotalValue,</span>
+                    <p>@product.Name, w ilości @product.Quantity : @product.TotalValue,</p>
                 }
+            </td>
+            <td>
+                <form asp-action="ExportInvoiceAsPDF" asp-controller="Invoice" method="post">
+                    <input type="number" value="@data.InvoiceInfo.ID" name="InvoiceID" hidden>
+                    <input type="submit" value="PDF">
+                </form>
+            </td>
+            <td>
+                <form asp-action="ExportInvoiceAsXPS" asp-controller="Invoice" method="post">
+                    <input type="number" value="@data.InvoiceInfo.ID" name="InvoiceID" hidden>
+                    <input type="submit" value="XPS">
+                </form>
             </td>
         </tr>
     }

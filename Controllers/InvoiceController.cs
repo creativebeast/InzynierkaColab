@@ -1,7 +1,14 @@
 ﻿using Inzynierka.DAL;
 using Inzynierka.Models;
 using Inzynierka.Models.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
+using QuestPDF.ExampleInvoice;
+using QuestPDF.Fluent;
+using System.Diagnostics;
 
 namespace Inzynierka.Controllers
 {
@@ -87,8 +94,68 @@ namespace Inzynierka.Controllers
             {
                 //Get all Invoices related to company
                 List<InvoiceData>? invoices = Invoice.GetRelatedCompanyInvoices(_context, companyID);
-                return View(invoices);
+                if (invoices.Any())
+                {
+                    return View(invoices);
+                }
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ExportInvoiceAsPDF(IFormCollection collection)
+        {
+            int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
+            if(invoiceID != -1)
+            {
+                InvoiceData? invoiceToExport = Invoice.GetInvoiceByID(_context, invoiceID);
+                if(invoiceToExport != null)
+                {
+                    QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+                    InvoiceDocument doc = new InvoiceDocument(invoiceToExport);
+
+                    DateTime creationDate = DateTime.Now;
+                    string filename = $"{invoiceToExport.InvoiceInfo.Name}.pdf";
+
+                    return File(doc.GeneratePdf(), "application/pdf", filename);
+                }
+            }
+            TempData["Error"] = "Something went wrong...";
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ExportInvoiceAsXPS(IFormCollection collection)
+        {
+            int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
+            if (invoiceID != -1)
+            {
+                InvoiceData? invoiceToExport = Invoice.GetInvoiceByID(_context, invoiceID);
+                if (invoiceToExport != null)
+                {
+                    QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+                    InvoiceDocument doc = new InvoiceDocument(invoiceToExport);
+
+                    DateTime creationDate = DateTime.Now;
+                    string filename = $"{invoiceToExport.InvoiceInfo.Name}.pdf";
+
+                    return File(doc.GenerateXps(), "application/pdf", filename);
+                }
+            }
+            TempData["Error"] = "Something went wrong...";
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ExportInvoiceAsEXCEL(IFormCollection collection)
+        {
+            int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
+            if (invoiceID != -1)
+            {
+                InvoiceData? invoiceToExport = Invoice.GetInvoiceByID(_context, invoiceID);
+                if (invoiceToExport != null)
+                {
+                   
+                }
+            }
+            TempData["Error"] = "Something went wrong...";
             return RedirectToAction("Index", "Home");
         }
     }
