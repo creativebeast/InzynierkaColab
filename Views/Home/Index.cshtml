@@ -6,57 +6,61 @@
 }
 <div class="container">
     <nav class="menu">
-        <ul class="menu__list">
-            <li class="menu__item">
-                <a href="#home" class="menu__link">Strona główna</a>
-            </li>
+        <ul class="menu__list">           
             <li class="menu__item menu__item--parent">
-                <a href="#user-panel" class="menu__link">Panel Użytkownika</a>
+                <a href="#offer" class="menu__link">Panel Użytkownika ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a href="#user-data" class="menu__link">Moje Dane</a>
+                        <a asp-controller="User" asp-action="MyData" class="menu__link">Moje Dane</a>
                     </li>
                     <li class="menu__item menu__item--parent">
-                        <a href="#user-settings" class="menu__link">Ustawienia</a>
+                        Ustawienia ▶
                         <ul class="menu__sublist menu__sublist--right">
                             <li class="menu__item">
-                                <a href="#modify-account" class="menu__link">Modyfikuj dane konta</a>
+                                <a href="/html-css-course" class="menu__link">Dane Konta</a>
                             </li>
                             <li class="menu__item">
-                                <a href="#modify-style" class="menu__link">Modyfikuj style</a>
+                                <a href="/js-course" class="menu__link">Style</a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Dodaj Firmę</a>
                     </li>
                 </ul>
             </li>
             <li class="menu__item menu__item--parent">
-                <a href="#company-panel" class="menu__link">Panel Firmy</a>
+                <a href="#offer" class="menu__link">Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a href="#company-data" class="menu__link">Dane Firmy</a>
+                        <a href="#shop" class="menu__link">Dane Firmy</a>
                     </li>
-                    <li class="menu__item menu__item--parent">
-                        <a href="#employee-panel" class="menu__link">Panel Pracowników</a>
-                        <ul class="menu__sublist menu__sublist--right">
-                            <li class="menu__item">
-                                <a href="#add-employee" class="menu__link">Dodaj</a>
-                            </li>
-                            <li class="menu__item">
-                                <a href="#remove-employee" class="menu__link">Usuń</a>
-                            </li>
-                            <!-- More employee actions -->
-                        </ul>
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Panel Pracowników</a>
                     </li>
-                    <!-- More company-related actions -->
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Panel Klientów</a>
+                    </li>
                 </ul>
             </li>
-            <!-- Other menu items -->
-            <li class="menu__item">
-                <a href="#contact" class="menu__link">Kontakt</a>
+            <li class="menu__item menu__item--parent">
+                <a href="#offer" class="menu__link">Panel Faktur ▼</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Utwórz Fakturę</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#shop" class="menu__link">Historia Faktur</a>
+                    </li>
+                </ul>
             </li>
+            
         </ul>
     </nav>
-
+    
     <h4>Ustawienia użytkownika</h4>
     <div class="text-start container">
         <a asp-controller="User" asp-action="Account">Moje Dane</a><br />
