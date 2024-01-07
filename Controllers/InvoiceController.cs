@@ -1,4 +1,5 @@
 ﻿using Inzynierka.DAL;
+using Inzynierka.Helpers;
 using Inzynierka.Models;
 using Inzynierka.Models.ViewModels;
 using iTextSharp.text;
@@ -152,7 +153,9 @@ namespace Inzynierka.Controllers
                 InvoiceData? invoiceToExport = Invoice.GetInvoiceByID(_context, invoiceID);
                 if (invoiceToExport != null)
                 {
-                   
+                    string filename = invoiceToExport.InvoiceInfo.Name + ".xlsx";
+                    byte[] exportedExcel = ExcelExporter.ExportInvoiceAsEXCEL(invoiceToExport);
+                    return File(exportedExcel, "application/vnd.ms-excel", filename);
                 }
             }
             TempData["Error"] = "Something went wrong...";

@@ -184,8 +184,8 @@ namespace Inzynierka.Helpers
 
                 sheet.Cells.AutoFitColumns();
                 package.SaveAs(new FileInfo(@"basicUsage.xslx"));
-
-                return null;
+                
+                return package.GetAsByteArray();
             }
         }
     }
