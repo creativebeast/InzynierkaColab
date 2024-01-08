@@ -25,7 +25,7 @@
                         </ul>
                     </li>
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Dodaj Firmę</a>
+                        <a asp-controller="Company" asp-action="CompanyData">Dodaj Firmę</a>
                     </li>
                 </ul>
             </li>
@@ -33,13 +33,13 @@
                 <a href="#offer" class="menu__link">Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Dane Firmy</a>
+                        <a asp-controller="Company" asp-action="CompanyData">Dane Firmy</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Panel Pracowników</a>
+                        <a asp-controller="Worker" asp-action="WorkerData">Panel Pracowników</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Panel Klientów</a>
+                        <a asp-controller="Client" asp-action="ClientData">Panel Klientów</a>
                     </li>
                 </ul>
             </li>
@@ -47,13 +47,13 @@
                 <a href="#offer" class="menu__link">Panel Faktur ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Utwórz Fakturę</a>
+                        <a asp-controller="Invoice" asp-action="AddInvoice">Utwórz Fakturę</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                        <a asp-controller="Invoice" asp-action="ExportInvoice">Generuj Rozliczenie z Klientem</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#shop" class="menu__link">Historia Faktur</a>
+                        <a asp-controller="Invoice" asp-action="InvoiceData">Historia Faktur</a>
                     </li>
                 </ul>
             </li>
