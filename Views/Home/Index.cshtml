@@ -11,16 +11,16 @@
                 <a href="#offer" class="menu__link">Panel Użytkownika ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a asp-controller="User" asp-action="MyData" class="menu__link">Moje Dane</a>
+                        <a asp-controller="User" asp-action="Account">Moje Dane</a>
                     </li>
                     <li class="menu__item menu__item--parent">
                         Ustawienia ▶
                         <ul class="menu__sublist menu__sublist--right">
                             <li class="menu__item">
-                                <a href="/html-css-course" class="menu__link">Dane Konta</a>
+                                <a asp-controller="User" asp-action="AccountSettings">Dane Konta</a>
                             </li>
                             <li class="menu__item">
-                                <a href="/js-course" class="menu__link">Style</a>
+                                <a asp-controller="User" asp-action="StylingSettings">Style</a>
                             </li>
                         </ul>
                     </li>
