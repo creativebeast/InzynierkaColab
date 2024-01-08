@@ -32,9 +32,9 @@
     </header>
     <div class="container">
         @if(TempData["Success"] != null){
-            <p> @TempData["Success"] </p>
+            <p1> @TempData["Success"] </p1>
         } else if (TempData["Error"] != null){
-            <p> @TempData["Error"] </p>
+            <p2> @TempData["Error"] </p2>
         }
         <main role="main" class="pb-3">
             @RenderBody()
