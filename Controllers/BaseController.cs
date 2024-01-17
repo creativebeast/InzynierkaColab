@@ -1,6 +1,8 @@
 ﻿using Inzynierka.DAL;
 using Inzynierka.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.Collections;
 
 namespace Inzynierka.Controllers
 {
@@ -71,5 +73,28 @@ namespace Inzynierka.Controllers
             TempData["Error"] = "Wrong Token!";
         }
 
+        public IActionResult CheckPrivilages(Privilages neededPrivilages)
+        {
+            int sessionPrivilages = GetSessionPrivilages();
+            if(sessionPrivilages >= (int)neededPrivilages)
+            {
+                return new EmptyResult();
+            } else
+            {
+                UnsetSession();
+                TempData["error"] = "Insufficent privilages...";
+                return RedirectToAction("Login", "Home");
+            }
+        }
+        
+        public enum Privilages
+        {
+            Guest = -1,
+            Worker = 0,
+            Manager = 1,
+            Owner = 2,
+            Admin = 3
+
+        }
     }
 }

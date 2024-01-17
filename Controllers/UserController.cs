@@ -162,13 +162,18 @@ namespace Inzynierka.Controllers
 
         public IActionResult AccountSettings()
         {
+            CheckPrivilages(Privilages.Worker);
+
             List<Company> companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
             ViewData["Companies"] = companies;
+
             return View();
         }
 
         public IActionResult ChangePassword(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             string oldPassword = collection["oldPassword"];
             string newPassword = collection["newPassword"];
             string newPassword2 = collection["newPassword2"];
@@ -199,7 +204,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ChangePhoneNumber(IFormCollection collection)
         {
-            if(collection.Count < 3)
+            CheckPrivilages(Privilages.Worker);
+
+            if (collection.Count < 3)
             {
                 TempData["Error"] = "Some fields were left empty";
                 return RedirectToAction("AccountSettings", "User");
@@ -233,7 +240,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult RemoveSelfFromCompany(IFormCollection collection)
         {
-            if(collection == null || collection.Count < 2)
+            CheckPrivilages(Privilages.Worker);
+
+            if (collection == null || collection.Count < 2)
             {
                 TempData["Error"] = "Something went wrong...";
                 return RedirectToAction("AccountSettings", "User");

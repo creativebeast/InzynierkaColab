@@ -22,6 +22,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult CompanyData(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int companyId = int.Parse(collection["CompanyId"]);
 
             Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId);
@@ -39,7 +41,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateCompany(IFormCollection collection)
         {
-            foreach(var item in collection)
+            CheckPrivilages(Privilages.Owner);
+
+            foreach (var item in collection)
             {
                 if (item.Key == "companyProvince" || item.Key == "companyId")
                     continue;
@@ -63,6 +67,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult UpdateCompany(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             Dictionary<string, string> changedFields = new Dictionary<string, string>();
             foreach (var item in collection)
             {
@@ -93,6 +99,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteCompany(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Owner);
+
             int companyId = collection["companyId"].ToString() != null ? int.Parse(collection["companyId"].ToString()) : -1;
             if(companyId == -1)
             {

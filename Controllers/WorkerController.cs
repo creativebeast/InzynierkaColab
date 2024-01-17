@@ -37,6 +37,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult AddWorker(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Manager);
+
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
             if(companyId == -1)
             {
@@ -56,6 +58,8 @@ namespace Inzynierka.Controllers
         }
         public IActionResult UpdateWorker(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Manager);
+
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
             int workerId = int.Parse(collection["workerId"].ToString() ?? "-1");
 
@@ -106,6 +110,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteWorker(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Manager);
+
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
             int workerId = int.Parse(collection["workerId"].ToString() ?? "-1");
 

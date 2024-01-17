@@ -24,6 +24,7 @@ namespace Inzynierka.Controllers
 
         public IActionResult InvoiceData(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
             int companyID = int.Parse(collection["companyId"].ToString());
             Company? company = Company.getCompanyByID(_context, companyID);
             ViewData["Company"] = company;
@@ -33,6 +34,7 @@ namespace Inzynierka.Controllers
 
         public IActionResult AddInvoice(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
             int companyID = int.Parse(collection["companyId"].ToString());
             Company? company = Company.getCompanyByID(_context, companyID);
             ViewData["Company"] = company;
@@ -50,6 +52,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateInvoice(IFormCollection collection, List<ProductTemplate> products)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int companyID = !String.IsNullOrEmpty(collection["companyId"]) ? int.Parse(collection["companyId"]) : -1;
             Invoice? newInvoice;
             //Path for existing Client
@@ -90,6 +94,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoice(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int companyID = !String.IsNullOrEmpty(collection["companyId"]) ? int.Parse(collection["companyId"]) : -1;
             if(companyID != -1)
             {
@@ -105,6 +111,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsPDF(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
             if(invoiceID != -1)
             {
@@ -126,6 +134,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsXPS(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
             if (invoiceID != -1)
             {
@@ -147,6 +157,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsEXCEL(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
             if (invoiceID != -1)
             {

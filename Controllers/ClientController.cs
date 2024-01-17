@@ -16,6 +16,8 @@ namespace Inzynierka.Controllers
         }
         public IActionResult ClientData(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int companyId = int.Parse(collection["CompanyId"]);
             Company? targetCompany = null;
 
@@ -40,6 +42,7 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateClient(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
             foreach (var item in collection)
             {
                 if (item.Key == "clientProvince" || item.Key == "companyId")
@@ -66,6 +69,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult UpdateClient(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             Dictionary<string, string> changedFields = new Dictionary<string, string>();
             foreach (var item in collection)
             {
@@ -91,6 +96,8 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteClient(IFormCollection collection)
         {
+            CheckPrivilages(Privilages.Worker);
+
             int clientID = int.Parse(collection["ClientID"].ToString());
             int companyID = int.Parse(collection["CompanyID"].ToString());
             if(!Client.DeleteTargetCompany(_context, clientID, companyID, GetSessionUserID()))
