@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-center">
+    <h5>Dodaj Nową Firme</h5>
+    <from>
+        <form asp-action="CreateNewCompany" asp-controller="Company" method="post">
+            <label for="companyName">Company Name:</label>
+            <input type="text" name="companyName" required>
+
+            <label for="companyOwnerName">Owner Name:</label>
+            <input type="text" name="companyOwnerName" required>
+
+            <label for="companyPostalCode">Postal Code:</label>
+            <input type="text" name="companyPostalCode" required>
+
+            <label for="companyCity">City:</label>
+            <input type="text" name="companyCity" required>
+
+            <label for="companyProvince">Province:</label>
+            <input type="text" name="companyProvince">
+
+            <label for="companyStreet">Street:</label>
+            <input type="text" name="companyStreet" required>
+
+            <label for="companyLocaleNumber">Locale Number:</label>
+            <input type="text" name="companyLocaleNumber" required>
+
+            <label for="companyContactNumber">Client Contact Number:</label>
+            <input type="text" name="companyContactNumber" required>
+
+            <label for="companyontactMail">Client Mail:</label>
+            <input type="text" name="companyContactMail" required>
+
+            <label for="companyNIP">NIP:</label>
+            <input type="text" name="companyNIP" required>
+
+            <label for="companyBankName">Bank Name:</label>
+            <input type="text" name="companyBankName" required>
+
+            <label for="companyBankAccountNumber">Bank Account Number:</label>
+            <input type="text" name="companyBankAccountNumber" required>
+            <br><br>
+
+            <input type="submit" value="Dodaj Firme">
+        </form>
+    </from>
+</div>

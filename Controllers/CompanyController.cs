@@ -39,7 +39,13 @@ namespace Inzynierka.Controllers
             return View();
         }
 
-        public IActionResult CreateCompany(IFormCollection collection)
+        public IActionResult CreateCompany()
+        {
+            CheckPrivilages(Privilages.Owner);
+
+            return View();
+        }
+        public IActionResult CreateNewCompany(IFormCollection collection)
         {
             CheckPrivilages(Privilages.Owner);
 
