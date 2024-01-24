@@ -22,7 +22,10 @@ namespace Inzynierka.Controllers
 
         public IActionResult CompanyData(IFormCollection collection)
         {
-            CheckPrivilages(Privilages.Worker);
+            if (CheckPrivilages(Privilages.Worker))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             int companyId = int.Parse(collection["CompanyId"]);
 
@@ -41,13 +44,19 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateCompany()
         {
-            CheckPrivilages(Privilages.Owner);
+            if (CheckPrivilages(Privilages.Owner))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View();
         }
         public IActionResult CreateNewCompany(IFormCollection collection)
         {
-            CheckPrivilages(Privilages.Owner);
+            if (CheckPrivilages(Privilages.Owner))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             foreach (var item in collection)
             {
@@ -73,7 +82,10 @@ namespace Inzynierka.Controllers
 
         public IActionResult UpdateCompany(IFormCollection collection)
         {
-            CheckPrivilages(Privilages.Worker);
+            if (CheckPrivilages(Privilages.Worker))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             Dictionary<string, string> changedFields = new Dictionary<string, string>();
             foreach (var item in collection)
@@ -105,7 +117,10 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteCompany(IFormCollection collection)
         {
-            CheckPrivilages(Privilages.Owner);
+            if (CheckPrivilages(Privilages.Owner))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             int companyId = collection["companyId"].ToString() != null ? int.Parse(collection["companyId"].ToString()) : -1;
             if(companyId == -1)
