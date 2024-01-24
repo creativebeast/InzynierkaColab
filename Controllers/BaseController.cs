@@ -73,17 +73,17 @@ namespace Inzynierka.Controllers
             TempData["Error"] = "Wrong Token!";
         }
 
-        public IActionResult CheckPrivilages(Privilages neededPrivilages)
+        public bool CheckPrivilages(Privilages neededPrivilages)
         {
             int sessionPrivilages = GetSessionPrivilages();
             if(sessionPrivilages >= (int)neededPrivilages)
             {
-                return new EmptyResult();
+                return true;
             } else
             {
                 UnsetSession();
                 TempData["error"] = "Insufficent privilages...";
-                return RedirectToAction("Login", "Home");
+                return false;
             }
         }
         
