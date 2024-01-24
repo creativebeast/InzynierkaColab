@@ -30,7 +30,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container"asp-validation-summary="cont">
         @if(TempData["Success"] != null){
             <p1> @TempData["Success"] </p1>
         } else if (TempData["Error"] != null){
@@ -42,7 +42,7 @@
     </div>
 
     <footer class="border-top footer text-muted" style="max-height: 100px;">
-        <div class="container">
+        <div class="container"id="container">
             &copy; 2023 - Inzynierka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
