@@ -3,24 +3,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Inzynierka.Models.User currentUser = (Inzynierka.Models.User)ViewData["User"];
 }
+<style>
+    #title {
+        font-weight: 800;
+        font-size: xx-large;
+        position: relative;
+        bottom: 60px;
+    }
 
+    span {
+        text-align: left;
+        font-size: large;
+        width: 380px;
+        direction: ltr;
+        position: relative;
+    }
+
+    p {
+        text-align: left;
+        bottom: 50px;
+    }
+
+</style>
 <body>
-    <div class="container text-center">
-        <p>Nazwa Użytkownika: 
+    <div class="container text-center" id="globalPanel">
+        <h2 id="title">Moje Dane</h2>
+        <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+            <p1 style="font-weight:bold;">Nazwa Użytkownika:</p1>
             <span> @currentUser.Username </span>
         </p>
 
-        <p>Email: 
-            <span> @currentUser.Email </span> 
-        </p> 
+        <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+            <p1 style="font-weight:bold;">Email:</p1>
+            <span> @currentUser.Email </span>
+        </p>
 
-        <p>Numer Telefonu: 
+        <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+            <p1 style="font-weight:bold;">Numer Telefonu:</p1>
             <span> @currentUser.Phone </span>
-        </p> 
+        </p>
         <!--Worker view-->
-        @if (currentUser.Privilage == 2){
-            <p>
-                Przypisane Firmy: -
+        @if (currentUser.Privilage == 2)
+        {
+            <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+                <p1 style="font-weight:bold;">Przypisane Firmy: -</p1>
                 @foreach (Company comp in (List<Company>)ViewData["Companies"])
                 {
                     <span>@comp.Name - </span>
@@ -29,20 +55,23 @@
         }
 
         <!--Owner view-->
-        @if(currentUser.Privilage == 0){
+        @if (currentUser.Privilage == 0)
+        {
             <!--Tylko dla właścicieli Firm-->
-            <p>Moje Firmy: -
+            <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+                <p1 style="font-weight:bold;">Moje Firmy: -</p1>
                 @foreach (Company comp in (List<Company>)ViewData["Companies"])
                 {
                     <span>@comp.Name | </span>
                 }
-                - 
+                -
             </p>
         }
 
-        <p>Data Utworzenia Konta:
+        <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
+            <p1 style="font-weight:bold;">Data Utworzenia Konta:</p1>
             <span> @currentUser.CreationDate </span>
         </p>
-        
+        <a style="background-color:antiquewhite; outline: solid 1px black;" asp-area="" asp-controller="User" asp-action="AccountSettings">Dane nie zgadzają się? Zmień je tutaj!</a>
     </div>
 </body>
