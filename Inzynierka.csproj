@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="C:\Users\usual\Desktop\Index.cshtml" Link="Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Home\Old.cshtml" />
     <None Include="wwwroot\css\site.css" />
   </ItemGroup>

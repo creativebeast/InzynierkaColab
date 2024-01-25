@@ -7,10 +7,8 @@
 <div class="container-test-center">
     <hr />
     <!-- Zmień Hasło -->
-    <h5 style=" font-weight: 800;font-size: xx-large;">
-        Zmiana Hasła
-    </h5>
-    <form asp-action="ChangePassword" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+    <h5>Zmiana Hasła</h5>
+    <form asp-action="ChangePassword" asp-controller="User" method="post">
         <label for="oldPassword">Stare hasło:</label>
         <input type="password" id="oldPassword" name=oldPassword>
 
@@ -18,14 +16,13 @@
         <input type="password" id="newPassword" name=newPassword>
         <label for="newPassword2">Powtórz Nowe Hasło:</label>
         <input type="password" id="newPassword2" name=newPassword2><br />
-        <div id="submit" style="text-align:right;">
+
         <input type="submit" value="Submit">
-        </div>
     </form>
     <hr />
     <!-- Zmień Nr.Telefonu -->
-    <h5 style=" font-weight: 800;font-size: xx-large;">Zmiana Nr.Telefonu</h5>
-    <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+    <h5>Zmiana Nr.Telefonu</h5>
+    <form asp-action="ChangePhoneNumber" asp-controller="User" method="post">
         <label for="password">Podaj Hasło:</label>
         <input type="password" name=password>
 
@@ -35,19 +32,17 @@
         <label for="phoneNumber">Podaj Nowy Numer Telefonu:</label>
         <input type="text" id="phoneNumber" name=phoneNumber><br />
 
-        <div id="submit" style="text-align:right;">
-            <input type="submit" value="Submit">
-        </div>
+        <input type="submit" value="Submit">
     </form>
     <hr />
     <!-- Wybierz Uwierzytlenianie przez X -->
     <hr />
     <!-- Usuń Się z danej firmy -->
-    <h5 style=" font-weight: 800;font-size: xx-large;">Odepnij się od danej firmy</h5>
+    <h5>Odepnij się od danej firmy</h5>
     @if(companies == null || companies.Count == 0){
         <p>No companies found to be assigned to user</p>
     } else {
-        <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+        <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post">
             <label for="password">Podaj Hasło:</label>
             <input type="password" name=password>
 
@@ -59,9 +54,7 @@
                 }
             </select><br />
 
-            <div id="submit" style="text-align:right;">
-                <input type="submit" value="Submit">
-            </div>
+            <input type="submit" value="Submit">
         </form>
     }
     

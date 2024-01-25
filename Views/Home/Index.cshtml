@@ -10,22 +10,21 @@
             <li class="menu__item menu__item--parent">
                 <a href="#offer" class="menu__link">Panel Użytkownika ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item" style="color:black;">
-                        <a style="color:black;" asp-controller="User" asp-action="Account" class="menu__link">Moje Dane</a>
-                    </li>
+                    <li class="menu__item">
+                        <a asp-controller="User" asp-action="MyData" class="menu__link">Moje Dane</a>                    </li>
                     <li class="menu__item menu__item--parent">
                         Ustawienia ▶
                         <ul class="menu__sublist menu__sublist--right">
                             <li class="menu__item">
-                                <a style="color:black;" asp-controller="User" asp-action="AccountSettings">Dane Konta</a>
+                                <a asp-controller="User" asp-action="AccountSettings">Dane Konta</a>
                             </li>
                             <li class="menu__item">
-                                <a style="color:black;" asp-controller="User" asp-action="StylingSettings">Style</a>
+                                <a asp-controller="User" asp-action="StylingSettings">Style</a>
                             </li>
                         </ul>
                     </li>
                     <li class="menu__item">
-                        <a style="color:black; asp-controller="Company" asp-action="CreateCompany">Dodaj Firmę</a>
+                        <a asp-controller="Company" asp-action="CreateCompany">Dodaj Firmę</a>
                     </li>
                 </ul>
             </li>
@@ -33,13 +32,13 @@
                 <a href="#offer" class="menu__link">Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Company" asp-action="CompanyData">Dane Firmy</a>
+                        <a asp-controller="Company" asp-action="CompanyData">Dane Firmy</a>
                     </li>
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Worker" asp-action="WorkerData">Panel Pracowników</a>
+                        <a asp-controller="Worker" asp-action="WorkerData">Panel Pracowników</a>
                     </li>
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Client" asp-action="ClientData">Panel Klientów</a>
+                        <a asp-controller="Client" asp-action="ClientData">Panel Klientów</a>
                     </li>
                 </ul>
             </li>
@@ -47,13 +46,13 @@
                 <a href="#offer" class="menu__link">Panel Faktur ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Invoice" asp-action="AddInvoice">Utwórz Fakturę</a>
+                        <a asp-controller="Invoice" asp-action="AddInvoice">Utwórz Fakturę</a>
                     </li>
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice">Generuj Rozliczenie z Klientem</a>
+                        <a asp-controller="Invoice" asp-action="ExportInvoice">Generuj Rozliczenie z Klientem</a>
                     </li>
                     <li class="menu__item">
-                        <a style="color:black;" asp-controller="Invoice" asp-action="InvoiceData">Historia Faktur</a>
+                        <a asp-controller="Invoice" asp-action="InvoiceData">Historia Faktur</a>
                     </li>
                 </ul>
             </li>
