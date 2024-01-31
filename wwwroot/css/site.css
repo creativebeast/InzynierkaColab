@@ -207,7 +207,7 @@ a {
 
 /* Change background color on hover for menu and drop-down items */
 .menu__item:hover {
-    background-color: #201dca;
+    background-color: lightgray;
 }
 
 /* Show drop-down on hover of the parent menu item */

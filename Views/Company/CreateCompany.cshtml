@@ -2,49 +2,61 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    #inputs{
+        position:relative;
+        bottom:30px;
+    }
+    #title{
+        font-weight:600;
+        position:relative;
+        right:100px;
+        font-size:larger;
+        font:bolder;
+    }
+</style>
 <div class="container text-center">
-    <h5>Dodaj Nową Firme</h5>
+    <h5 id="title">Dodaj Nową Firme</h5>
     <from>
-        <form asp-action="CreateNewCompany" asp-controller="Company" method="post">
+        <form asp-action="CreateNewCompany" asp-controller="Company" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;position:relative;botom:15px;width:698px;">
             <label for="companyName">Company Name:</label>
-            <input type="text" name="companyName" required>
+            <input type="text" id="inputs" name="companyName" required>
 
             <label for="companyOwnerName">Owner Name:</label>
-            <input type="text" name="companyOwnerName" required>
+            <input type="text" id="inputs" name="companyOwnerName" required>
 
             <label for="companyPostalCode">Postal Code:</label>
-            <input type="text" name="companyPostalCode" required>
+            <input type="text" id="inputs" name="companyPostalCode" required>
 
             <label for="companyCity">City:</label>
-            <input type="text" name="companyCity" required>
+            <input type="text" id="inputs" name="companyCity" required>
 
             <label for="companyProvince">Province:</label>
-            <input type="text" name="companyProvince">
+            <input type="text" id="inputs" name="companyProvince">
 
             <label for="companyStreet">Street:</label>
-            <input type="text" name="companyStreet" required>
+            <input type="text" id="inputs" name="companyStreet" required>
 
             <label for="companyLocaleNumber">Locale Number:</label>
-            <input type="text" name="companyLocaleNumber" required>
+            <input type="text" id="inputs" name="companyLocaleNumber" required>
 
             <label for="companyContactNumber">Client Contact Number:</label>
-            <input type="text" name="companyContactNumber" required>
+            <input type="text" id="inputs" name="companyContactNumber" required>
 
             <label for="companyontactMail">Client Mail:</label>
-            <input type="text" name="companyContactMail" required>
+            <input type="text" id="inputs" name="companyContactMail" required>
 
             <label for="companyNIP">NIP:</label>
-            <input type="text" name="companyNIP" required>
+            <input type="text" id="inputs" name="companyNIP" required>
 
             <label for="companyBankName">Bank Name:</label>
-            <input type="text" name="companyBankName" required>
+            <input type="text" id="inputs" name="companyBankName" required>
 
             <label for="companyBankAccountNumber">Bank Account Number:</label>
-            <input type="text" name="companyBankAccountNumber" required>
+            <input type="text" id="inputs" name="companyBankAccountNumber" required>
             <br><br>
 
-            <input type="submit" value="Dodaj Firme">
+            <input type="submit" value="Dodaj Firme" style="text-align:right;position:relative;left:300px;">
         </form>
     </from>
 </div>
