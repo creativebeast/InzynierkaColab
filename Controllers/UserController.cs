@@ -162,9 +162,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult AccountSettings()
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             List<Company> companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
@@ -175,9 +175,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ChangePassword(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             string oldPassword = collection["oldPassword"];
@@ -210,9 +210,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ChangePhoneNumber(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             if (collection.Count < 3)
@@ -249,9 +249,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult RemoveSelfFromCompany(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             if (collection == null || collection.Count < 2)

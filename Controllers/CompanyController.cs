@@ -22,9 +22,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult CompanyData(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyId = int.Parse(collection["CompanyId"]);
@@ -44,18 +44,18 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateCompany()
         {
-            if (CheckPrivilages(Privilages.Owner))
+            if (!CheckPrivilages(Privilages.Owner))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             return View();
         }
         public IActionResult CreateNewCompany(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Owner))
+            if (!CheckPrivilages(Privilages.Owner))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             foreach (var item in collection)
@@ -82,9 +82,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult UpdateCompany(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Dictionary<string, string> changedFields = new Dictionary<string, string>();
@@ -117,9 +117,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteCompany(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Owner))
+            if (!CheckPrivilages(Privilages.Owner))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyId = collection["companyId"].ToString() != null ? int.Parse(collection["companyId"].ToString()) : -1;

@@ -24,9 +24,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult InvoiceData(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyID = int.Parse(collection["companyId"].ToString());
@@ -38,9 +38,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult AddInvoice(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyID = int.Parse(collection["companyId"].ToString());
@@ -60,9 +60,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateInvoice(IFormCollection collection, List<ProductTemplate> products)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyID = !String.IsNullOrEmpty(collection["companyId"]) ? int.Parse(collection["companyId"]) : -1;
@@ -105,9 +105,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoice(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyID = !String.IsNullOrEmpty(collection["companyId"]) ? int.Parse(collection["companyId"]) : -1;
@@ -125,9 +125,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsPDF(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
@@ -151,9 +151,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsXPS(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
@@ -177,9 +177,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult ExportInvoiceAsEXCEL(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;

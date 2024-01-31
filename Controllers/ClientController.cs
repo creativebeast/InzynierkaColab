@@ -16,17 +16,17 @@ namespace Inzynierka.Controllers
         }
         public IActionResult ClientData(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyId = int.Parse(collection["CompanyId"]);
             Company? targetCompany = null;
 
-            if (GetSessionPrivilages() == 2)
+            if (GetSessionPrivilages() == 0)
                 targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
-            else if(GetSessionPrivilages() == 0)
+            else if(GetSessionPrivilages() == 2)
                 targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
             
             if(targetCompany == null)
@@ -45,9 +45,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult CreateClient(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             foreach (var item in collection)
@@ -76,9 +76,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult UpdateClient(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Dictionary<string, string> changedFields = new Dictionary<string, string>();
@@ -106,9 +106,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteClient(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Worker))
+            if (!CheckPrivilages(Privilages.Worker))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int clientID = int.Parse(collection["ClientID"].ToString());
