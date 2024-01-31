@@ -30,7 +30,7 @@
             </div>
         </nav>
     </header>
-    <div class="container" asp-validation-summary="cont">
+    <div class="container" asp-validation-summary="All">
         @if(TempData["Success"] != null){
             <p1> @TempData["Success"] </p1>
         } else if (TempData["Error"] != null){
