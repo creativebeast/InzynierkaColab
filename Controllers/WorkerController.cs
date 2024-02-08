@@ -37,9 +37,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult AddWorker(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Manager))
+            if (!CheckPrivilages(Privilages.Manager))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
@@ -61,9 +61,9 @@ namespace Inzynierka.Controllers
         }
         public IActionResult UpdateWorker(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Manager))
+            if (!CheckPrivilages(Privilages.Manager))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             };
 
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
@@ -116,9 +116,9 @@ namespace Inzynierka.Controllers
 
         public IActionResult DeleteWorker(IFormCollection collection)
         {
-            if (CheckPrivilages(Privilages.Manager))
+            if (!CheckPrivilages(Privilages.Manager))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             int companyId = int.Parse(collection["companyId"].ToString() ?? "-1");
