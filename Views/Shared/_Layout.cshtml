@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inzynierka.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body id="Layout">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -29,6 +29,62 @@
                 </div>
             </div>
         </nav>
+        <nav class="menu" style="padding-bottom:5px;position:absolute;">
+        <ul class="menu__list">
+            <li class="menu__item menu__item--parent">
+                <a href="#offer" class="menu__link" disabled>Panel Użytkownika ▼</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item" style="color:black;">
+                        <a asp-controller="User" asp-action="Account" class="menu__link">Moje Dane</a>
+                    </li>
+                    <li class="menu__item menu__item--parent">
+                        Ustawienia ▶
+                        <ul class="menu__sublist menu__sublist--right">
+                            <li class="menu__item">
+                                <a asp-controller="User" asp-action="AccountSettings" class="menu__link">Dane Konta</a>
+                            </li>
+                            <li class="menu__item">
+                                    <a style="color:black;" asp-controller="User" asp-action="StylingSettings" class="menu__link">Style</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Company" asp-action="CreateCompany" class="menu__link">Dodaj Firmę</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item menu__item--parent">
+                <a href="#offer" class="menu__link">Panel Firmy ▼</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item">
+                            <a asp-controller="Company" asp-action="CompanyData" class="menu__link">Dane Firmy</a>
+                    </li>
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
+                    </li>
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item menu__item--parent">
+                <a href="#offer" class="menu__link">Panel Faktur ▼</a>
+                <ul class="menu__sublist menu__sublist--bottom">
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
+                    </li>
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                    </li>
+                    <li class="menu__item">
+                            <a style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
     </header>
     <div class="container"asp-validation-summary="All">
         @if(TempData["Success"] != null){

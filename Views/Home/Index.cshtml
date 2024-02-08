@@ -5,61 +5,7 @@
     int privilages = ViewData["Privilages"] != null ? int.Parse(ViewData["Privilages"].ToString()) : -1;
 }
 <div class="container">
-    <nav class="menu">
-        <ul class="menu__list">           
-            <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link">Panel Użytkownika ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item">
-                        <a style="color:blue;" asp-controller="User" asp-action="MyData" class="menu__link">Moje Dane</a>                    </li>
-                    <li class="menu__item menu__item--parent">
-                        Ustawienia ▶
-                        <ul class="menu__sublist menu__sublist--right">
-                            <li class="menu__item">
-                                <a asp-controller="User" asp-action="AccountSettings">Dane Konta</a>
-                            </li>
-                            <li class="menu__item">
-                                <a asp-controller="User" asp-action="StylingSettings">Style</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu__item">
-                        <a asp-controller="Company" asp-action="CreateCompany">Dodaj Firmę</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link">Panel Firmy ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item">
-                        <a asp-controller="Company" asp-action="CompanyData">Dane Firmy</a>
-                    </li>
-                    <li class="menu__item">
-                        <a asp-controller="Worker" asp-action="WorkerData">Panel Pracowników</a>
-                    </li>
-                    <li class="menu__item">
-                        <a asp-controller="Client" asp-action="ClientData">Panel Klientów</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link">Panel Faktur ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item">
-                        <a asp-controller="Invoice" asp-action="AddInvoice">Utwórz Fakturę</a>
-                    </li>
-                    <li class="menu__item">
-                        <a asp-controller="Invoice" asp-action="ExportInvoice">Generuj Rozliczenie z Klientem</a>
-                    </li>
-                    <li class="menu__item">
-                        <a asp-controller="Invoice" asp-action="InvoiceData">Historia Faktur</a>
-                    </li>
-                </ul>
-            </li>
-            
-        </ul>
-    </nav>
-    
+   
     <h4>Ustawienia użytkownika</h4>
     <div class="text-start container">
         <a asp-controller="User" asp-action="Account">Moje Dane</a><br />
