@@ -1,11 +1,14 @@
 ﻿<script>
         document.body.addEventListener("change", () => {
-        let backColor = document.getElementById("backgroundColor");
+        let backColor = document.getElementById("backgroundsColor");
+            document.getElementById("Layout").style.backgroundColor = backColor.value;
+        let panelColor = document.getElementById("panelsColor");
+        document.getElementById("layoutNavbar").style.backgroundColor = panelColor.value;
+        let textColor = document.getElementById("textsColor");
         document.body.style.backgroundColor = backColor.value;
-        let panelColor = document.getElementById("panelColor");
-        document.body.style.backgroundColor = backColor.value;
-        let textColor = document.getElementById("textColor");
-        document.body.style.backgroundColor = backColor.value;
+        let footerColor = document.getElementById("footersColor");
+        document.getElementById("layoutFooter").style.backgroundColor = footerColor.value;
+
 
     })
 </script>
@@ -16,10 +19,13 @@
         </div><br>
 
         <h4>Ustaw Stylizacje</h4>
-        <label>Wybierz kolor tła: <input type="color" name="kolor" id="backgroundColor"></label>
-        <label>Wybierz kolor panelu: <input type="color" name="kolor" id="panelColor"></label>
-        <label>Wybierz kolor tekstu: <input type="color" name="kolor" id="textColor"></label>
-        <div class="row">
+        <div class="change" style="display:block;max-width:250px;min-width:min-content;height:auto;position:relative;left:150px;top:200px;border-top:2px solid black;border-left: 2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+        <label style="position:relative;right:20px;">kolor tła: <input type="color" name="kolor" id="backgroundsColor" value="#ffffff"></label>
+        <label style="position:relative;right:5px;">kolor panelu: <input type="color" name="kolor" id="panelsColor" value="#ffffff"></label>
+        <label style="position:relative;right:7px;">kolor tekstu: <input type="color" name="kolor" id="textsColor" value="#ffffff"></label>
+        <label style="position:relative;right:7px;">kolor stópki: <input type="color" name="kolor" id="footersColor" value="#ffffff"></label>
+        </div>  
+        <div class="row" style="position: relative;top:250px;">
             <!--#region Stylizacje  -->
             <div>Stylizacja Tabel</div>
             <div>Stylizacja Tekstu</div>
@@ -32,7 +38,7 @@
             <!--#endregion -->
         </div>
 
-        <div class="row">
+        <div class="row" style="position:relative;top:250px;">
             ??? Lista ogólnie dostępnych stylizacji od użytkowników ???
         </div>
 </div>

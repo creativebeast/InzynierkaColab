@@ -10,9 +10,10 @@
 </head>
 <body id="Layout">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
+       
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-3" style="position:relative;bottom:9px;">
+            <div class="container-fluid" id="layoutNavbar">
+                <a class="navbar-brand text-white-50 bg-dark" style="padding-left:15px;padding-right:15px;padding-bottom:4px;position:relative;right:20px;" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,16 +21,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <a class="nav-link text-white bg-dark btn-outline-warning" style="position:absolute;right:0;top:0;padding-bottom:18px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <nav class="menu" style="padding-bottom:5px;position:absolute;">
+
+        <nav class="menu" style="padding-bottom:5px;position:absolute;position:relative;bottom:34px;">
         <ul class="menu__list">
             <li class="menu__item menu__item--parent">
                 <a href="#offer" class="menu__link" disabled>Panel Użytkownika ▼</a>
@@ -97,7 +96,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="max-height: 100px;">
+    <footer class="border-top footer text-muted" id="layoutFooter" style="max-height: 100px;">
         <div class="container"id="container">
             &copy; 2023 - Inzynierka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
