@@ -21,7 +21,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white bg-dark btn-outline-warning" style="position:absolute;right:0;top:0;padding-bottom:18px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:0;padding-bottom:18px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -31,16 +31,16 @@
         <nav class="menu" style="padding-bottom:5px;position:absolute;position:relative;bottom:34px;">
         <ul class="menu__list">
             <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link" disabled>Panel Użytkownika ▼</a>
+                    <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Użytkownika ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item" style="color:black;">
-                        <a asp-controller="User" asp-action="Account" class="menu__link">Moje Dane</a>
+                        <a asp-controller="User" asp-action="Account" class="menu__link" style="color:black;">Moje Dane</a>
                     </li>
                     <li class="menu__item menu__item--parent">
                         Ustawienia ▶
                         <ul class="menu__sublist menu__sublist--right">
                             <li class="menu__item">
-                                <a asp-controller="User" asp-action="AccountSettings" class="menu__link">Dane Konta</a>
+                                    <a asp-controller="User" asp-action="AccountSettings" class="menu__link" style="color:black;">Dane Konta</a>
                             </li>
                             <li class="menu__item">
                                     <a style="color:black;" asp-controller="User" asp-action="StylingSettings" class="menu__link">Style</a>
@@ -53,10 +53,10 @@
                 </ul>
             </li>
             <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link">Panel Firmy ▼</a>
+                    <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                            <a asp-controller="Company" asp-action="CompanyData" class="menu__link">Dane Firmy</a>
+                            <a asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
                     </li>
                     <li class="menu__item">
                             <a style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
@@ -67,7 +67,7 @@
                 </ul>
             </li>
             <li class="menu__item menu__item--parent">
-                <a href="#offer" class="menu__link">Panel Faktur ▼</a>
+                    <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Faktur ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
                             <a style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>

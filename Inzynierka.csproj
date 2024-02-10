@@ -7,8 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Stylings\NewFolder1\**" />
+    <Compile Remove="Models\Stylings\NewFolder\**" />
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="Models\Stylings\NewFolder1\**" />
+    <Content Remove="Models\Stylings\NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Models\Stylings\NewFolder1\**" />
+    <EmbeddedResource Remove="Models\Stylings\NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="Models\Stylings\NewFolder1\**" />
+    <None Remove="Models\Stylings\NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\Old.cshtml" />
     <Content Remove="wwwroot\css\site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\Stylings\stylizacja czerwona.png" />
   </ItemGroup>
 
   <ItemGroup>

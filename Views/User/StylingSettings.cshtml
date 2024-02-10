@@ -1,44 +1,91 @@
 ﻿<script>
-        document.body.addEventListener("change", () => {
+
+        document.body.addEventListener("change", () => {        
+        
         let backColor = document.getElementById("backgroundsColor");
-            document.getElementById("Layout").style.backgroundColor = backColor.value;
+        document.getElementById("Layout").style.backgroundColor = backColor.value;
+
         let panelColor = document.getElementById("panelsColor");
         document.getElementById("layoutNavbar").style.backgroundColor = panelColor.value;
+
         let textColor = document.getElementById("textsColor");
         document.body.style.backgroundColor = backColor.value;
+
         let footerColor = document.getElementById("footersColor");
         document.getElementById("layoutFooter").style.backgroundColor = footerColor.value;
+
+        function onLoad(){
+            const backColor = localStorage.getElementById("backgroundsColor");
+        }
+        function changeColor()  {
+            const backColor = document.getElementById("backgroundsColor").value;
+            localStorage.setItem("backgroundsColor", backColor);
+            document.getElementById("Layout").style.backgroundColor = backColor;
+            document.getElementById("Layout").style.transition = 'all 1s';
+        }
 
 
     })
 </script>
 <div class="container text-center">
-        <h4>Podgląd Stylizacji</h4>
-        <div class="row">
+    <h4 style="position:fixed;left:30px;top:250px;">Kolory</h4>
+    <div class="container text-center" style="position:fixed;left:0;top:300px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
+        <div class="col" style="position:relative;right:200px;">
+        <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="kolor" id="backgroundsColor" value="#ffffff"></label>
+        <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="kolor" id="panelsColor" value="#1e2124"></label>
+        </div>
+        <div class="col" style="position:relative;left:200px;">
+        <label style="position:relative;right:7px;bottom:102px;left:165px;">kolor tekstu: <input type="color" name="kolor" id="textsColor" value="#ffffff"></label>
+        <label style="position:relative;right:7px;left:165px;">kolor stópki: <input type="color" name="kolor" id="footersColor" value="#ffffff"></label>
+        </div>
+    </div>
 
-        </div><br>
-
-        <h4>Ustaw Stylizacje</h4>
-        <div class="change" style="display:block;max-width:250px;min-width:min-content;height:auto;position:relative;left:150px;top:200px;border-top:2px solid black;border-left: 2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
-        <label style="position:relative;right:20px;">kolor tła: <input type="color" name="kolor" id="backgroundsColor" value="#ffffff"></label>
-        <label style="position:relative;right:5px;">kolor panelu: <input type="color" name="kolor" id="panelsColor" value="#ffffff"></label>
-        <label style="position:relative;right:7px;">kolor tekstu: <input type="color" name="kolor" id="textsColor" value="#ffffff"></label>
-        <label style="position:relative;right:7px;">kolor stópki: <input type="color" name="kolor" id="footersColor" value="#ffffff"></label>
-        </div>  
+    <h4 style="position:fixed;left:30px;top:550px;">Podgląd Stylizacji</h4>
+    <div class="card" style="position:fixed;left:0px;top:585px;justify-content:space-between">
+        <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
+        <div class="card-body">
+            <p class="card-text">stylizacja domyślna</p>
+        </div>
+    </div><br>
+    <div class="card" style="position:fixed;left:161px;top:585px;justify-content:space-between">
+        <img class="card-img-top" src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
+        <div class="card-body">
+            <p class="card-text">stylizacja czerwona</p>
+        </div>
+    </div><br>
+    <div class="card" style="position:fixed;left:322px;top:585px;justify-content:space-between">
+        <img class="card-img-top" src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
+        <div class="card-body">
+            <p class="card-text">stylizacja niebieska</p>
+        </div>
+    </div><br>
+    <div class="card" style="position:fixed;left:483px;top:585px;justify-content:space-between">
+        <img class="card-img-top" src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
+        <div class="card-body">
+            <p class="card-text">stylizacja zielona</p>
+        </div>
+    </div><br>
+    
+        
+        
+        
+        
+        
+        <!--
         <div class="row" style="position: relative;top:250px;">
             <!--#region Stylizacje  -->
-            <div>Stylizacja Tabel</div>
-            <div>Stylizacja Tekstu</div>
-            <div>Stylizacje Specjalne</div>
+    <!--<div>Stylizacja Tabel</div>-->
+            <!--<div>Stylizacja Tekstu</div>-->
+            <!--<div>Stylizacje Specjalne</div>-->
             <!--#endregion -->
-
+             
             <!--#region main  -->
-            <label for="ImportStylizacji">Importuj Styl</label>
-            <input type="text" name="ImportStylizacji" id="ImportStylizacji">
+    <!--<label for="ImportStylizacji">Importuj Styl</label>-->
+            <!--<input type="text" name="ImportStylizacji" id="ImportStylizacji">
             <!--#endregion -->
-        </div>
+    <!--</div>-->
 
-        <div class="row" style="position:relative;top:250px;">
-            ??? Lista ogólnie dostępnych stylizacji od użytkowników ???
-        </div>
+           <!-- <div class="row" style="position:relative;top:250px;">-->
+            <!--??? Lista ogólnie dostępnych stylizacji od użytkowników ???
+            </div>-->
 </div>

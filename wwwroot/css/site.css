@@ -148,7 +148,7 @@ a {
 .menu {
     display: block;
     width: 100%;
-    background: radial-gradient(circle at center, blue, white), 100%;
+    background: radial-gradient(circle at center, beige, white), 100%;
     background-color: #3d3aeb;
     font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
@@ -161,10 +161,8 @@ a {
     border-right-style: solid;
     border-color: aqua;
     box-shadow: 5px;
-    border-inline-width: thick;
-    border-inline-color: beige;
-
-
+    border-inline-width:20px;
+    border-inline-color: black;
 }
 
 
