@@ -85,6 +85,12 @@
     </nav>
 
     </header>
+
+    <div class="container-xxl">
+        <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" style="position:fixed;left:0;top:45px;z-index:1">
+            <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:red;display:block;position:fixed;left:0;width:max-content;z-index:0;"></path>
+        </svg>
+    </div>
     <div class="container" asp-validation-summary="All">
         @if(TempData["Success"] != null){
             <p1> @TempData["Success"] </p1>
