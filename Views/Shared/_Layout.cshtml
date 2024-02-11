@@ -85,13 +85,10 @@
     </nav>
 
     </header>
-
-    <div class="container-xxl">
-        <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" style="position:fixed;left:0;top:45px;z-index:1">
-            <path d="M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z" style="stroke: none; fill:red;display:block;position:fixed;left:0;width:max-content;z-index:0;"></path>
-        </svg>
-    </div>
     <div class="container" asp-validation-summary="All">
+=======
+    <div class="container"asp-validation-summary="All">
+>>>>>>> Stashed changes
         @if(TempData["Success"] != null){
             <p1> @TempData["Success"] </p1>
         } else if (TempData["Error"] != null){
@@ -101,12 +98,15 @@
             @RenderBody()
         </main>
     </div>
+<<<<<<< Updated upstream
 
     <footer class="border-top footer text-muted" id="layoutFooter" style="max-height: 100px;">
         <div class="container"id="container">
             &copy; 2023 - Inzynierka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+=======
+>>>>>>> Stashed changes
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
