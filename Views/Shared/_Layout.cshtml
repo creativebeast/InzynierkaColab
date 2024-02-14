@@ -105,5 +105,27 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @section Scripts
+    {
+        <script type="text/javascript">
+            var formCompanyIdInputs = document.querySelectorAll("#CompanyId");
+            var companiesSelect = document.querySelector("#Companies");
+            console.log('Start');
+            console.log(companiesSelect.value);
+
+            companiesSelect.addEventListener('change', function () {
+                console.log('Select event, value: ' + companiesSelect.value);
+
+                formCompanyIdInputs.forEach(function (item) {
+                    item.value = companiesSelect.value;
+                });
+            });
+
+            formCompanyIdInputs.forEach(function (item) {
+                console.log(companiesSelect.value);
+                item.value = companiesSelect.value;
+            });
+        </script>
+    }
 </body>
 </html>
