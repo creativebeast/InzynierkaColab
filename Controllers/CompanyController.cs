@@ -20,27 +20,41 @@ namespace Inzynierka.Controllers
             return View();
         }
 
-        public IActionResult CompanyData(IFormCollection collection)
+        public IActionResult CompanyData(int? companyId)
         {
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int companyId = int.Parse(collection["CompanyId"]);
-
-            Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId);
-
-            if(ownerCompany == null)
+            if (companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
-                return RedirectToAction("Index", "Home");
-            }
+                Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId.Value);
+                if (ownerCompany == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
 
-            ViewData["Company"] = ownerCompany;
+                ViewData["Company"] = ownerCompany;
+            }
+            else
+            {
+                int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
+
+                Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyIdFromForm);
+                if (ownerCompany == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewData["Company"] = ownerCompany;
+            }
 
             return View();
         }
+
 
         public IActionResult CreateCompany()
         {

@@ -28,7 +28,7 @@ namespace Inzynierka.Models
         public bool IsCompany { get; set; }
         public string? LastModified { get; set; }
 
-        public static List<Client>? GetClientsRelatedToCompany(ProjectContext context, int companyId)
+        public static List<Client>? GetClientsRelatedToCompany(ProjectContext context, int? companyId)
         {
             //List<Client>? relatedClients = context.Clients.Where(c => c.RelatedCompanyID == companyId)?.ToList();
             //if (relatedClients == null || relatedClients.Count == 0)

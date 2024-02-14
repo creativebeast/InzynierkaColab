@@ -56,13 +56,50 @@
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                            <a asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
+                            <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
+@*                             <script>
+                                var companyId = localStorage.getItem('companySelect');
+                                if (companyId) {
+                                    var link = document.getElementById('CompanyData');
+                                    link.href = link.href + '?companyId=' + companyId;
+                                }
+                            </script> *@
+                            <script>
+                                document.getElementById('CompanyData').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                             </script>
+                        </li>
+                    <li class="menu__item">
+                            <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
+                            <script>
+                                document.getElementById('WorkerData').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                            </script>
                     </li>
                     <li class="menu__item">
-                            <a style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
-                    </li>
-                    <li class="menu__item">
-                            <a style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
+                            <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
+                            <script>
+                                document.getElementById('ClientData').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                            </script>
                     </li>
                 </ul>
             </li>
@@ -70,13 +107,43 @@
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Faktur ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                            <a style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
+                            <a id="AddInvoice" style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
+                            <script>
+                                document.getElementById('AddInvoice').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                            </script>
                     </li>
                     <li class="menu__item">
-                            <a style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                            <a id="ExportInvoice" style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                            <script>
+                                document.getElementById('ExportInvoice').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                            </script>
                     </li>
                     <li class="menu__item">
-                            <a style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
+                            <a id="InvoiceData" style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
+                            <script>
+                                document.getElementById('InvoiceData').addEventListener('click', function (event) {
+                                    var companyId = localStorage.getItem('selectedCompany');
+                                    if (companyId) {
+                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                });
+                            </script>
                     </li>
                 </ul>
             </li>
@@ -105,5 +172,28 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @section Scripts
+    {
+        <script type="text/javascript">
+            var formCompanyIdInputs = document.querySelectorAll("#CompanyId");
+            var companiesSelect = document.querySelector("#Companies");
+            console.log('Start');
+            console.log(companiesSelect.value);
+
+            companiesSelect.addEventListener('change', function () {
+                console.log('Select event, value: ' + companiesSelect.value);
+
+                formCompanyIdInputs.forEach(function (item) {
+                    item.value = companiesSelect.value;
+                });
+            });
+
+            formCompanyIdInputs.forEach(function (item) {
+                console.log(companiesSelect.value);
+                item.value = companiesSelect.value;
+            });
+
+        </script>
+    }
 </body>
 </html>

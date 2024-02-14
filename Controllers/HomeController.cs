@@ -18,6 +18,7 @@ namespace Inzynierka.Controllers
 
         public IActionResult Index()
         {
+            
             List<Company> companies = new List<Company>();
 
             int privilages = GetSessionPrivilages();

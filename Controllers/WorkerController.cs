@@ -16,22 +16,43 @@ namespace Inzynierka.Controllers
             _logger = logger;
         }
 
-        public IActionResult WorkerData(IFormCollection collection)
-        {
-            int companyId = int.Parse(collection["CompanyId"]);
 
-            Company? company = Company.getCompanyByID(_context, companyId);
-            if(company == null)
+        public IActionResult WorkerData(int? companyId)
+        {
+            if (companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
-                return RedirectToAction("Index", "Home");
+                Company? company = Company.getCompanyByID(_context, companyId.Value);
+                if (company == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyId.Value);
+                List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
+
+                ViewData["Company"] = company;
+                ViewData["Workers"] = workersUsername;
+            }
+            else
+            {
+
+                int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
+
+                Company? company = Company.getCompanyByID(_context, companyIdFromForm);
+                if (company == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyIdFromForm);
+                List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
+
+                ViewData["Company"] = company;
+                ViewData["Workers"] = workersUsername;
             }
 
-            List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyId);
-            List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
-
-            ViewData["Company"] = company;
-            ViewData["Workers"] = workersUsername;
             return View();
         }
 

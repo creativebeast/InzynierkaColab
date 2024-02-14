@@ -19,13 +19,14 @@
     <div class="text-start container">
         <label for="firmy">Wybierz Firme:</label>
         @if(companies != null && companies.Count > 0 && privilages >= 0){
-            @*<select name="Companies" id="Companies">
+            <select name="Companies" id="Companies">
+                <option value="" disabled selected>Wybierz firmę</option>
                 @foreach (var company in companies)
                 {
                     <option value="@company.ID">@company.Name</option>
                 }
             </select>
-            <br />*@
+            <br />
 
             <form asp-action="CompanyData" asp-controller="Company" method="post">
                 <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
@@ -61,12 +62,17 @@
     {
         <script type="text/javascript">
             var formCompanyIdInputs = document.querySelectorAll("#CompanyId");
+
+
             var companiesSelect = document.querySelector("#Companies");
+            
             console.log('Start');
             console.log(companiesSelect.value);
 
             companiesSelect.addEventListener('change', function () {
                 console.log('Select event, value: ' + companiesSelect.value);
+                localStorage.setItem("selectedCompany", companiesSelect.value)
+
 
                 formCompanyIdInputs.forEach(function (item) {
                     item.value = companiesSelect.value;
@@ -76,7 +82,9 @@
             formCompanyIdInputs.forEach(function (item) {
                 console.log(companiesSelect.value);
                 item.value = companiesSelect.value;
+
             });
+
         </script>
     }
 </div>

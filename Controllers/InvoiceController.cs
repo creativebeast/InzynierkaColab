@@ -22,29 +22,49 @@ namespace Inzynierka.Controllers
             _logger = logger;
         }
 
-        public IActionResult InvoiceData(IFormCollection collection)
+        public IActionResult InvoiceData(int? companyId)
         {
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int companyID = int.Parse(collection["companyId"].ToString());
-            Company? company = Company.getCompanyByID(_context, companyID);
+            int queryCompanyId;
+
+            if (companyId.HasValue)
+            {
+                queryCompanyId = companyId.Value;
+            }
+            else
+            {
+                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+            }
+
+            Company? company = Company.getCompanyByID(_context, queryCompanyId);
             ViewData["Company"] = company;
 
             return View();
         }
 
-        public IActionResult AddInvoice(IFormCollection collection)
+        public IActionResult AddInvoice(int? companyId)
         {
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int companyID = int.Parse(collection["companyId"].ToString());
-            Company? company = Company.getCompanyByID(_context, companyID);
+            int queryCompanyId;
+
+            if (companyId.HasValue)
+            {
+                queryCompanyId = companyId.Value;
+            }
+            else
+            {
+                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+            }
+
+            Company? company = Company.getCompanyByID(_context, queryCompanyId);
             ViewData["Company"] = company;
             if (company == null)
             {
@@ -52,7 +72,7 @@ namespace Inzynierka.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<Client>? clients = Client.GetClientsRelatedToCompany(_context, companyID);
+            List<Client>? clients = Client.GetClientsRelatedToCompany(_context, queryCompanyId);
             ViewData["Clients"] = clients;
 
             return View(new List<ProductTemplate>());
@@ -103,23 +123,30 @@ namespace Inzynierka.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult ExportInvoice(IFormCollection collection)
+        public IActionResult ExportInvoice(int? companyId)
         {
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int companyID = !String.IsNullOrEmpty(collection["companyId"]) ? int.Parse(collection["companyId"]) : -1;
-            if(companyID != -1)
+            int queryCompanyId;
+
+            if (companyId.HasValue)
             {
-                //Get all Invoices related to company
-                List<InvoiceData>? invoices = Invoice.GetRelatedCompanyInvoices(_context, companyID);
-                if (invoices.Any())
-                {
-                    return View(invoices);
-                }
+                queryCompanyId = companyId.Value;
             }
+            else
+            {
+                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+            }
+
+             //Get all Invoices related to company
+            List<InvoiceData>? invoices = Invoice.GetRelatedCompanyInvoices(_context, queryCompanyId);
+            if (invoices.Any())
+              {
+                  return View(invoices);
+              }
             return RedirectToAction("Index", "Home");
         }
 

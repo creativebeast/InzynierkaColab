@@ -2,6 +2,7 @@
 using Inzynierka.Helpers;
 using Inzynierka.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 
 namespace Inzynierka.Controllers
@@ -14,32 +15,66 @@ namespace Inzynierka.Controllers
         {
             _logger = logger;
         }
-        public IActionResult ClientData(IFormCollection collection)
-        {
-            if (!CheckPrivilages(Privilages.Worker))
+
+        public IActionResult ClientData(int? companyId)
+        {   
+
+            if (companyId.HasValue)
             {
-                return RedirectToAction("Login", "Home");
+                if (!CheckPrivilages(Privilages.Worker))
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Company? targetCompany = null;
+
+                if (GetSessionPrivilages() == 0)
+                    targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
+                else if (GetSessionPrivilages() == 2)
+                    targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
+
+                if (targetCompany == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewData["Company"] = targetCompany;
+
+
+                List<Client>? avalibleClients = Client.GetClientsRelatedToCompany(_context, companyId);
+
+                ViewData["Clients"] = avalibleClients;
+            }
+            else
+            {
+                int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
+
+                if (!CheckPrivilages(Privilages.Worker))
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Company? targetCompany = null;
+
+                if (GetSessionPrivilages() == 0)
+                    targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyIdFromForm);
+                else if (GetSessionPrivilages() == 2)
+                    targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyIdFromForm);
+
+                if (targetCompany == null)
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewData["Company"] = targetCompany;
+
+                List<Client>? avalibleClients = Client.GetClientsRelatedToCompany(_context, companyIdFromForm);
+
+                ViewData["Clients"] = avalibleClients;
             }
 
-            int companyId = int.Parse(collection["CompanyId"]);
-            Company? targetCompany = null;
-
-            if (GetSessionPrivilages() == 0)
-                targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
-            else if(GetSessionPrivilages() == 2)
-                targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
-            
-            if(targetCompany == null)
-            {
-                TempData["Error"] = "Something went wrong, no company found...";
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["Company"] = targetCompany;
-
-            List<Client>? avalibleClients = Client.GetClientsRelatedToCompany(_context, companyId);
-
-            ViewData["Clients"] = avalibleClients;
             return View();
         }
 
