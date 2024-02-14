@@ -1,4 +1,5 @@
 ﻿<script>
+
         document.body.addEventListener("change", () => {        
         
         let backColor = document.getElementById("backgroundsColor");
@@ -28,7 +29,7 @@
 </script>
 <div class="container text-center" style="z-index:1;">
     <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;">Kolory</h4>
-    <div class="container text-center" style="background-color:white;position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
+    <div class="container text-center" style="position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
         <div class="col" style="position:relative;right:200px;">
         <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="kolor" id="backgroundsColor" value="#ffffff"></label>
         <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="kolor" id="panelsColor" value="#1e2124"></label>
@@ -41,7 +42,7 @@
 
     <h4 style="position:fixed;left:30px;top:450px;font-weight:bolder;">Podgląd Stylizacji</h4>
     <div class="card" style="position:fixed;left:0px;top:485px;justify-content:space-between">
-        <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" onclick="changeColor.backColor.value='black''" />
+        <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
         <div class="card-body">
             <p class="card-text">stylizacja domyślna</p>
         </div>
