@@ -24,7 +24,7 @@ namespace Inzynierka.Controllers
             int privilages = GetSessionPrivilages();
             if(privilages == 0)
                 companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
-            else if(privilages == 2)
+            else if(privilages == 2 || privilages == 3)
                 companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
 
             ViewData["Companies"] = companies;

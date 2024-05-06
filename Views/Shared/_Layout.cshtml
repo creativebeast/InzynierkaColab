@@ -56,25 +56,26 @@
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                            <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
+                        <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
 @*                             <script>
-                                var companyId = localStorage.getItem('companySelect');
+                            var companyId = localStorage.getItem('companySelect');
+                            if (companyId) {
+                                var link = document.getElementById('CompanyData');
+                                link.href = link.href + '?companyId=' + companyId;
+                            }
+                        </script> *@
+                        <script>
+                            document.getElementById('CompanyData').addEventListener('click', function (event) {
+                                var companyId = localStorage.getItem('selectedCompany');
+                                console.log(companyId);
                                 if (companyId) {
-                                    var link = document.getElementById('CompanyData');
-                                    link.href = link.href + '?companyId=' + companyId;
+                                    this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
+                                } else {
+                                    event.preventDefault();
                                 }
-                            </script> *@
-                            <script>
-                                document.getElementById('CompanyData').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                             </script>
-                        </li>
+                            });
+                            </script>
+                    </li>
                     <li class="menu__item">
                             <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
                             <script>

@@ -68,7 +68,7 @@ namespace Inzynierka.Models
             User? user = context.Users.FirstOrDefault(u => u.Username == username);
             if (user == null)
                 return null;
-
+            return user;
             string password = context.Passwords.FirstOrDefault(p => p.UserID == user.ID).UserPassword;
             if (password == userPassword)
                 return user;
