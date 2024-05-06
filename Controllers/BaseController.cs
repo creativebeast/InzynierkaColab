@@ -70,7 +70,7 @@ namespace Inzynierka.Controllers
             if (unsetSession)
                 UnsetSession();
 
-            TempData["Error"] = "Wrong Token!";
+            TempData["Error"] = message;
         }
 
         public bool CheckPrivilages(Privilages neededPrivilages)
