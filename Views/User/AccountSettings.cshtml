@@ -10,7 +10,7 @@
     <h5 style=" font-weight: 800;font-size: xx-large;">
         Zmiana Hasła
     </h5>
-    <form asp-action="ChangePassword" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+    <form asp-action="ChangePassword" asp-controller="User" method="post" style="border: solid 5px black;outline:10px solid beige;padding 5px;">
         <label for="oldPassword">Stare hasło:</label>
         <input type="password" id="oldPassword" name=oldPassword>
 
@@ -25,7 +25,7 @@
     <hr />
     <!-- Zmień Nr.Telefonu -->
     <h5 style=" font-weight: 800;font-size: xx-large;">Zmiana Nr.Telefonu</h5>
-    <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+    <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" style="border: solid 5px black;outline:10px solid beige;padding 5px;b">
         <label for="password">Podaj Hasło:</label>
         <input type="password" name=password>
 
@@ -50,7 +50,7 @@
     }
     else
     {
-        <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" style="border: solid 5px black;outline: solid 10px #4CAF50;padding 5px;">
+        <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" style="border: solid 5px black;outline:10px solid beige;padding 5px;">
             <label for="password">Podaj Hasło:</label>
             <input type="password" name=password>
 
@@ -69,6 +69,4 @@
     }
 
     <hr />
-    <a href="">??? Wybierz Sposób Dodatkowego Uwierzytelniania przy Logowaniu ???</a><br />
-    <a href="">Odepnij się od danej Firmy</a><br />
 </div>
