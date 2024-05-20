@@ -10,7 +10,7 @@
 
 <div class="container-fluid text-center">
     @if(company != null){
-        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post">
+        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post" style="height:80%;border: solid 5px black;outline: solid 10px beige;padding 5px;position:relative;bottom:20px;right:120px;width:137%;text-align:left;">
             <div class="row text-start">
                 <label for="invoiceName">Invoice Name:</label>
                 <input type="text" name="invoiceName" required>
@@ -101,23 +101,25 @@
                     <input type="text" name="clientContactEmail" id="clientContactEmail" class="clientData">
 
                     <label for="clientContactPhone">Client Phone:</label>
-                    <input type="text" name="clientContactPhone" id="clientContactPhone" class="clientData">
-
-                    <h6>Clients is a Company</h6>
+                    <input type="text" name="clientContactPhone" id="clientContactPhone" class="clientData" style="padding:5px;">
+                    
+                    
+                    <div style="border: solid 2px black;width:30%;padding:2px;height:100px;position:relative;top:10px;">
+                        <h6>Is client a Company?</h6>
                     <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" selected>
-                    <label for="clientIsNotCompany">Yes</label>
-                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
-                    <label for="clientIsCompany">No</label>
+                    <label for="clientIsNotCompany" style="position:relative;bottom:30px;">Yes</label>
+                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1" style="position:relative;bottom:30px;">
+                        <label for="clientIsCompany" style="position:relative;bottom:60px;">No</label>
+                    </div>
                 </div>
             </div>
-
+            <div style="border:solid 2px black;width:20%;position:relative;left:210px;bottom:20px;">
             <label for="IncludesDelivery">Invoice Includes Delivery:</label>
-            <input type="checkbox" name="IncludesDelivery">
-
+            <input type="checkbox" name="IncludesDelivery">        
             <label for="PaymentDueDate">Payment Due Date:</label>
             <input type="date" name="PaymentDueDate" required>
-
-            <table id="product-table" class="text-start">
+            </div>
+            <table id="product-table" class="text-start" style="width:100%;border-top:solid 2px black;">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -150,7 +152,7 @@
             <br><br>
             @*@Html.EditorFor(m => m[0].Name)*@
             @*<input type='text' name="[0].Name" value='Test'>*@
-            <input type="submit" value="Stwórz Fakture">
+            <input type="submit" value="Stwórz Fakture" style="text-align:right;">
         </form>
     }
     @section Scripts
