@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Company? company = ViewData["Company"] as Company ?? null;
+    List<Company> companies = (List<Company>)ViewData["Companies"];
+    int privilages = ViewData["Privilages"] != null ? int.Parse(ViewData["Privilages"].ToString()) : -1;
 }
 
 <div class="container text-center">
@@ -53,4 +55,79 @@
         </form>
     }
     
+</div>
+<h4>Firmy</h4>
+<div class="text-start container">
+    <label for="firmy">Wybierz Firme:</label>
+    @if (companies != null && companies.Count > 0 && privilages >= 0)
+    {
+        <select name="Companies" id="Companies">
+            <option value="" disabled selected>Wybierz firmę</option>
+            @foreach (var company1 in companies)
+            {
+                <option value="@company1.ID">@company1.Name</option>
+            }
+        </select>
+        <br />
+
+        <form asp-action="CompanyData" asp-controller="Company" method="post">
+            <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+            <input type="submit" value="Zarządzaj Swoimi Firmami">
+        </form>
+
+        <form asp-action="ClientData" asp-controller="Client" method="post">
+            <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+            <input type="submit" value="Zarządzaj Klientami">
+        </form>
+
+        <form asp-action="InvoiceData" asp-controller="Invoice" method="post">
+            <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+            <input type="submit" value="Zarządzaj Fakturami">
+        </form>
+
+        @if (privilages >= 1)
+        {
+            <form asp-action="WorkerData" asp-controller="Worker" method="post">
+                <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+                <input type="submit" value="Zarządzaj Pracownikami">
+            </form>
+        }
+
+
+        <form asp-action="Logs" asp-controller="Company" method="post">
+            <input type="number" value="" name="CompanyId" id="CompanyId" hidden>
+            <input type="submit" value="Zobacz Historie Aktywności Firmy">
+        </form>
+    }
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        var formCompanyIdInputs = document.querySelectorAll("#CompanyId");
+
+
+        var companiesSelect = document.querySelector("#Companies");
+
+        console.log('Start');
+        console.log(companiesSelect.value);
+
+        companiesSelect.addEventListener('change', function () {
+            console.log('Select event, value: ' + companiesSelect.value);
+            localStorage.setItem("selectedCompany", companiesSelect.value)
+
+
+            formCompanyIdInputs.forEach(function (item) {
+                item.value = companiesSelect.value;
+            });
+        });
+
+        formCompanyIdInputs.forEach(function (item) {
+            console.log(companiesSelect.value);
+            item.value = companiesSelect.value;
+
+        });
+
+    </script>
+}
 </div>
