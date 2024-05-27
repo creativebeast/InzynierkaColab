@@ -87,7 +87,6 @@ namespace Inzynierka.Controllers
         {
             return View();
         }
-
         public IActionResult RegisterComp()
         {
             return View("RegisterCompany");

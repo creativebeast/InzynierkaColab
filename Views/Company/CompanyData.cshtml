@@ -88,7 +88,15 @@
             <input type="text" name="companyNIP" placeholder="Nowy NIP">
             <span>|  Obecnie: @company.NIP</span><br><br>
 
+<<<<<<< Updated upstream
             <input type="submit" value="Modyfikuj Firme">
+=======
+            <input type="button" class="btn btn-outline-dark" value="Modyfikuj Firme">
+            <form asp-action="DeleteCompany" asp-controller="Company" method="post">
+                <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+                <input type="button" class="btn btn-danger" value="Usuń Firme" style="text-align:right;">
+            </form>
+>>>>>>> Stashed changes
         </form>
     <hr />
 

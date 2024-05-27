@@ -2,6 +2,7 @@
     ViewData["Title"] = "Account Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Inzynierka.Models.User currentUser = (Inzynierka.Models.User)ViewData["User"];
+    List<Company>? companies = ViewData["Companies"] as List<Company>;
 }
 <style>
     #title {
@@ -23,11 +24,18 @@
         text-align: left;
         bottom: 50px;
     }
-
+    #myData{
+        position:relative;
+        bottom:0px;
+    }
+    #myDataTitle{
+        font-weight: 800;
+        font-size: xx-large;
+    }
 </style>
 <body>
-    <div class="container text-center" id="globalPanel" style="position:relative;bottom:200px;">
-        <h2 id="title">Moje Dane</h2>
+    <div class="container text-center" id="myData" style="position:relative;bottom:40px;">
+        <h2 id="myDataTitle">Moje Dane</h2>
         <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
             <p1 style="font-weight:bold;">Nazwa Użytkownika:</p1>
             <span> @currentUser.Username </span>
@@ -72,6 +80,64 @@
             <p1 style="font-weight:bold;">Data Utworzenia Konta:</p1>
             <span> @currentUser.CreationDate </span>
         </p>
-        <a style="background-color:antiquewhite; outline: solid 1px black;" asp-area="" asp-controller="User" asp-action="AccountSettings">Dane nie zgadzają się? Zmień je tutaj!</a>
+    </div>
+    <div class="container-test-center" style="position:relative;bottom:50px;">
+        <!-- Zmień Hasło -->
+        <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;">
+            Zmiana Hasła
+        </h5>
+        <form asp-action="ChangePassword" asp-controller="User" method="post" style="position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+            <label for="oldPassword">Stare hasło:</label>
+            <input type="password" id="oldPassword" name=oldPassword>
+
+            <label for="newPassword">Nowe Hasło:</label>
+            <input type="password" id="newPassword" name=newPassword>
+            <label for="newPassword2">Powtórz Nowe Hasło:</label>
+            <input type="password" id="newPassword2" name=newPassword2><br />
+            <div id="submit" style="text-align:right;">
+                <input type="button" class="btn btn-outline-dark" value="Submit">
+            </div>
+        </form>
+        <!-- Zmień Nr.Telefonu -->
+        <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;padding:5px;">Zmiana Nr.Telefonu</h5>
+        <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" style="position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+            <label for="password">Podaj Hasło:</label>
+            <input type="password" name=password>
+
+            <label for="mail" style="width: 100%;">Podaj Mail (Na który przyjdzie kod potwierdzający zmiane):</label>
+            <input type="text" id="mail" name=mail style="width: 100%;">
+
+            <label for="phoneNumber">Podaj Nowy Numer Telefonu:</label>
+            <input type="text" id="phoneNumber" name=phoneNumber><br />
+
+            <div id="submit" style="text-align:right;">
+                <input type="button" class="btn btn-outline-dark" value="Submit">
+            </div>
+        </form>
+        <!-- Usuń Się z danej firmy -->
+        <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;padding:5px;">Odepnij się od danej firmy</h5>
+        @if (companies == null || companies.Count == 0)
+        {
+            <p>No companies found to be assigned to user</p>
+        }
+        else
+        {
+            <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" style="position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+                <label for="password">Podaj Hasło:</label>
+                <input type="password" name=password>
+
+                <label for="company">Wybierz firme z której chesz się usunąć:</label>
+                <select name="company" id="company">
+                    @foreach (var company in companies)
+                    {
+                        <option value="@company.ID">@company.Name</option>
+                    }
+                </select><br />
+
+                <div id="submit" style="text-align:right;">
+                    <input type="button" class="btn btn-outline-dark" value="Submit">
+                </div>
+            </form>
+        }
     </div>
 </body>

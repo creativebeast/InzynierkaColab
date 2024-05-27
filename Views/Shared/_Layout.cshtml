@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inzynierka.styles.css" asp-append-version="true" />
 </head>
-<body id="Layout">
+<body id="Layout" class="">
     <header>
        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-3" style="position:relative;bottom:9px;">
             <div class="container-fluid" id="layoutNavbar">
                 <a class="navbar-brand text-white-50 bg-dark" style="padding-left:15px;padding-right:15px;padding-bottom:4px;position:relative;right:20px;" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"  
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,18 +35,10 @@
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item" style="color:black;">
                         <a asp-controller="User" asp-action="Account" class="menu__link" style="color:black;">Moje Dane</a>
-                    </li>
-                    <li class="menu__item menu__item--parent">
-                        Ustawienia ▶
-                        <ul class="menu__sublist menu__sublist--right">
-                            <li class="menu__item">
-                                    <a asp-controller="User" asp-action="AccountSettings" class="menu__link" style="color:black;">Dane Konta</a>
-                            </li>
-                            <li class="menu__item">
-                                    <a style="color:black;" asp-controller="User" asp-action="StylingSettings" class="menu__link">Style</a>
-                            </li>
-                        </ul>
-                    </li>
+                    </li>                                                                  
+                    <li class="menu__item">
+                            <a asp-controller="User" asp-action="StylingSettings" class="menu__link" style="color:black;">Moje Style</a>
+                    </li>                                          
                     <li class="menu__item">
                             <a style="color:black;" asp-controller="Company" asp-action="CreateCompany" class="menu__link">Dodaj Firmę</a>
                     </li>
