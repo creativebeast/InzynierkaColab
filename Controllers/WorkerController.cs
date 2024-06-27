@@ -19,6 +19,12 @@ namespace Inzynierka.Controllers
 
         public IActionResult WorkerData(int? companyId)
         {
+            User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            if (currentUser == null)
+            {
+                TempData["error"] = "Insufficent privileges...";
+                return RedirectToAction("Login", "Home");
+            }
             if (companyId.HasValue)
             {
                 Company? company = Company.getCompanyByID(_context, companyId.Value);
@@ -37,6 +43,11 @@ namespace Inzynierka.Controllers
             else
             {
 
+                if (Request.Form["CompanyId"] == "")
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
                 int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
 
                 Company? company = Company.getCompanyByID(_context, companyIdFromForm);

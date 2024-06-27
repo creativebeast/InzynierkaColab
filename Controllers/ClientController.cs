@@ -17,7 +17,13 @@ namespace Inzynierka.Controllers
         }
 
         public IActionResult ClientData(int? companyId)
-        {   
+        {
+            User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            if (currentUser == null)
+            {
+                TempData["error"] = "Insufficent privileges...";
+                return RedirectToAction("Login", "Home");
+            }
 
             if (companyId.HasValue)
             {
@@ -30,7 +36,7 @@ namespace Inzynierka.Controllers
 
                 if (GetSessionPrivilages() == 0)
                     targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
-                else if (GetSessionPrivilages() == 2)
+                else if (GetSessionPrivilages() == 2 || GetSessionPrivilages() == 3)
                     targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
 
                 if (targetCompany == null)
@@ -48,6 +54,12 @@ namespace Inzynierka.Controllers
             }
             else
             {
+
+                if (Request.Form["CompanyId"] == "")
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
                 int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
 
                 if (!CheckPrivilages(Privilages.Worker))
@@ -101,7 +113,7 @@ namespace Inzynierka.Controllers
 
             if (!Client.CreateNewClient(_context, collection, relatedCompanyId, out string companyName))
             {
-                TempData["Error"] = $"Couldn't create new company...";
+                TempData["Error"] = $"Couldn't create new client...";
                 return RedirectToAction("Index", "Home");
             }
 

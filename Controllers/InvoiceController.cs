@@ -29,6 +29,11 @@ namespace Inzynierka.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
+            if (Request.Form["CompanyId"] == "")
+            {
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("Index", "Home");
+            }
             int queryCompanyId;
 
             if (companyId.HasValue)

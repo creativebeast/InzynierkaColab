@@ -51,7 +51,7 @@ label {
     text-shadow: 0 0 1px silver;
 }
 
-#username, #password {
+#username, #password, #email, #referalCode {
     font-size: 22px;
     display: block;
     width: 360px;

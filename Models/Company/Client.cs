@@ -101,7 +101,7 @@ namespace Inzynierka.Models
                 City = collection["clientCity"].ToString() ?? String.Empty,
                 Province = collection["clientProvince"].ToString() ?? String.Empty,
                 Street = collection["clientStreet"].ToString() ?? String.Empty,
-                LocalNumber = collection["clientLocalNumber"].ToString() ?? String.Empty,
+                LocalNumber = collection["clientLocaleNumber"].ToString() ?? String.Empty,
                 ContactNumber = collection["clientContactNumber"].ToString() ?? String.Empty,
                 ContactMail = collection["clientContactMail"].ToString() ?? String.Empty,
                 NIP = collection["clientNIP"].ToString() ?? String.Empty,

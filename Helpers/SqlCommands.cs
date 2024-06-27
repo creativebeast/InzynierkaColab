@@ -24,7 +24,7 @@ namespace Inzynierka.Helpers
                 throw new Exception("Cannot get Value from appsettings or it's empty");
 
             return connString;
-        } 
+        }
         #region AccountCreation
         //Add user + add them to target company workers db
         public int CreateAccount(User userToAdd, string password, string referalCode)
@@ -43,19 +43,21 @@ namespace Inzynierka.Helpers
                     if (!String.IsNullOrEmpty(userToAdd.Phone))
                         command.Parameters.AddWithValue("@Phone", userToAdd.Phone);
                     else
-                        command.Parameters.AddWithValue("@Phone", null);
+                        command.Parameters.AddWithValue("@Phone", DBNull.Value); // Zmiana na DBNull.Value
                     command.Parameters.AddWithValue("@Password", password);
-                    command.Parameters.AddWithValue("@ReferalCode", referalCode);
+                    //command.Parameters.AddWithValue("@ReferalCode", referalCode);
                     command.Parameters.AddWithValue("@IsOwner", 0);
 
                     return command.ExecuteNonQuery();
                 }
-            } 
+            }
             catch (Exception e)
             {
+                Console.WriteLine($"Exception: {e.Message}");
                 return 0;
             }
         }
+
 
         //Add User + company they own
         public int CreateAccount(User userToAdd, string password, Company comapnyToAdd)

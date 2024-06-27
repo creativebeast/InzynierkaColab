@@ -29,6 +29,9 @@ namespace Inzynierka.Controllers
             }
             string username = collection["username"];
             string password = collection["password"];
+
+            HttpContext.Session.SetString("layoutClass", "testowaKlasa");
+
             //User foundUser = _sqlCommandsManager.CheckForUserLogin(collection["username"], collection["Password"]);
             User? foundUser = Inzynierka.Models.User.GetUserByUsernamePassword(_context, username, password);
             if (foundUser == null)
@@ -147,6 +150,11 @@ namespace Inzynierka.Controllers
         public IActionResult Account()
         {
             User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            if(currentUser == null)
+            {
+                TempData["error"] = "Insufficent privileges...";
+                return RedirectToAction("Login", "Home");
+            }
             ViewData["User"] = currentUser;
 
             List<Company> companies;
@@ -264,8 +272,8 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(input.Value))
                 {
-                    TempData["Error"] = "Some fields were left empty";
-                    return RedirectToAction("AccountSettings", "User");
+                    //TempData["Error"] = "Some fields were left empty";
+                    //return RedirectToAction("AccountSettings", "User");
                 }
             }
 

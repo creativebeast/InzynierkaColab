@@ -45,7 +45,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("AuthTokens");
+                    b.ToTable("AuthTokens", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Client", b =>
@@ -115,7 +115,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Company", b =>
@@ -182,7 +182,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.DefaultStyling", b =>
@@ -208,7 +208,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DefaultStylings");
+                    b.ToTable("DefaultStylings", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Generic.Links", b =>
@@ -232,7 +232,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Links");
+                    b.ToTable("Links", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Invoice", b =>
@@ -338,7 +338,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Invoice");
                 });
@@ -359,7 +359,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("InvoiceHistory");
+                    b.ToTable("InvoiceHistory", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Password", b =>
@@ -385,7 +385,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Passwords");
+                    b.ToTable("Passwords", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Product", b =>
@@ -435,7 +435,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
@@ -465,7 +465,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProductsList");
+                    b.ToTable("ProductsList", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.SpecialStyling", b =>
@@ -494,7 +494,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("SpecialStyling");
+                    b.ToTable("SpecialStyling", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Stylings.Styling", b =>
@@ -524,7 +524,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Stylings");
+                    b.ToTable("Stylings", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.TableStyling", b =>
@@ -553,7 +553,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("TableStyling");
+                    b.ToTable("TableStyling", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.TextStyling", b =>
@@ -582,7 +582,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("TextStyling");
+                    b.ToTable("TextStyling", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.User", b =>
@@ -615,7 +615,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.UserStyling", b =>
@@ -645,7 +645,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("UserStylings");
+                    b.ToTable("UserStylings", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.Worker", b =>
@@ -681,7 +681,7 @@ namespace Inzynierka.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Workers");
+                    b.ToTable("Workers", (string)null);
                 });
 
             modelBuilder.Entity("Inzynierka.Models.ArchInvoice", b =>

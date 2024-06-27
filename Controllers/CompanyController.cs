@@ -40,6 +40,11 @@ namespace Inzynierka.Controllers
             }
             else
             {
+                if (Request.Form["CompanyId"] == "")
+                {
+                    TempData["Error"] = "Something went wrong, no company found...";
+                    return RedirectToAction("Index", "Home");
+                }
                 int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
 
                 Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyIdFromForm);
