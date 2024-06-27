@@ -15,13 +15,13 @@
         <h3>Wystaw nową fakture</h3>
         <form asp-action="AddInvoice" asp-controller="Invoice" method="post">
             <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
-            <input type="submit" value="Create new Invoice">
+            <input type="submit" class="btn btn-info" value="Create new Invoice">
         </form>
 
         <h3>Eksportuj faktury</h3>
         <form asp-action="ExportInvoice" asp-controller="Invoice" method="post">
             <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
-            <input type="submit" value="Export Invoices">
+            <input type="submit" class="btn btn-primary" value="Export Invoices">
         </form>
 
         <h3>Dodaj nową cykliczną fakture</h3>
