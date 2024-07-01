@@ -1,5 +1,8 @@
 ﻿@{
-    var layoutClass = Context.Session.GetString("layoutClass") ?? string.Empty;
+    var footersColor = Context.Session.GetString("footersColor") ?? string.Empty;
+    var panelsColor = Context.Session.GetString("panelsColor") ?? string.Empty;
+    var textsColor = Context.Session.GetString("textsColor") ?? string.Empty;
+    var backgroundsColor = Context.Session.GetString("backgroundsColor") ?? string.Empty;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +13,26 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inzynierka.styles.css" asp-append-version="true" />
+    <style>
+        #Layout {
+            color: @textsColor !important;
+            background-color: @backgroundsColor !important;
+        }
+        label {
+            color: @textsColor !important;
+        }
+        #layoutNavbar {
+            background-color: @panelsColor !important;
+        }
+        #layoutFooter {
+            background-color: @footersColor !important;
+        }
+
+    </style>
 </head>
-<body id="Layout" class="@layoutClass">
+<body id="Layout">
     <header>
-       
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-3" style="position:relative;bottom:9px;">
             <div class="container-fluid" id="layoutNavbar">
                 <a class="navbar-brand text-white-50 bg-dark" style="padding-left:15px;padding-right:15px;padding-bottom:4px;position:relative;right:20px;" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
@@ -159,7 +178,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" id="layoutFooter" style="max-height: 100px;">
+    <footer class="border-top footer" id="layoutFooter" style="max-height: 100px">
         <div class="container"id="container">
             &copy; 2023 - Inzynierka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

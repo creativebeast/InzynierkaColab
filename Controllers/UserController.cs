@@ -30,8 +30,6 @@ namespace Inzynierka.Controllers
             string username = collection["username"];
             string password = collection["password"];
 
-            HttpContext.Session.SetString("layoutClass", "testowaKlasa");
-
             //User foundUser = _sqlCommandsManager.CheckForUserLogin(collection["username"], collection["Password"]);
             User? foundUser = Inzynierka.Models.User.GetUserByUsernamePassword(_context, username, password);
             if (foundUser == null)
@@ -65,7 +63,7 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(item.ToString()))
                 {
-                    CreateErrorMessage("Something went wrong!", true);
+                    CreateErrorMessage("Something went wrong!", false);
                     return RedirectToAction("Login", "Home");
                 }
             }
@@ -80,7 +78,7 @@ namespace Inzynierka.Controllers
             } 
             else
             {
-                CreateErrorMessage("Either couldn't find user or the entered token was wrong!", true);
+                CreateErrorMessage("Either couldn't find user or the entered token was wrong!", false);
                 return RedirectToAction("Login", "Home");
             }
         }
@@ -289,6 +287,10 @@ namespace Inzynierka.Controllers
 
         public IActionResult StylingSettings()
         {
+            if (!CheckPrivilages(Privilages.Worker))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
     }

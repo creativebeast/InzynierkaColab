@@ -102,6 +102,29 @@ namespace Inzynierka.Controllers
                 return RedirectToAction("Index");
         }
 
+        public IActionResult ChangeLayoutColor(IFormCollection collection)
+        {
+            string footersColor, panelsColor, textsColor, backgroundsColor;
+            footersColor = panelsColor = textsColor = backgroundsColor = string.Empty;
+            foreach (var item in collection)
+            {
+                switch (item.Key)
+                {
+                    case "footersColor": { footersColor = item.Value; break;}
+                    case "panelsColor": { panelsColor = item.Value; break;}
+                    case "textsColor": { textsColor = item.Value; break;}
+                    case "backgroundsColor": { backgroundsColor = item.Value; break;}
+                }
+            }
+            HttpContext.Session.SetString("footersColor", footersColor);
+            HttpContext.Session.SetString("panelsColor", panelsColor);
+            HttpContext.Session.SetString("textsColor", textsColor);
+            HttpContext.Session.SetString("backgroundsColor", backgroundsColor);
+
+            TempData["Success"] = "Layout styles saved successfully!";
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Logout()
         {
             UnsetSession();

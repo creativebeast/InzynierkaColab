@@ -81,7 +81,6 @@ namespace Inzynierka.Controllers
                 return true;
             } else
             {
-                UnsetSession();
                 TempData["error"] = "Insufficent privileges...";
                 return false;
             }

@@ -1,76 +1,78 @@
-﻿<script>
+﻿@{
+    var footersColor = Context.Session.GetString("footersColor") ?? "#ffffff";
+    var panelsColor = Context.Session.GetString("panelsColor") ?? "#1e2124";
+    var textsColor = Context.Session.GetString("textsColor") ?? "#000000";
+    var backgroundsColor = Context.Session.GetString("backgroundsColor") ?? "#ffffff";
+}
+<script>
 
-        document.body.addEventListener("change", () => {        
-        
+    document.body.addEventListener("change", () => {
+
         let backColor = document.getElementById("backgroundsColor");
-        document.getElementById("Layout").style.backgroundColor = backColor.value;
+        document.getElementById("Layout").style.setProperty("background-color", backColor.value, "important");
 
         let panelColor = document.getElementById("panelsColor");
-        document.getElementById("layoutNavbar").style.backgroundColor = panelColor.value;
+        document.getElementById("layoutNavbar").style.setProperty("background-color", panelColor.value, "important");
 
         let textColor = document.getElementById("textsColor");
-        document.body.style.backgroundColor = backColor.value;
+        document.body.style.setProperty("color", textColor.value, "important");
 
         let footerColor = document.getElementById("footersColor");
-        document.getElementById("layoutFooter").style.backgroundColor = footerColor.value;
+        document.getElementById("layoutFooter").style.setProperty("background-color", footerColor.value, "important");
 
-        function onLoad(){
+        function onLoad() {
             const backColor = localStorage.getElementById("backgroundsColor");
         }
-        function changeColor()  {
+
+        function changeColor() {
             const backColor = document.getElementById("backgroundsColor").value;
             localStorage.setItem("backgroundsColor", backColor);
-            document.getElementById("Layout").style.backgroundColor = backColor;
+            document.getElementById("Layout").style.setProperty("background-color", backColor, "important");
             document.getElementById("Layout").style.transition = 'all 1s';
         }
 
-
     })
 </script>
-<div class="container text-center" style="z-index:1;">
-    <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;">Kolory</h4>
-    <div class="container text-center" style="position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
-        <div class="col" style="position:relative;right:200px;">
-        <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="kolor" id="backgroundsColor" value="#ffffff"></label>
-        <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="kolor" id="panelsColor" value="#1e2124"></label>
+<form asp-action="ChangeLayoutColor" asp-controller="Home" method="post" class="dataForm">
+    <div class="container text-center" style="z-index:1;">
+        <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;">Kolory</h4>
+        <div class="container text-center" style="position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
+            <div class="col" style="position:relative;right:200px;">
+                <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="backgroundsColor" id="backgroundsColor" value="@backgroundsColor"></label>
+                <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="panelsColor" id="panelsColor" value="@panelsColor"></label>
+            </div>
+            <div class="col" style="position:relative;left:200px;">
+                <label style="position:relative;right:7px;bottom:102px;left:165px;">kolor tekstu: <input type="color" name="textsColor" id="textsColor" value="@textsColor"></label>
+                <label style="position:relative;right:7px;left:165px;">kolor stópki: <input type="color" name="footersColor" id="footersColor" value="@footersColor"></label>
+            </div>
         </div>
-        <div class="col" style="position:relative;left:200px;">
-        <label style="position:relative;right:7px;bottom:102px;left:165px;">kolor tekstu: <input type="color" name="kolor" id="textsColor" value="#ffffff"></label>
-        <label style="position:relative;right:7px;left:165px;">kolor stópki: <input type="color" name="kolor" id="footersColor" value="#ffffff"></label>
-        </div>
-    </div>
+        <input type="submit" value="Zapisz">
 
-    <h4 style="position:fixed;left:30px;top:450px;font-weight:bolder;">Podgląd Stylizacji</h4>
-    <div class="card" style="position:fixed;left:0px;top:485px;justify-content:space-between">
-        <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
-        <div class="card-body">
-            <p class="card-text">stylizacja domyślna</p>
-        </div>
-    </div><br>
-    <div class="card" style="position:fixed;left:161px;top:485px;justify-content:space-between">
-        <img class="card-img-top" src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
-        <div class="card-body">
-            <p class="card-text">stylizacja czerwona</p>
-        </div>
-    </div><br>
-    <div class="card" style="position:fixed;left:322px;top:485px;justify-content:space-between">
-        <img class="card-img-top" src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
-        <div class="card-body">
-            <p class="card-text">stylizacja niebieska</p>
-        </div>
-    </div><br>
-    <div class="card" style="position:fixed;left:483px;top:485px;justify-content:space-between">
-        <img class="card-img-top" src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
-        <div class="card-body">
-            <p class="card-text">stylizacja zielona</p>
-        </div>
-    </div><br>
-    
-        
-        
-        
-        
-        
+        <h4 style="position:fixed;left:30px;top:450px;font-weight:bolder;">Podgląd Stylizacji</h4>
+        <div class="card" style="position:fixed;left:0px;top:485px;justify-content:space-between">
+            <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
+            <div class="card-body">
+                <p class="card-text">stylizacja domyślna</p>
+            </div>
+        </div><br>
+        <div class="card" style="position:fixed;left:161px;top:485px;justify-content:space-between">
+            <img class="card-img-top" src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
+            <div class="card-body">
+                <p class="card-text">stylizacja czerwona</p>
+            </div>
+        </div><br>
+        <div class="card" style="position:fixed;left:322px;top:485px;justify-content:space-between">
+            <img class="card-img-top" src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
+            <div class="card-body">
+                <p class="card-text">stylizacja niebieska</p>
+            </div>
+        </div><br>
+        <div class="card" style="position:fixed;left:483px;top:485px;justify-content:space-between">
+            <img class="card-img-top" src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
+            <div class="card-body">
+                <p class="card-text">stylizacja zielona</p>
+            </div>
+        </div><br>
         <!--
         <div class="row" style="position: relative;top:250px;">
             <!--#region Stylizacje  -->
@@ -88,4 +90,5 @@
            <!-- <div class="row" style="position:relative;top:250px;">-->
             <!--??? Lista ogólnie dostępnych stylizacji od użytkowników ???
             </div>-->
-</div>
+    </div>
+</form>
