@@ -11,8 +11,8 @@
         <h3>Something went wrong...</h3>
     } else {       
 
-        <h5 style="font-weight:800;font-size:xx-large;position:relative;bottom:15px;text-align:left;">Modyfikuj Firmę - <b>@company.Name</b> </h5>
-        <form asp-action="UpdateCompany" asp-controller="Company" method="post" style=" border: solid 5px black;outline: solid 10px beige;padding 5px;position:relative;bottom:15px;width:698px;">
+        <h5 style="font-weight:800;font-size:xx-large;position:relative;bottom:15px;text-align:left;z-index:11;">Modyfikuj Firmę - <b>@company.Name</b> </h5>
+        <form asp-action="UpdateCompany" asp-controller="Company" method="post" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige;padding 5px;position:relative;bottom:15px;width:698px;">
             <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
 
             <label for="companyName">Company Name:</label>

@@ -1,0 +1,37 @@
+﻿@{
+    List<Company> companies = (List<Company>)ViewData["Companies"];
+    List<User> users = (List < User > )ViewData["Users"];
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href="arkusz.css" rel="stylesheet" type="text/css">
+    <title>Stylowy nagłówek</title>
+
+</head>
+<body>
+    <div class="center">
+
+        <div id="panel">
+            <form asp-action="Login" asp-controller="User" method="post" class="dataForm">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" disabled>
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" disabled>
+                <div id="lower">
+                    <div id="select">
+                        <select name="Companies" id="Companies">
+                            <option value="" disabled selected>Wybierz firmę</option>
+                            @foreach (var company in companies)
+                            {
+                                <option value="@company.ID">@company.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="submit" value="Zatwierdź">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

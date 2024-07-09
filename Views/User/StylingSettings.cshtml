@@ -34,9 +34,9 @@
     })
 </script>
 <form asp-action="ChangeLayoutColor" asp-controller="Home" method="post" class="dataForm">
-    <div class="container text-center" style="z-index:1;">
-        <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;">Kolory</h4>
-        <div class="container text-center" style="position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
+    <div class="container text-center">
+        <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;z-index:11;">Kolory</h4>
+        <div class="container text-center" style="background-color:white;z-index:10;position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px #4CAF50;">
             <div class="col" style="position:relative;right:200px;">
                 <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="backgroundsColor" id="backgroundsColor" value="@backgroundsColor"></label>
                 <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="panelsColor" id="panelsColor" value="@panelsColor"></label>
@@ -45,34 +45,36 @@
                 <label style="position:relative;right:7px;bottom:102px;left:165px;">kolor tekstu: <input type="color" name="textsColor" id="textsColor" value="@textsColor"></label>
                 <label style="position:relative;right:7px;left:165px;">kolor stópki: <input type="color" name="footersColor" id="footersColor" value="@footersColor"></label>
             </div>
+            <input type="submit" value="Zapisz">
         </div>
-        <input type="submit" value="Zapisz">
 
-        <h4 style="position:fixed;left:30px;top:450px;font-weight:bolder;">Podgląd Stylizacji</h4>
-        <div class="card" style="position:fixed;left:0px;top:485px;justify-content:space-between">
+        <div id="defaultStylings" style="position:relative;top:30px;">
+        <h4 style="position:fixed;left:30px;top:485px;font-weight:bolder;z-index:11;">Podgląd Stylizacji</h4>
+        <div class="card" style="position:fixed;left:0px;top:520px;justify-content:space-between">
             <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
             <div class="card-body">
                 <p class="card-text">stylizacja domyślna</p>
             </div>
         </div><br>
-        <div class="card" style="position:fixed;left:161px;top:485px;justify-content:space-between">
+        <div class="card" style="position:fixed;left:161px;top:520px;justify-content:space-between">
             <img class="card-img-top" src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
             <div class="card-body">
                 <p class="card-text">stylizacja czerwona</p>
             </div>
         </div><br>
-        <div class="card" style="position:fixed;left:322px;top:485px;justify-content:space-between">
+        <div class="card" style="position:fixed;left:322px;top:520px;justify-content:space-between">
             <img class="card-img-top" src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
             <div class="card-body">
                 <p class="card-text">stylizacja niebieska</p>
             </div>
         </div><br>
-        <div class="card" style="position:fixed;left:483px;top:485px;justify-content:space-between">
+        <div class="card" style="position:fixed;left:483px;top:520px;justify-content:space-between">
             <img class="card-img-top" src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
             <div class="card-body">
                 <p class="card-text">stylizacja zielona</p>
             </div>
         </div><br>
+        </div>
         <!--
         <div class="row" style="position: relative;top:250px;">
             <!--#region Stylizacje  -->

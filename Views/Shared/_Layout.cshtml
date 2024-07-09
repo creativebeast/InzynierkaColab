@@ -33,7 +33,7 @@
 <body id="Layout">
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-3" style="position:relative;bottom:9px;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-lg-5" style="position:relative;bottom:9px;">
             <div class="container-fluid" id="layoutNavbar">
                 <a class="navbar-brand text-white-50 bg-dark" style="padding-left:15px;padding-right:15px;padding-bottom:4px;position:relative;right:20px;" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"  
@@ -43,14 +43,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:0;padding-bottom:18px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:0;padding-bottom:2px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:25;padding-bottom:0px;" asp-area="" asp-controller="Home" asp-action="PostLogin">Zmiana Firmy</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <nav class="menu" style="z-index:2;padding-bottom:5px;position:absolute;position:relative;bottom:34px;">
+        <nav class="menu" style="z-index:12;padding-bottom:5px;position:absolute;position:relative;bottom:34px;">
         <ul class="menu__list">
             <li class="menu__item menu__item--parent">
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Użytkownika ▼</a>
