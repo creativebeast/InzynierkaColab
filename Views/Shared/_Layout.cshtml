@@ -46,7 +46,7 @@
                             <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:0;padding-bottom:2px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:25;padding-bottom:0px;" asp-area="" asp-controller="Home" asp-action="PostLogin">Zmiana Firmy</a>
+                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:25;padding-bottom:0px;" asp-area="" asp-controller="Home" asp-action="ChangeCompany">Zmiana Firmy</a>
                         </li>
                     </ul>
                 </div>
@@ -81,43 +81,12 @@
                                 link.href = link.href + '?companyId=' + companyId;
                             }
                         </script> *@
-                        <script>
-                            document.getElementById('CompanyData').addEventListener('click', function (event) {
-                                var companyId = localStorage.getItem('selectedCompany');
-                                console.log(companyId);
-                                if (companyId) {
-                                    this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                } else {
-                                    event.preventDefault();
-                                }
-                            });
-                            </script>
                     </li>
                     <li class="menu__item">
-                            <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
-                            <script>
-                                document.getElementById('WorkerData').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                            </script>
+                        <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
                     </li>
                     <li class="menu__item">
-                            <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
-                            <script>
-                                document.getElementById('ClientData').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                            </script>
+                        <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
                     </li>
                 </ul>
             </li>
@@ -125,43 +94,13 @@
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Faktur ▼</a>
                 <ul class="menu__sublist menu__sublist--bottom">
                     <li class="menu__item">
-                            <a id="AddInvoice" style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
-                            <script>
-                                document.getElementById('AddInvoice').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                            </script>
+                        <a id="AddInvoice" style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
                     </li>
                     <li class="menu__item">
-                            <a id="ExportInvoice" style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
-                            <script>
-                                document.getElementById('ExportInvoice').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                            </script>
+                        <a id="ExportInvoice" style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
                     </li>
                     <li class="menu__item">
-                            <a id="InvoiceData" style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
-                            <script>
-                                document.getElementById('InvoiceData').addEventListener('click', function (event) {
-                                    var companyId = localStorage.getItem('selectedCompany');
-                                    if (companyId) {
-                                        this.href = this.getAttribute('href').split('?')[0] + '?companyId=' + companyId;
-                                    } else {
-                                        event.preventDefault();
-                                    }
-                                });
-                            </script>
+                        <a id="InvoiceData" style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
                     </li>
                 </ul>
             </li>

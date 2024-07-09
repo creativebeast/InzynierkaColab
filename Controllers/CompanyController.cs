@@ -19,46 +19,39 @@ namespace Inzynierka.Controllers
         {
             return View();
         }
-
-        public IActionResult CompanyData(int? companyId)
+        public IActionResult CompanyData()
         {
+            string companyIdString = HttpContext.Session.GetString("selectedCompany") ?? string.Empty;
+            int? companyId = null;
+
+            if (int.TryParse(companyIdString, out int parsedCompanyId))
+            {
+                companyId = parsedCompanyId;
+            }
+
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            if (companyId.HasValue)
+            if (!companyId.HasValue)
             {
-                Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId.Value);
-                if (ownerCompany == null)
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ViewData["Company"] = ownerCompany;
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("ChangeCompany", "Home");
             }
-            else
+
+            Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId.Value);
+            if (ownerCompany == null)
             {
-                if (Request.Form["CompanyId"] == "")
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-                int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
-
-                Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyIdFromForm);
-                if (ownerCompany == null)
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ViewData["Company"] = ownerCompany;
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("Index", "Home");
             }
+
+            ViewData["Company"] = ownerCompany;
 
             return View();
         }
+
 
 
         public IActionResult CreateCompany()

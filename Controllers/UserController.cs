@@ -20,7 +20,7 @@ namespace Inzynierka.Controllers
         {
             foreach (var item in collection)
             {
-                if (String.IsNullOrEmpty(item.ToString()))
+                if (String.IsNullOrEmpty(item.Value.ToString()))
                 {
                     CreateErrorMessage("Required fields left empty", false);
                     return RedirectToAction("Login", "Home");
@@ -48,7 +48,7 @@ namespace Inzynierka.Controllers
             //    TokenHelper.SendTokenViaMail("sztucznawiedza@gmail.com", token);
             SetSessionPrivilages(foundUser.Username, foundUser.Privilage.ToString(), foundUser.ID.ToString());
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ChangeCompany", "Home");
             //return RedirectToAction("LoginAuth", "User");
         }
 

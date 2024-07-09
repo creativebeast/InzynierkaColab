@@ -16,56 +16,45 @@ namespace Inzynierka.Controllers
             _logger = logger;
         }
 
-
-        public IActionResult WorkerData(int? companyId)
+        public IActionResult WorkerData()
         {
+            string companyIdString = HttpContext.Session.GetString("selectedCompany") ?? string.Empty;
+            int? companyId = null;
+
+            if (int.TryParse(companyIdString, out int parsedCompanyId))
+            {
+                companyId = parsedCompanyId;
+            }
+
             User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
             if (currentUser == null)
             {
-                TempData["error"] = "Insufficent privileges...";
+                TempData["error"] = "Insufficient privileges...";
                 return RedirectToAction("Login", "Home");
             }
-            if (companyId.HasValue)
+
+            if (!companyId.HasValue)
             {
-                Company? company = Company.getCompanyByID(_context, companyId.Value);
-                if (company == null)
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-
-                List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyId.Value);
-                List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
-
-                ViewData["Company"] = company;
-                ViewData["Workers"] = workersUsername;
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("ChangeCompany", "Home");
             }
-            else
+
+            Company? company = Company.getCompanyByID(_context, companyId.Value);
+            if (company == null)
             {
-
-                if (Request.Form["CompanyId"] == "")
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-                int companyIdFromForm = int.Parse(Request.Form["CompanyId"]);
-
-                Company? company = Company.getCompanyByID(_context, companyIdFromForm);
-                if (company == null)
-                {
-                    TempData["Error"] = "Something went wrong, no company found...";
-                    return RedirectToAction("Index", "Home");
-                }
-
-                List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyIdFromForm);
-                List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
-
-                ViewData["Company"] = company;
-                ViewData["Workers"] = workersUsername;
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("Index", "Home");
             }
+
+            List<Worker>? companyWorkers = Worker.GetWorkersByCompanyID(_context, companyId.Value);
+            List<WorkerUsername>? workersUsername = companyWorkers == null ? null : Worker.GetWorkersUsernames(_context, companyWorkers);
+
+            ViewData["Company"] = company;
+            ViewData["Workers"] = workersUsername;
 
             return View();
         }
+
 
         public IActionResult AddWorker(IFormCollection collection)
         {

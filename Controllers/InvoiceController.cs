@@ -22,55 +22,58 @@ namespace Inzynierka.Controllers
             _logger = logger;
         }
 
-        public IActionResult InvoiceData(int? companyId)
+        public IActionResult InvoiceData()
         {
+            string companyIdString = HttpContext.Session.GetString("selectedCompany") ?? string.Empty;
+            int? companyId = null;
+
+            if (int.TryParse(companyIdString, out int parsedCompanyId))
+            {
+                companyId = parsedCompanyId;
+            }
+
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            if (Request.Form["CompanyId"] == "")
+            if (!companyId.HasValue)
             {
                 TempData["Error"] = "Something went wrong, no company found...";
-                return RedirectToAction("Index", "Home");
-            }
-            int queryCompanyId;
-
-            if (companyId.HasValue)
-            {
-                queryCompanyId = companyId.Value;
-            }
-            else
-            {
-                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+                return RedirectToAction("ChangeCompany", "Home");
             }
 
-            Company? company = Company.getCompanyByID(_context, queryCompanyId);
+            Company? company = Company.getCompanyByID(_context, companyId.Value);
             ViewData["Company"] = company;
 
             return View();
         }
 
-        public IActionResult AddInvoice(int? companyId)
+        public IActionResult AddInvoice()
         {
+            string companyIdString = HttpContext.Session.GetString("selectedCompany") ?? string.Empty;
+            int? companyId = null;
+
+            if (int.TryParse(companyIdString, out int parsedCompanyId))
+            {
+                companyId = parsedCompanyId;
+            }
+
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int queryCompanyId;
-
-            if (companyId.HasValue)
+            if (!companyId.HasValue)
             {
-                queryCompanyId = companyId.Value;
-            }
-            else
-            {
-                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("ChangeCompany", "Home");
             }
 
+            int queryCompanyId = companyId.Value;
             Company? company = Company.getCompanyByID(_context, queryCompanyId);
             ViewData["Company"] = company;
+
             if (company == null)
             {
                 TempData["Error"] = "Couldn't find your company...";
@@ -128,30 +131,37 @@ namespace Inzynierka.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult ExportInvoice(int? companyId)
+        public IActionResult ExportInvoice()
         {
+            string companyIdString = HttpContext.Session.GetString("selectedCompany") ?? string.Empty;
+            int? companyId = null;
+
+            if (int.TryParse(companyIdString, out int parsedCompanyId))
+            {
+                companyId = parsedCompanyId;
+            }
+
             if (!CheckPrivilages(Privilages.Worker))
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            int queryCompanyId;
-
-            if (companyId.HasValue)
+            if (!companyId.HasValue)
             {
-                queryCompanyId = companyId.Value;
-            }
-            else
-            {
-                queryCompanyId = int.Parse(Request.Form["CompanyId"]);
+                TempData["Error"] = "Something went wrong, no company found...";
+                return RedirectToAction("ChangeCompany", "Home");
             }
 
-             //Get all Invoices related to company
+            int queryCompanyId = companyId.Value;
+
+            // Pobierz wszystkie faktury związane z firmą
             List<InvoiceData>? invoices = Invoice.GetRelatedCompanyInvoices(_context, queryCompanyId);
+
             if (invoices.Any())
-              {
-                  return View(invoices);
-              }
+            {
+                return View(invoices);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

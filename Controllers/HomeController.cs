@@ -62,6 +62,55 @@ namespace Inzynierka.Controllers
             return View();
         }
 
+        public IActionResult ChangeCompany()
+        {
+            User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            if (currentUser == null)
+            {
+                TempData["error"] = "Insufficent privileges...";
+                return RedirectToAction("Login", "Home");
+            }
+            ViewData["User"] = currentUser;
+
+            List<Company> companies = new List<Company>();
+
+            int privilages = GetSessionPrivilages();
+            if (privilages == 0)
+                companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
+            else if (privilages == 2 || privilages == 3)
+                companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
+
+            ViewData["Companies"] = companies;
+            return View();
+        }
+
+        public IActionResult SaveCompanyChange(IFormCollection? collection)
+        {
+            foreach (var item in collection)
+            {
+                if (String.IsNullOrEmpty(item.Value.ToString()))
+                {
+                    CreateErrorMessage("Please select a company", false);
+                    return RedirectToAction("ChangeCompany", "Home");
+                }
+
+            }
+
+            string company = collection["Companies"];
+            if (company != null)
+            {
+                HttpContext.Session.SetString("selectedCompany", company);
+
+                TempData["Success"] = "Selected company saved successfully!";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["error"] = "Couldn't change the selected company";
+                return RedirectToAction("ChangeCompany", "Home");
+            }
+        }
+
         public IActionResult UpdateStyling()
         {
             StylingManager stylingManager = new StylingManager();

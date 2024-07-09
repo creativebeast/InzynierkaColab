@@ -1,0 +1,43 @@
+﻿@{
+    List<Company> companies = (List<Company>)ViewData["Companies"];
+    string selectedCompany = Context.Session.GetString("selectedCompany") ?? String.Empty;
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href="arkusz.css" rel="stylesheet" type="text/css">
+    <title>Stylowy nagłówek</title>
+
+</head>
+<body>
+    <div class="center">
+
+        <div id="panel">
+            <div class="modal-header h4">
+                Wybierz aktywną firmę
+            </div>
+            <form asp-action="SaveCompanyChange" asp-controller="Home" method="post" class="dataForm">
+                <div id="lower">
+                    <div id="select">
+                        <select class="mb-4" name="Companies" id="Companies">
+                            <option value="">Wybierz firmę</option>
+                            @foreach (var company in companies)
+                            {
+                                if (selectedCompany == company.ID.ToString())
+                                {
+                                    <option value="@company.ID" selected>@company.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@company.ID">@company.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <input type="submit" value="Zatwierdź">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
