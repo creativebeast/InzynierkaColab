@@ -39,7 +39,7 @@ namespace Inzynierka.Controllers
 
             if (!companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("ChangeCompany", "Home");
             }
 
@@ -66,7 +66,7 @@ namespace Inzynierka.Controllers
 
             if (!companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("ChangeCompany", "Home");
             }
 
@@ -76,7 +76,7 @@ namespace Inzynierka.Controllers
 
             if (company == null)
             {
-                TempData["Error"] = "Couldn't find your company...";
+                TempData["Error"] = "Nie udało się znaleźć twojej firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -99,33 +99,33 @@ namespace Inzynierka.Controllers
             if (collection["ClientData"].ToString() != "-1")
             {
                 List<Client>? clients = Client.GetClientsRelatedToCompany(_context, companyID);
-                if(clients == null || clients.Count == 0)
+                if (clients == null || clients.Count == 0)
                 {
-                    TempData["Error"] = "Couldn't find client data...";
+                    TempData["Error"] = "Nie udało się znaleźć danych klienta...";
                     return RedirectToAction("Index", "Home");
                 }
 
                 int clientID = int.Parse(collection["clientId"]);
                 Client? targetClient = Client.GetClientByID(_context, clientID);
                 Company? seller = Company.getCompanyByID(_context, companyID);
-                if(targetClient == null || seller == null)
+                if (targetClient == null || seller == null)
                 {
-                    TempData["Error"] = "Couldn't get companies detail info...";
+                    TempData["Error"] = "Nie udało się uzyskać szczegółowych informacji o firmach...";
                     return RedirectToAction("Index", "Home");
                 }
                 string paymentMethod = collection["PaymentMethod"];
                 var paymentDate = collection["PaymentDueDate"].ToString();
                 bool includesDelivery = collection["IncludesDelivery"].ToString() == "1" ? true : false;
 
-                if(!Invoice.CreateNewInvoice(_context, seller, targetClient, collection, paymentMethod, paymentDate, includesDelivery, products))
+                if (!Invoice.CreateNewInvoice(_context, seller, targetClient, collection, paymentMethod, paymentDate, includesDelivery, products))
                 {
-                    TempData["Error"] = "Couldn't create new Invoice...";
+                    TempData["Error"] = "Nie udało się utworzyć nowej faktury...";
                     return RedirectToAction("Index", "Home");
                 }
-            } 
+            }
             else
             {
-                TempData["Error"] = "Something went wrong...";
+                TempData["Error"] = "Coś poszło nie tak...";
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index", "Home");
@@ -148,7 +148,7 @@ namespace Inzynierka.Controllers
 
             if (!companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("ChangeCompany", "Home");
             }
 
@@ -173,10 +173,10 @@ namespace Inzynierka.Controllers
             }
 
             int invoiceID = !String.IsNullOrEmpty(collection["InvoiceID"]) ? int.Parse(collection["InvoiceID"]) : -1;
-            if(invoiceID != -1)
+            if (invoiceID != -1)
             {
                 InvoiceData? invoiceToExport = Invoice.GetInvoiceByID(_context, invoiceID);
-                if(invoiceToExport != null)
+                if (invoiceToExport != null)
                 {
                     QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
                     InvoiceDocument doc = new InvoiceDocument(invoiceToExport);
@@ -187,7 +187,7 @@ namespace Inzynierka.Controllers
                     return File(doc.GeneratePdf(), "application/pdf", filename);
                 }
             }
-            TempData["Error"] = "Something went wrong...";
+            TempData["Error"] = "Coś poszło nie tak...";
             return RedirectToAction("Index", "Home");
         }
 
@@ -213,7 +213,7 @@ namespace Inzynierka.Controllers
                     return File(doc.GenerateXps(), "application/pdf", filename);
                 }
             }
-            TempData["Error"] = "Something went wrong...";
+            TempData["Error"] = "Coś poszło nie tak...";
             return RedirectToAction("Index", "Home");
         }
 
@@ -235,7 +235,7 @@ namespace Inzynierka.Controllers
                     return File(exportedExcel, "application/vnd.ms-excel", filename);
                 }
             }
-            TempData["Error"] = "Something went wrong...";
+            TempData["Error"] = "Coś poszło nie tak...";
             return RedirectToAction("Index", "Home");
         }
     }

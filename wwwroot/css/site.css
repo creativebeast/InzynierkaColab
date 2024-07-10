@@ -176,13 +176,9 @@ a {
     white-space: nowrap;
     text-align: center;
     text-emphasis-color: black;
-    border-bottom-right-radius: 15%;
     border-width: thick;
-    border-right-style: solid;
     border-color: aqua;
     box-shadow: 5px;
-    border-inline-width:20px;
-    border-inline-color: black;
 }
 
 

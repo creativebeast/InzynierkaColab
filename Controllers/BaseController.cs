@@ -81,7 +81,7 @@ namespace Inzynierka.Controllers
                 return true;
             } else
             {
-                TempData["error"] = "Insufficent privileges...";
+                TempData["error"] = "Niewystarczające uprawnienia...";
                 return false;
             }
         }

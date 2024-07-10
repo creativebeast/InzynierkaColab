@@ -2,6 +2,7 @@
 using Inzynierka.DAL;
 using Inzynierka.Models;
 using Inzynierka.Helpers;
+using System.Collections.Generic;
 
 namespace Inzynierka.Controllers
 {
@@ -22,11 +23,11 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(item.Value.ToString()))
                 {
-                    CreateErrorMessage("Required fields left empty", false);
+                    CreateErrorMessage("Niektóre wymagane pola zostały puste", false);
                     return RedirectToAction("Login", "Home");
                 }
-                   
             }
+
             string username = collection["username"];
             string password = collection["password"];
 
@@ -34,7 +35,7 @@ namespace Inzynierka.Controllers
             User? foundUser = Inzynierka.Models.User.GetUserByUsernamePassword(_context, username, password);
             if (foundUser == null)
             {
-                CreateErrorMessage("Wrong credencials entered", false);
+                CreateErrorMessage("Wprowadzono nieprawidłowe dane logowania", false);
                 return RedirectToAction("Login", "Home");
             }
 
@@ -63,7 +64,7 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(item.ToString()))
                 {
-                    CreateErrorMessage("Something went wrong!", false);
+                    CreateErrorMessage("Coś poszło nie tak!", false);
                     return RedirectToAction("Login", "Home");
                 }
             }
@@ -71,14 +72,14 @@ namespace Inzynierka.Controllers
             bool foundMatch;
             AuthToken auth = _sqlCommandsManager.FindLoginAuthToken(collection["Token"], out foundMatch);
 
-            if(foundMatch && auth.UserID == GetSessionUserID())
+            if (foundMatch && auth.UserID == GetSessionUserID())
             {
-                TempData["Success"] = "Loged in succesfully!";
+                TempData["Success"] = "Zalogowano pomyślnie!";
                 return RedirectToAction("Index", "Home");
-            } 
+            }
             else
             {
-                CreateErrorMessage("Either couldn't find user or the entered token was wrong!", false);
+                CreateErrorMessage("Nie udało się znaleźć użytkownika lub wprowadzony token był nieprawidłowy!", false);
                 return RedirectToAction("Login", "Home");
             }
         }
@@ -115,7 +116,7 @@ namespace Inzynierka.Controllers
             };
 
             _sqlCommandsManager.CreateAccount(testUser, password.UserPassword, testCompany);
-            TempData["Message"] = "Account created succesfully";
+            TempData["Message"] = "Konto utworzone pomyślnie";
             return RedirectToAction("Login", "Home");
         }
 
@@ -132,24 +133,24 @@ namespace Inzynierka.Controllers
 
             if (String.IsNullOrWhiteSpace(collection["password"]))
             {
-                TempData["Message"] = "Empty password - remember to fill password field!";
+                TempData["Message"] = "Puste hasło - pamiętaj, aby wypełnić pole hasła!";
                 return RedirectToAction("Login", "Home");
             }
 
-            Password password = new Password(){ UserPassword = collection["Password"] };
+            Password password = new Password() { UserPassword = collection["Password"] };
             string refCode = collection["referalCode"];
 
             _sqlCommandsManager.CreateAccount(newUser, password.UserPassword, refCode);
-            TempData["Message"] = "Account created succesfully";
+            TempData["Message"] = "Konto utworzone pomyślnie";
             return RedirectToAction("Login", "Home");
         }
 
         public IActionResult Account()
         {
             User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
-            if(currentUser == null)
+            if (currentUser == null)
             {
-                TempData["error"] = "Insufficent privileges...";
+                TempData["error"] = "Niewystarczające uprawnienia...";
                 return RedirectToAction("Login", "Home");
             }
             ViewData["User"] = currentUser;
@@ -190,27 +191,31 @@ namespace Inzynierka.Controllers
             string newPassword2 = collection["newPassword2"];
             int userId = GetSessionUserID();
 
-            if(newPassword == newPassword2)
+            if (newPassword == newPassword2)
             {
-                if(Inzynierka.Models.User.CheckIfPasswordMatch(_context, userId, oldPassword))
+                if (Inzynierka.Models.User.CheckIfPasswordMatch(_context, userId, oldPassword))
                 {
                     int success = Inzynierka.Models.User.UpdateUserPassword(_context, userId, newPassword);
 
                     if (success == 1)
-                        TempData["Success"] = "Password changed successfully!";
+                        TempData["Success"] = "Hasło zmienione pomyślnie!";
                     else
-                        TempData["Error"] = "Incorrect credentials...";
+                        TempData["Error"] = "Nieprawidłowe dane logowania...";
 
                     return RedirectToAction("Index", "Home");
-                } else {
-                    TempData["Error"] = "Incorrect credentials...";
+                }
+                else
+                {
+                    TempData["Error"] = "Nieprawidłowe dane logowania...";
                     return RedirectToAction("Index", "Home");
                 }
-            } else {
-                TempData["Error"] = "Passwords don't match";
+            }
+            else
+            {
+                TempData["Error"] = "Hasła nie pasują do siebie";
                 return RedirectToAction("AccountSettings", "User");
             }
-            
+
         }
 
         public IActionResult ChangePhoneNumber(IFormCollection collection)
@@ -222,7 +227,7 @@ namespace Inzynierka.Controllers
 
             if (collection.Count < 3)
             {
-                TempData["Error"] = "Some fields were left empty";
+                TempData["Error"] = "Niektóre pola zostały puste";
                 return RedirectToAction("AccountSettings", "User");
             }
 
@@ -230,7 +235,7 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(value.Value))
                 {
-                    TempData["Error"] = "Some fields were left empty";
+                    TempData["Error"] = "Niektóre pola zostały puste";
                     return RedirectToAction("AccountSettings", "User");
                 }
             }
@@ -242,13 +247,13 @@ namespace Inzynierka.Controllers
             if (!Inzynierka.Models.User.CheckIfPasswordMatch(_context, GetSessionUserID(), userPassword))
                 return RedirectToAction("AccountSettings", "User");
 
-            if(!Inzynierka.Models.User.UpdatePhoneNumber(_context, GetSessionUserID(), newPhoneNumber))
+            if (!Inzynierka.Models.User.UpdatePhoneNumber(_context, GetSessionUserID(), newPhoneNumber))
             {
-                TempData["Error"] = "Couldn't update phone number";
+                TempData["Error"] = "Nie udało się zaktualizować numeru telefonu";
                 return RedirectToAction("AccountSettings", "User");
             }
 
-            TempData["Success"] = "Phone number changed successfully~";
+            TempData["Success"] = "Numer telefonu został pomyślnie zmieniony~";
             return RedirectToAction("Index", "Home");
         }
 
@@ -261,15 +266,15 @@ namespace Inzynierka.Controllers
 
             if (collection == null || collection.Count < 2)
             {
-                TempData["Error"] = "Something went wrong...";
+                TempData["Error"] = "Coś poszło nie tak...";
                 return RedirectToAction("AccountSettings", "User");
             }
 
-            foreach(var input in collection)
+            foreach (var input in collection)
             {
                 if (String.IsNullOrEmpty(input.Value))
                 {
-                    //TempData["Error"] = "Some fields were left empty";
+                    //TempData["Error"] = "Niektóre pola zostały puste";
                     //return RedirectToAction("AccountSettings", "User");
                 }
             }
@@ -277,11 +282,11 @@ namespace Inzynierka.Controllers
             int companyId = int.Parse(collection["company"].ToString());
             if (!Company.removeUserFromCompany(_context, GetSessionUserID(), companyId))
             {
-                TempData["Error"] = "Couldn't remove record from database...";
+                TempData["Error"] = "Nie udało się usunąć rekordu z bazy danych...";
                 return RedirectToAction("AccountSettings", "User");
             }
 
-            TempData["Success"] = "Removed self from company~";
+            TempData["Success"] = "Usunięto siebie z firmy~";
             return RedirectToAction("Index", "Home");
         }
 

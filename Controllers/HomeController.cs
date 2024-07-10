@@ -11,20 +11,25 @@ namespace Inzynierka.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ProjectContext context) : base (context)
+        public HomeController(ILogger<HomeController> logger, ProjectContext context) : base(context)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            
+            User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             List<Company> companies = new List<Company>();
 
             int privilages = GetSessionPrivilages();
-            if(privilages == 0)
+            if (privilages == 0)
                 companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
-            else if(privilages == 2 || privilages == 3)
+            else if (privilages == 2 || privilages == 3)
                 companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
 
             ViewData["Companies"] = companies;
@@ -67,7 +72,7 @@ namespace Inzynierka.Controllers
             User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
             if (currentUser == null)
             {
-                TempData["error"] = "Insufficent privileges...";
+                TempData["error"] = "Niewystarczające uprawnienia...";
                 return RedirectToAction("Login", "Home");
             }
             ViewData["User"] = currentUser;
@@ -90,7 +95,7 @@ namespace Inzynierka.Controllers
             {
                 if (String.IsNullOrEmpty(item.Value.ToString()))
                 {
-                    CreateErrorMessage("Please select a company", false);
+                    CreateErrorMessage("Proszę wybrać firmę", false);
                     return RedirectToAction("ChangeCompany", "Home");
                 }
 
@@ -101,12 +106,12 @@ namespace Inzynierka.Controllers
             {
                 HttpContext.Session.SetString("selectedCompany", company);
 
-                TempData["Success"] = "Selected company saved successfully!";
+                TempData["Success"] = "Wybrana firma została zapisana pomyślnie!";
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                TempData["error"] = "Couldn't change the selected company";
+                TempData["error"] = "Nie udało się zmienić wybranej firmy";
                 return RedirectToAction("ChangeCompany", "Home");
             }
         }
@@ -123,14 +128,14 @@ namespace Inzynierka.Controllers
             //XElement stylingFile = XMLManager.CreateStyling(stylings);]
             XElement textStyling = XMLManager.CreateSingleStyling(stylings._textStylingKeys, stylings._textStylingValues, "text-styling");
             XElement tableStyling = XMLManager.CreateSingleStyling(stylings._tableStylingKeys, stylings._tableStylingValues, "table-styling");
-            XElement specialStyling = XMLManager.CreateSingleStyling(new string[] {"test"}, new string[] {"testValue"}, "special-styling");
+            XElement specialStyling = XMLManager.CreateSingleStyling(new string[] { "test" }, new string[] { "testValue" }, "special-styling");
             XElement completeStyling = XMLManager.JoinMulitpleStyles(new XElement[] { textStyling, tableStyling, specialStyling });
 
             string creatorName = GetSessionUsername();
             int userId = GetSessionUserID();
-            if(creatorName == null)
+            if (creatorName == null)
             {
-                TempData["error"] = "Error: Couldn't find session data";
+                TempData["error"] = "Błąd: Nie udało się znaleźć danych sesji";
                 return RedirectToAction("Index");
             }
 
@@ -142,11 +147,11 @@ namespace Inzynierka.Controllers
                 referenceToken = referenceToken.Replace(c, string.Empty);
             }
 
-            if(_sqlCommandsManager.CreateStyling(textStyling, tableStyling, specialStyling, creatorName, userId, stylings.stylingName, referenceToken) == 0)
+            if (_sqlCommandsManager.CreateStyling(textStyling, tableStyling, specialStyling, creatorName, userId, stylings.stylingName, referenceToken) == 0)
             {
-                TempData["error"] = "Couldn't add stylings to the db";
+                TempData["error"] = "Nie udało się dodać stylizacji do bazy danych";
                 return RedirectToAction("Index");
-            } 
+            }
             else
                 return RedirectToAction("Index");
         }
@@ -159,10 +164,10 @@ namespace Inzynierka.Controllers
             {
                 switch (item.Key)
                 {
-                    case "footersColor": { footersColor = item.Value; break;}
-                    case "panelsColor": { panelsColor = item.Value; break;}
-                    case "textsColor": { textsColor = item.Value; break;}
-                    case "backgroundsColor": { backgroundsColor = item.Value; break;}
+                    case "footersColor": { footersColor = item.Value; break; }
+                    case "panelsColor": { panelsColor = item.Value; break; }
+                    case "textsColor": { textsColor = item.Value; break; }
+                    case "backgroundsColor": { backgroundsColor = item.Value; break; }
                 }
             }
             HttpContext.Session.SetString("footersColor", footersColor);
@@ -170,7 +175,7 @@ namespace Inzynierka.Controllers
             HttpContext.Session.SetString("textsColor", textsColor);
             HttpContext.Session.SetString("backgroundsColor", backgroundsColor);
 
-            TempData["Success"] = "Layout styles saved successfully!";
+            TempData["Success"] = "Stylizacja układu została zapisana pomyślnie!";
             return RedirectToAction("Index", "Home");
         }
 

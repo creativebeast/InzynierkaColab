@@ -29,13 +29,13 @@ namespace Inzynierka.Controllers
             User currentUser = Inzynierka.Models.User.GetUserById(_context, GetSessionUserID());
             if (currentUser == null)
             {
-                TempData["error"] = "Insufficent privileges...";
+                TempData["error"] = "Niewystarczające uprawnienia...";
                 return RedirectToAction("Login", "Home");
             }
 
             if (!companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("ChangeCompany", "Home");
             }
 
@@ -53,7 +53,7 @@ namespace Inzynierka.Controllers
 
             if (targetCompany == null)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -81,7 +81,7 @@ namespace Inzynierka.Controllers
 
                 if (String.IsNullOrEmpty(item.Value))
                 {
-                    TempData["Error"] = $"Field {item.Key} was left empty...";
+                    TempData["Error"] = $"Pole {item.Key} pozostało puste...";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -90,11 +90,11 @@ namespace Inzynierka.Controllers
 
             if (!Client.CreateNewClient(_context, collection, relatedCompanyId, out string companyName))
             {
-                TempData["Error"] = $"Couldn't create new client...";
+                TempData["Error"] = $"Nie udało się utworzyć nowego klienta...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Added new Client - {companyName}";
+            TempData["Success"] = $"Dodano nowego klienta - {companyName}";
             return RedirectToAction("Index", "Home");
         }
 
@@ -120,11 +120,11 @@ namespace Inzynierka.Controllers
 
             if (!Client.UpdateTargetCompany(_context, changedFields, clientID, companyID))
             {
-                TempData["Error"] = $"Couldn't update client...";
+                TempData["Error"] = $"Nie udało się zaktualizować klienta...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Client Updated";
+            TempData["Success"] = $"Zaktualizowano klienta";
             return RedirectToAction("Index", "Home");
         }
 
@@ -137,13 +137,13 @@ namespace Inzynierka.Controllers
 
             int clientID = int.Parse(collection["ClientID"].ToString());
             int companyID = int.Parse(collection["CompanyID"].ToString());
-            if(!Client.DeleteTargetCompany(_context, clientID, companyID, GetSessionUserID()))
+            if (!Client.DeleteTargetCompany(_context, clientID, companyID, GetSessionUserID()))
             {
-                TempData["Error"] = $"Couldn't delete client...";
+                TempData["Error"] = $"Nie udało się usunąć klienta...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Client Deleted";
+            TempData["Success"] = $"Usunięto klienta";
             return RedirectToAction("Index", "Home");
         }
     }

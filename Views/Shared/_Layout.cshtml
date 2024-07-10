@@ -3,6 +3,7 @@
     var panelsColor = Context.Session.GetString("panelsColor") ?? string.Empty;
     var textsColor = Context.Session.GetString("textsColor") ?? string.Empty;
     var backgroundsColor = Context.Session.GetString("backgroundsColor") ?? string.Empty;
+    var userId = Context.Session.GetString("UserID") ?? string.Empty;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +19,15 @@
             color: @textsColor !important;
             background-color: @backgroundsColor !important;
         }
+
         label {
             color: @textsColor !important;
         }
+
         #layoutNavbar {
             background-color: @panelsColor !important;
         }
+
         #layoutFooter {
             background-color: @footersColor !important;
         }
@@ -33,86 +37,85 @@
 <body id="Layout">
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-lg-5" style="position:relative;bottom:9px;">
-            <div class="container-fluid" id="layoutNavbar">
-                <a class="navbar-brand text-white-50 bg-dark" style="padding-left:15px;padding-right:15px;padding-bottom:4px;position:relative;right:20px;" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"  
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:0;padding-bottom:2px;" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white bg-dark" style="position:absolute;right:0;top:25;padding-bottom:0px;" asp-area="" asp-controller="Home" asp-action="ChangeCompany">Zmiana Firmy</a>
-                        </li>
-                    </ul>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark" style="position:relative;">
+            <div class="container-fluid row" id="layoutNavbar">
+                <a class="navbar-brand text-white-50 bg-dark col-3" asp-area="" asp-controller="Home" asp-action="Index">Inzynierka</a>
+                @*<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>*@
+                <div class="navbar-collapse collapse col-9">
+                    <div class="row w-100">
+                        @if (userId != string.Empty)
+                        {
+                            <div class="nav-item col-6 com-md-2 col-lg-1 ms-auto text-end">
+                                <a class="nav-link text-white bg-dark" asp-area="" asp-controller="Home" asp-action="ChangeCompany">Zmiana Firmy</a>
+                            </div>
+                            <div class="nav-item col-6 col-md-2 col-lg-1 text-end">
+                                <a class="nav-link text-white bg-dark" asp-area="" asp-controller="Home" asp-action="Logout">Wyloguj się</a>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <nav class="menu" style="z-index:12;padding-bottom:5px;position:absolute;position:relative;bottom:34px;">
-        <ul class="menu__list">
-            <li class="menu__item menu__item--parent">
+        <nav class="menu" style="z-index:12;margin-bottom:25px;position:absolute;position:relative;">
+            <ul class="menu__list px-0">
+                <li class="menu__item menu__item--parent">
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Użytkownika ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item" style="color:black;">
-                        <a asp-controller="User" asp-action="Account" class="menu__link" style="color:black;">Moje Dane</a>
-                    </li>                                                                  
-                    <li class="menu__item">
+                    <ul class="menu__sublist menu__sublist--bottom p-0">
+                        <li class="menu__item" style="color:black;">
+                            <a asp-controller="User" asp-action="Account" class="menu__link" style="color:black;">Moje Dane</a>
+                        </li>
+                        <li class="menu__item">
                             <a asp-controller="User" asp-action="StylingSettings" class="menu__link" style="color:black;">Moje Style</a>
-                    </li>                                          
-                    <li class="menu__item">
+                        </li>
+                        <li class="menu__item">
                             <a style="color:black;" asp-controller="Company" asp-action="CreateCompany" class="menu__link">Dodaj Firmę</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu__item menu__item--parent">
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__item menu__item--parent">
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item">
-                        <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
-@*                             <script>
-                            var companyId = localStorage.getItem('companySelect');
-                            if (companyId) {
-                                var link = document.getElementById('CompanyData');
-                                link.href = link.href + '?companyId=' + companyId;
-                            }
-                        </script> *@
-                    </li>
-                    <li class="menu__item">
-                        <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
-                    </li>
-                    <li class="menu__item">
-                        <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu__item menu__item--parent">
+                    <ul class="menu__sublist menu__sublist--bottom p-0">
+                        <li class="menu__item">
+                            <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
+                        </li>
+                        <li class="menu__item">
+                            <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
+                        </li>
+                        <li class="menu__item">
+                            <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__item menu__item--parent">
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Faktur ▼</a>
-                <ul class="menu__sublist menu__sublist--bottom">
-                    <li class="menu__item">
-                        <a id="AddInvoice" style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
-                    </li>
-                    <li class="menu__item">
-                        <a id="ExportInvoice" style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
-                    </li>
-                    <li class="menu__item">
-                        <a id="InvoiceData" style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
-                    </li>
-                </ul>
-            </li>
+                    <ul class="menu__sublist menu__sublist--bottom p-0">
+                        <li class="menu__item">
+                            <a id="AddInvoice" style="color:black;" asp-controller="Invoice" asp-action="AddInvoice" class="menu__link">Utwórz Fakturę</a>
+                        </li>
+                        <li class="menu__item">
+                            <a id="ExportInvoice" style="color:black;" asp-controller="Invoice" asp-action="ExportInvoice" class="menu__link">Generuj Rozliczenie z Klientem</a>
+                        </li>
+                        <li class="menu__item">
+                            <a id="InvoiceData" style="color:black;" asp-controller="Invoice" asp-action="InvoiceData" class="menu__link">Historia Faktur</a>
+                        </li>
+                    </ul>
+                </li>
 
-        </ul>
-    </nav>
+            </ul>
+        </nav>
 
     </header>
     <div class="container" asp-validation-summary="All">
-        @if(TempData["Success"] != null){
+        @if (TempData["Success"] != null)
+        {
             <p1> @TempData["Success"] </p1>
-        } else if (TempData["Error"] != null){
+        }
+        else if (TempData["Error"] != null)
+        {
             <p2> @TempData["Error"] </p2>
         }
         <main role="main" class="pb-3">
@@ -121,7 +124,7 @@
     </div>
 
     <footer class="border-top footer" id="layoutFooter" style="max-height: 100px">
-        <div class="container"id="container">
+        <div class="container" id="container">
             &copy; 2023 - Inzynierka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

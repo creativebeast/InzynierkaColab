@@ -12,6 +12,9 @@
         <div class="center">
 
             <div id="panel">
+                <div class="modal-header h4">
+                    <p class="w-100 text-center">Zaloguj się</p>
+                </div>
                 <form asp-action="Login" asp-controller="User" method="post" class="dataForm">
                     <label for="username">Nazwa użytkownika:</label>
                     <input type="text" id="username" name="username">
@@ -21,7 +24,7 @@
                         <div id="checkbox">
                             <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>
                             </div>
-                        <input type="submit" asp value="Login">
+                        <input type="submit" asp value="Zaloguj">
                         <span class="text-center">
                         <div class="registerForm">
                             <a asp-area="" asp-controller="User" asp-action="RegisterComp">Nie masz konta? Zarejestruj się teraz!</a>

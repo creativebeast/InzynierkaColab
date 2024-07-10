@@ -36,14 +36,14 @@ namespace Inzynierka.Controllers
 
             if (!companyId.HasValue)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("ChangeCompany", "Home");
             }
 
             Company? ownerCompany = Company.getCompanyByOwnerID(_context, GetSessionUserID(), companyId.Value);
             if (ownerCompany == null)
             {
-                TempData["Error"] = "Something went wrong, no company found...";
+                TempData["Error"] = "Coś poszło nie tak, nie znaleziono firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -51,8 +51,6 @@ namespace Inzynierka.Controllers
 
             return View();
         }
-
-
 
         public IActionResult CreateCompany()
         {
@@ -77,18 +75,18 @@ namespace Inzynierka.Controllers
 
                 if (String.IsNullOrEmpty(item.Value))
                 {
-                    TempData["Error"] = $"Field {item.Key} was left empty...";
+                    TempData["Error"] = $"Pole {item.Key} pozostało puste...";
                     return RedirectToAction("Index", "Home");
                 }
             }
 
-            if(!Company.CreateNewCompany(_context, collection, GetSessionUserID(), out string companyName))
+            if (!Company.CreateNewCompany(_context, collection, GetSessionUserID(), out string companyName))
             {
-                TempData["Error"] = $"Couldn't create new company...";
+                TempData["Error"] = $"Nie udało się utworzyć nowej firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Created new company - {companyName}";
+            TempData["Success"] = $"Utworzono nową firmę - {companyName}";
             return RedirectToAction("Index", "Home");
         }
 
@@ -111,7 +109,7 @@ namespace Inzynierka.Controllers
 
             if (String.IsNullOrEmpty(collection["companyId"]))
             {
-                TempData["Error"] = $"Couldn't find target company...";
+                TempData["Error"] = $"Nie udało się znaleźć docelowej firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -119,11 +117,11 @@ namespace Inzynierka.Controllers
 
             if (!Company.UpdateCompanyData(_context, changedFields, GetSessionUserID(), companyId))
             {
-                TempData["Error"] = $"Couldn't make changes to existing company...";
+                TempData["Error"] = $"Nie udało się wprowadzić zmian w istniejącej firmie...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Company Data Updated!";
+            TempData["Success"] = $"Zaktualizowano dane firmy!";
             return RedirectToAction("Index", "Home");
         }
 
@@ -135,19 +133,19 @@ namespace Inzynierka.Controllers
             }
 
             int companyId = collection["companyId"].ToString() != null ? int.Parse(collection["companyId"].ToString()) : -1;
-            if(companyId == -1)
+            if (companyId == -1)
             {
-                TempData["Error"] = $"Couldn't find target company...";
+                TempData["Error"] = $"Nie udało się znaleźć docelowej firmy...";
                 return RedirectToAction("Index", "Home");
             }
 
-            if(!Company.DeleteCompanyByID(_context, GetSessionUserID(), companyId))
+            if (!Company.DeleteCompanyByID(_context, GetSessionUserID(), companyId))
             {
-                TempData["Error"] = $"Couldn't complete deletion process...";
+                TempData["Error"] = $"Nie udało się zakończyć procesu usuwania...";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Success"] = $"Company Deleted";
+            TempData["Success"] = $"Usunięto firmę";
             return RedirectToAction("Index", "Home");
         }
 
