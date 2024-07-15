@@ -12,8 +12,8 @@
     }
     else
     {
-        <h5 style="font weight:800;font-size:xx-large;z-index:11;">Dodaj Klienta Do Firmy @company.Name</h5>
-        <form asp-action="CreateClient" asp-controller="client" method="post" style="background-color:white;z-index:10;">
+        <h5 style="font-weight:800;font-size:xx-large;z-index:11;">Dodaj Klienta Do Firmy @company.Name</h5>
+        <form asp-action="CreateClient" asp-controller="client" method="post" style="background-color:white;z-index:11;border: solid 5px black;outline: solid 10px beige">
             <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
 
             <label for="clientName">Client Name:</label>
@@ -60,8 +60,8 @@
 
             <br>
 
-            <input type="submit" value="Dodaj Firme">
-        </form> <hr />
+            <input type="submit" class="btn btn-outline-dark" value="Dodaj Firme" style="z-index:11;text-align:right;">
+        </form>
 
         @if(avalibleClients != null && avalibleClients.Count > 0){
             <h5>Modyfikuj Dane Klienta dla Klientów Firmy <b>@company.Name</b> </h5>

@@ -10,10 +10,10 @@
 
 <div class="container-fluid text-center">
     @if(company != null){
-        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post" style="background-color:white;z-index:10;">
+        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige">
             <div class="row text-start" style="width:100%">
                 <label for="invoiceName">Invoice Name:</label>
-                <input type="text" name="invoiceName" required>
+                <input type="text" name="invoiceName" style="position:relative;left:13px;" required>
 
                 <div class="col-6 text-start" id="CompanyData">
                     <h4>Seller</h4>
@@ -115,9 +115,9 @@
             <input type="checkbox" name="IncludesDelivery">
 
             <label for="PaymentDueDate">Payment Due Date:</label>
-            <input type="date" name="PaymentDueDate" required>
+            <input type="date" name="PaymentDueDate" style="position:relative;bottom:3px;z-index:12;"required>
 
-            <table id="product-table" class="text-start">
+            <table id="product-table" class="text-start" style="background-color:white;position:absolute;left:0;z-index:11;border: solid 5px black;outline: solid 10px beige">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -146,11 +146,11 @@
                     <td> <input type="number" min="0.00" step="0.01" name="newProductDiscountTotal" id="newProductPostDiscountTotal" disabled /> </td>
                 </tr>
             </table>
-            <button type="button" class="btn btn-outline-dark" id="addNewProduct">Add Product!</button>
+            <button type="submit" class="btn btn-outline-dark" style="z-index:12;position:absolute;left:0;bottom:0;" id="addNewProduct">Add Product!</button>
             <br><br>
             @*@Html.EditorFor(m => m[0].Name)*@
             @*<input type='text' name="[0].Name" value='Test'>*@
-            <input type="submit" class="btn btn-outline-dark" value="Submit" style="text-align:left;">
+            <input type="submit" class="btn btn-outline-dark" value="Submit" style="text-align:left;z-index:12;position:absolute;right:0;bottom:0">
         </form>
     }
     @section Scripts
