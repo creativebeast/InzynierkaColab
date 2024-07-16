@@ -35,7 +35,7 @@
 </style>
 <body>
     <div class="container text-center" id="myData" style="position:relative;bottom:35px;">
-        <h2 id="myDataTitle"style="z-index:11;">Moje Dane</h2>
+        <h2 id="myDataTitle"style="z-index:11;" class="mt-5">Moje Dane</h2>
         <p style="position:relative;bottom:30px; border-bottom:solid 2px black;">
             <p1 style="font-weight:bold;">Nazwa Użytkownika:</p1>
             <span> @currentUser.Username </span>
@@ -86,7 +86,7 @@
         <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;z-index:11;">
             Zmiana Hasła
         </h5>
-        <form asp-action="ChangePassword" asp-controller="User" method="post" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+        <form asp-action="ChangePassword" asp-controller="User" method="post" class="p-3" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
             <label for="oldPassword">Stare hasło:</label>
             <input type="password" id="oldPassword" name=oldPassword>
 
@@ -95,12 +95,12 @@
             <label for="newPassword2">Powtórz Nowe Hasło:</label>
             <input type="password" id="newPassword2" name=newPassword2><br />
             <div id="submit" style="text-align:right;">
-                <input type="button" class="btn btn-outline-dark" value="Submit">
+                <input type="submit" class="btn btn-outline-dark" value="Wyślij">
             </div>
         </form>
         <!-- Zmień Nr.Telefonu -->
         <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;padding:5px;z-index:11;">Zmiana Nr.Telefonu</h5>
-        <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+        <form asp-action="ChangePhoneNumber" asp-controller="User" method="post" class="p-3" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
             <label for="password">Podaj Hasło:</label>
             <input type="password" name=password>
 
@@ -111,18 +111,18 @@
             <input type="text" id="phoneNumber" name=phoneNumber><br />
 
             <div id="submit" style="text-align:right;">
-                <input type="button" class="btn btn-outline-dark" value="Submit">
+                <input type="submit" class="btn btn-outline-dark" value="Wyślij">
             </div>
         </form>
         <!-- Usuń Się z danej firmy -->
         <h5 style=" font-weight: 800;font-size: xx-large;position:relative;bottom:10px;padding:5px;z-index:11;">Odepnij się od danej firmy</h5>
         @if (companies == null || companies.Count == 0)
         {
-            <p>No companies found to be assigned to user</p>
+            <p>Nie znalezniono przypisanych do użytkownika firm</p>
         }
         else
         {
-            <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
+            <form asp-action="RemoveSelfFromCompany" asp-controller="User" method="post" class="p-3" style="background-color:white;z-index:10;position:relative;bottom:10px;border: solid 5px black;outline:10px solid beige;padding 5px;">
                 <label for="password">Podaj Hasło:</label>
                 <input type="password" name=password>
 
@@ -135,7 +135,7 @@
                 </select><br />
 
                 <div id="submit" style="text-align:right;">
-                    <input type="button" class="btn btn-outline-dark" value="Submit">
+                    <input type="submit" class="btn btn-outline-dark" value="Wyślij">
                 </div>
             </form>
         }

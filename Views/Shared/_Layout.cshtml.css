@@ -11,16 +11,30 @@ a {
   color: #0077cc;
 }
 p2 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  border: 1px solid;
-  margin: 10px 0px;
-  padding: 15px 10px 15px 50px;
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  color: #D8000C;
-  background-color: #FFBABA;
-  background-image: url('https://i.imgur.com/GnyDvKN.png');
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 75px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png');
+    background-size: contain;
+}
+p1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 75px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: #249d00;
+    background-color: #d4ffba;
+    background-image: url('https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/confirm-icon.png');
+    background-size: contain;
 }
 
 .btn-primary {

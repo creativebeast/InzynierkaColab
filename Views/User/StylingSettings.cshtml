@@ -33,64 +33,84 @@
 
     })
 </script>
-<form asp-action="ChangeLayoutColor" asp-controller="Home" method="post" class="dataForm">
-    <div class="container text-center">
-        <h4 style="position:fixed;left:30px;top:180px;font-weight:bolder;z-index:11;">Kolory</h4>
-        <div class="container text-center" style="background-color:white;z-index:10;position:fixed;left:0;top:220px;max-width:600px;min-width:min-content;height:auto;align-items:center;justify-content:center;border: solid 5px black;outline: solid 10px beige;">
-            <div class="col" style="position:relative;right:200px;">
-                <label style="position:relative;right:20px;left:130px;">kolor tła: <input type="color" name="backgroundsColor" id="backgroundsColor" value="@backgroundsColor"></label>
-                <label style="position:relative;right:5px;top:100px;left:143px;">kolor panelu: <input type="color" name="panelsColor" id="panelsColor" value="@panelsColor"></label>
+<div class="container">
+    <form asp-action="ChangeLayoutColor" asp-controller="Home" method="post" class="dataForm p-3">
+        <div class="container">
+            <h4 style="font-weight:bolder;z-index:11;">Kolory</h4>
+            <div class="container p-3" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige;">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <label>Kolor tła:</label>
+                            <input class="mx-4" type="color" name="backgroundsColor" id="backgroundsColor" value="@backgroundsColor">
+                        </div>
+                        <div class="col-2 offset-7">
+                            <label>Kolor panelu:</label>
+                            <input class="mx-4" type="color" name="panelsColor" id="panelsColor" value="@panelsColor">
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <label>Kolor tekstu:</label>
+                            <input class="mx-4" type="color" name="textsColor" id="textsColor" value="@textsColor">
+                        </div>
+                        <div class="col-2 offset-7">
+                            <label>Kolor stopki:</label>
+                            <input class="mx-4" type="color" name="footersColor" id="footersColor" value="@footersColor">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 offset-10">
+                        <input type="submit" style="left:0" value="Zapisz">
+                    </div>
+                </div>
             </div>
-            <div class="col" style="position:relative;left:200px;">
-                <label style="position:relative;right:7px;bottom:102px;left:165px;">kolor tekstu: <input type="color" name="textsColor" id="textsColor" value="@textsColor"></label>
-                <label style="position:relative;right:7px;left:165px;">kolor stópki: <input type="color" name="footersColor" id="footersColor" value="@footersColor"></label>
-            </div>
-            <input type="submit" value="Zapisz">
-        </div>
 
-        <div id="defaultStylings" style="position:relative;top:30px;">
-        <h4 style="position:fixed;left:30px;top:485px;font-weight:bolder;z-index:11;">Podgląd Stylizacji</h4>
-        <div class="card" style="position:fixed;left:0px;top:520px;justify-content:space-between">
-            <img class="card-img-top" src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
-            <div class="card-body">
-                <p class="card-text">stylizacja domyślna</p>
+            <div id="defaultStylings" style="position:relative;top:30px;">
+                <h4 style="font-weight:bolder;z-index:11;">Podgląd Stylizacji</h4>
+                <div class="row">
+                    <div class="col-3">
+                        <img src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
+                        <div class="card-body">
+                            <p class="card-text">Stylizacja domyślna</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <img src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
+                        <div class="card-body">
+                            <p class="card-text">Stylizacja czerwona</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <img src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
+                        <div class="card-body">
+                            <p class="card-text">Stylizacja niebieska</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <img src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
+                        <div class="card-body">
+                            <p class="card-text">Stylizacja zielona</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div><br>
-        <div class="card" style="position:fixed;left:161px;top:520px;justify-content:space-between">
-            <img class="card-img-top" src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
-            <div class="card-body">
-                <p class="card-text">stylizacja czerwona</p>
-            </div>
-        </div><br>
-        <div class="card" style="position:fixed;left:322px;top:520px;justify-content:space-between">
-            <img class="card-img-top" src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
-            <div class="card-body">
-                <p class="card-text">stylizacja niebieska</p>
-            </div>
-        </div><br>
-        <div class="card" style="position:fixed;left:483px;top:520px;justify-content:space-between">
-            <img class="card-img-top" src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
-            <div class="card-body">
-                <p class="card-text">stylizacja zielona</p>
-            </div>
-        </div><br>
-        </div>
-        <!--
-        <div class="row" style="position: relative;top:250px;">
-            <!--#region Stylizacje  -->
-    <!--<div>Stylizacja Tabel</div>-->
+            <!--
+            <div class="row" style="position: relative;top:250px;">
+                <!--#region Stylizacje  -->
+            <!--<div>Stylizacja Tabel</div>-->
             <!--<div>Stylizacja Tekstu</div>-->
             <!--<div>Stylizacje Specjalne</div>-->
             <!--#endregion -->
-             
             <!--#region main  -->
-    <!--<label for="ImportStylizacji">Importuj Styl</label>-->
+            <!--<label for="ImportStylizacji">Importuj Styl</label>-->
             <!--<input type="text" name="ImportStylizacji" id="ImportStylizacji">
             <!--#endregion -->
-    <!--</div>-->
-
-           <!-- <div class="row" style="position:relative;top:250px;">-->
+            <!--</div>-->
+            <!-- <div class="row" style="position:relative;top:250px;">-->
             <!--??? Lista ogólnie dostępnych stylizacji od użytkowników ???
             </div>-->
-    </div>
-</form>
+        </div>
+    </form>
+</div>

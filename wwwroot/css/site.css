@@ -105,10 +105,8 @@ label {
 .dataForm * input[type="submit"] {
     width: 160px;
     padding: 5px 13px;
-    border: 1px solid #005f85;
-    color: white;
-    text-shadow: 0 0 1px black;
-    background: #98c9dc;
+    color: #5b540d;
+    background: #e5cd93;
     position: relative;
     left: 180px;
 }
@@ -241,4 +239,52 @@ a {
     -webkit-font-smoothing: auto;
     position: relative;
     top: 150px;
+}
+
+.index-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+h4 {
+    color: #555;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.container a {
+    width: fit-content;
+    padding: 10px;
+    margin: 5px 0;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container a:hover {
+    color: #0064cf;
+}
+
+form {
+    margin: 10px 0;
+}
+
+input[type="submit"] {
+    background-color: #e5cd93;
+    color: #5b540d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #bca46a;
 }
