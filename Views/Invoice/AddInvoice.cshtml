@@ -10,59 +10,62 @@
 
 <div class="container-fluid text-center">
     @if(company != null){
-        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" method="post" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige">
+        <form asp-action="CreateInvoice" asp-controller="Invoice" id="invoice-form" clas="p-3" method="post" style="max-height:1150px;background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige">
             <div class="row text-start" style="width:100%">
-                <label for="invoiceName">Invoice Name:</label>
+                <label for="invoiceName">Nazwa faktury:</label>
                 <input type="text" name="invoiceName" style="position:relative;left:13px;" required>
 
                 <div class="col-6 text-start" id="CompanyData">
-                    <h4>Seller</h4>
+                    <h4>Sprzedawca</h4>
                     <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
 
-                    <label for="companyName">Company Name:</label>
+                    <label for="companyName">Nazwa firmy:</label>
                     <input type="text" name="companyName" value=@company.Name required readonly="readonly">
 
-                    <label for="companyPostalCode">Company Postal Code:</label>
+                    <label for="companyPostalCode">Kod pocztowy firmy:</label>
                     <input type="text" name="companyPostalCode" value=@company.PostalCode required readonly="readonly">
-                    
-                    <label for="companyCity">Company City:</label>
+
+                    <label for="companyCity">Miasto firmy:</label>
                     <input type="text" name="companyCity" value=@company.City required readonly="readonly">
 
-                    <label for="companyProvince">Company Province:</label>
-                    @if (String.IsNullOrWhiteSpace(company.Province)){
+                    <label for="companyProvince">Województwo firmy:</label>
+                    @if (String.IsNullOrWhiteSpace(company.Province))
+                    {
                         <input type="text" name="companyProvince" value="" readonly="readonly">
-                    } else {
+                    }
+                    else
+                    {
                         <input type="text" name="companyProvince" value=@company.Province readonly="readonly">
                     }
 
-                    <label for="companyStreet">Company Street:</label>
+                    <label for="companyStreet">Ulica firmy:</label>
                     <input type="text" name="companyStreet" value=@company.Street required readonly="readonly">
 
-                    <label for="companyLocalNumber">Company Locale Number:</label>
+                    <label for="companyLocalNumber">Numer lokalu firmy:</label>
                     <input type="text" name="companyLocalNumber" value=@company.LocalNumber required readonly="readonly">
 
-                    <label for="companyContactNumber">Company Contact Number:</label>
+                    <label for="companyContactNumber">Numer kontaktowy firmy:</label>
                     <input type="text" name="companyContactNumber" value=@company.ContactNumber required readonly="readonly">
 
-                    <label for="companyContactEmail">Company Contact Email:</label>
+                    <label for="companyContactEmail">E-mail kontaktowy firmy:</label>
                     <input type="text" name="companyContactEmail" value=@company.ContactMail required readonly="readonly">
 
-                    <label for="companyNIP">Company NIP:</label>
+                    <label for="companyNIP">NIP firmy:</label>
                     <input type="text" name="companyNIP" value=@company.NIP required readonly="readonly">
 
-                    <label for="companyBankName">Bank Name:</label>
+                    <label for="companyBankName">Nazwa banku:</label>
                     <input type="text" name="companyBankName" value=@company.BankName required readonly="readonly">
 
-                    <label for="companyBankAccountNumber">Bank Account Number:</label>
+                    <label for="companyBankAccountNumber">Numer konta bankowego:</label>
                     <input type="text" name="companyBankNumber" value=@company.BankAccountNumber required readonly="readonly">
                 </div>
 
                 <div class="col-6 text-start" id="ClientData">
                     <input type="number" value="" name="clientId" id="clientId" hidden>
-                    <h4>Buyer</h4>
+                    <h4>Nabywca</h4>
                     @if (clients != null && clients.Count > 0)
                     {
-                        <label for="existing-client">Use Existing Client</label>
+                        <label for="existing-client">Użyj istniejącego klienta</label>
 
                         <br>
                         <input type="checkbox" id="existing-client" name="useExistingClient" value="useExistingClient">
@@ -76,61 +79,66 @@
                         </select>
                     }
 
-                    <label for="clientName">Client Name:</label>
+                    <label for="clientName">Nazwa klienta:</label>
                     <input type="text" name="clientName" id="clientName" class="clientData" required>
 
-                    <label for="clientPostalCode">Client Postal Code:</label>
+                    <label for="clientPostalCode">Kod pocztowy klienta:</label>
                     <input type="text" name="clientPostalCode" id="clientPostalCode" class="clientData" required>
 
-                    <label for="clientCity">Client City:</label>
+                    <label for="clientCity">Miasto klienta:</label>
                     <input type="text" name="clientCity" id="clientCity" class="clientData" required>
 
-                    <label for="clientProvince">Client Province:</label>
+                    <label for="clientProvince">Województwo klienta:</label>
                     <input type="text" name="clientProvince" id="clientProvince" class="clientData">
 
-                    <label for="clientStreet">Client Street:</label>
+                    <label for="clientStreet">Ulica klienta:</label>
                     <input type="text" name="clientStreet" id="clientStreet" class="clientData" required>
 
-                    <label for="clientLocaleNumber">Client Locale Number:</label>
+                    <label for="clientLocaleNumber">Numer lokalu klienta:</label>
                     <input type="text" name="clientLocalNumber" id="clientLocalNumber" class="clientData" required>
 
-                    <label for="clientNIP">Client NIP:</label>
+                    <label for="clientNIP">NIP klienta:</label>
                     <input type="text" name="clientNIP" id="clientNIP" class="clientData" required>
 
-                    <label for="clientContactEmail">Client Email:</label>
+                    <label for="clientContactEmail">E-mail klienta:</label>
                     <input type="text" name="clientContactEmail" id="clientContactEmail" class="clientData">
 
-                    <label for="clientContactPhone">Client Phone:</label>
+                    <label for="clientContactPhone">Telefon klienta:</label>
                     <input type="text" name="clientContactPhone" id="clientContactPhone" class="clientData">
 
-                    <h6>Clients is a Company</h6>
-                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" selected>
-                    <label for="clientIsNotCompany">Yes</label>
-                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
-                    <label for="clientIsCompany">No</label>
+                    <h6>Klient jest firmą</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" checked>
+                        <label class="form-check-label" for="clientIsNotCompany">Tak</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
+                        <label class="form-check-label" for="clientIsCompany">Nie</label>
+                    </div>
                 </div>
             </div>
 
-            <label for="IncludesDelivery">Invoice Includes Delivery:</label>
+            <label for="IncludesDelivery">Faktura zawiera dostawę:</label>
             <input type="checkbox" name="IncludesDelivery">
 
-            <label for="PaymentDueDate">Payment Due Date:</label>
-            <input type="date" name="PaymentDueDate" style="position:relative;bottom:3px;z-index:12;"required>
+            <label for="PaymentDueDate">Termin płatności:</label>
+            <input type="date" name="PaymentDueDate" style="position:relative;bottom:3px;z-index:12;" required>
 
-            <table id="product-table" class="text-start" style="background-color:white;position:absolute;left:0;z-index:11;border: solid 5px black;outline: solid 10px beige">
+            <button type="button" class="btn btn-outline-dark" style="z-index:12;position:relative;left:40px;bottom:10px;" id="addNewProduct">Dodaj produkt!</button>
+            <input type="submit" class="btn btn-outline-dark" value="Zatwierdź" style="text-align:left;z-index:12;position:relative;left:400px;bottom:15px">
+            <table id="product-table" class="text-start" style="background-color:white;left:-150px;top:30px;z-index:11;position:relative;border: solid 5px black;outline: solid 10px beige">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Ilość</th>
                     <th scope="col">VAT %</th>
-                    <th scope="col">Discount %</th>
-                    <th scope="col">Product Netto Value</th>
-                    <th scope="col">Product Brutto Value</th>
-                    <th scope="col">Post Disc. Netto Value</th>
-                    <th scope="col">Total Netto Value</th>
-                    <th scope="col">Total Brutto Value</th>
-                    <th scope="col">Total Value</th>
-                    @*<th scope="col">Discriminator</th>*@
+                    <th scope="col">Zniżka %</th>
+                    <th scope="col">Wartość Netto Produktu</th>
+                    <th scope="col">Wartość Brutto Produktu</th>
+                    <th scope="col">Wartość Netto po zniżce</th>
+                    <th scope="col">Całkowita Wartość Netto</th>
+                    <th scope="col">Całkowita Wartość Brutto</th>
+                    <th scope="col">Całkowita Wartość</th>
                 </tr>
                 <tr id="product-data">
                     <td> # </td>
@@ -146,11 +154,7 @@
                     <td> <input type="number" min="0.00" step="0.01" name="newProductDiscountTotal" id="newProductPostDiscountTotal" disabled /> </td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-outline-dark" style="z-index:12;position:absolute;left:0;bottom:0;" id="addNewProduct">Add Product!</button>
             <br><br>
-            @*@Html.EditorFor(m => m[0].Name)*@
-            @*<input type='text' name="[0].Name" value='Test'>*@
-            <input type="submit" class="btn btn-outline-dark" value="Submit" style="text-align:left;z-index:12;position:absolute;right:0;bottom:0">
         </form>
     }
     @section Scripts
@@ -309,7 +313,7 @@
                         newProductPostDiscountTotal: parseFloat(document.querySelector('#newProductPostDiscountTotal').value)
                     };
 
-                    var deleteProdButtonID = 'DeleteProduct' + productListCount;
+                    var deleteProdButtonID = 'Usuń produkt ' + productListCount;
                     var productTable = document.querySelector('#product-table');
                     var productNode = document.createElement("tr");
                     var productData = "";

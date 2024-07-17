@@ -288,3 +288,7 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #bca46a;
 }
+
+#defaultStylings img {
+    border: solid black 1px;
+}

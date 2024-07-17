@@ -7,39 +7,42 @@
 }
 
 <div class="container text-center">
-    @if(company == null){
-        <h3>Something went wrong...</h3>
-    } else {       
+    @if (company == null)
+    {
+        <h3>Coś poszło nie tak...</h3>
+    }
+    else
+    {
 
         <h5 style="font-weight:800;font-size:xx-large;position:relative;bottom:15px;text-align:left;z-index:11;">Modyfikuj Firmę - <b>@company.Name</b> </h5>
-        <form asp-action="UpdateCompany" asp-controller="Company" method="post" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige;padding 5px;position:relative;bottom:15px;width:698px;">
+        <form asp-action="UpdateCompany" asp-controller="Company" method="post" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige;padding 5px;position:relative;bottom:15px;width:750px;">
             <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
 
-            <label for="companyName">Company Name:</label>
+            <label for="companyName">Nazwa Firmy:</label>
             <input type="text" name="companyName" placeholder="Nowa Nazwa Firmy">
             <span>|  Obecnie: @company.Name</span>
 
-            <label for="companyOwnerName">Owner Name:</label>
-            <input type="text" name="companyOwnerName" placeholder="Imie i Nazwisko Nowego Właściciela">
+            <label for="companyOwnerName">Imię i Nazwisko Właściciela:</label>
+            <input type="text" name="companyOwnerName" placeholder="Imię i Nazwisko Nowego Właściciela">
             <span>|  Obecnie: @company.OwnerName</span>
 
-            <label for="companyPostalCode">Postal Code:</label>
+            <label for="companyPostalCode">Kod Pocztowy:</label>
             <input type="text" name="companyPostalCode" placeholder="Nowy Kod Pocztowy">
             <span>|  Obecnie: @company.PostalCode</span>
 
-            <label for="companyCity">City:</label>
+            <label for="companyCity">Miasto:</label>
             <input type="text" name="companyCity" placeholder="Nowe Miasto">
             <span>|  Obecnie: @company.City</span>
 
-            <label for="companyProvince">Province:</label>
-            <input type="text" name="companyProvince" placeholder="Nowa Dzielnica (Opcjonalne)">\
+            <label for="companyProvince">Województwo:</label>
+            <input type="text" name="companyProvince" placeholder="Nowe Województwo (Opcjonalne)">
             <span>|  Obecnie: @company.Province</span>
 
-            <label for="companyStreet">Street:</label>
+            <label for="companyStreet">Ulica:</label>
             <input type="text" name="companyStreet" placeholder="Nowa Ulica">
             <span>|  Obecnie: @company.Street</span>
 
-            <label for="companyLocaleNumber">Locale Number:</label>
+            <label for="companyLocaleNumber">Numer Lokalu:</label>
             <input type="text" name="companyLocalNumber" placeholder="Nowy Numer Lokalu">
             <span>|  Obecnie: @company.LocalNumber</span>
 
@@ -47,12 +50,12 @@
             <input type="text" name="companyNIP" placeholder="Nowy NIP">
             <span>|  Obecnie: @company.NIP</span><br><br>
 
-            <input type="submit" value="Modyfikuj Firme">
+            <input type="submit" value="Modyfikuj Firmę">
             <form asp-action="DeleteCompany" asp-controller="Company" method="post">
                 <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
-                <input type="submit" value="Usuń Firme" style="background-color: red; color: navajowhite;position:relative;bottom:0px;text-align:right;">
+                <input type="submit" value="Usuń Firmę" style="background-color: red; color: navajowhite;position:relative;bottom:0px;text-align:right;">
             </form>
         </form>
     }
-    
+
 </div>

@@ -5,33 +5,67 @@
     var backgroundsColor = Context.Session.GetString("backgroundsColor") ?? "#ffffff";
 }
 <script>
+    window.addEventListener("load", () => {
+        document.body.addEventListener("change", () => {
 
-    document.body.addEventListener("change", () => {
+            let backColor = document.getElementById("backgroundsColor");
+            document.getElementById("Layout").style.setProperty("background-color", backColor.value, "important");
 
-        let backColor = document.getElementById("backgroundsColor");
-        document.getElementById("Layout").style.setProperty("background-color", backColor.value, "important");
+            let panelColor = document.getElementById("panelsColor");
+            document.getElementById("layoutNavbar").style.setProperty("background-color", panelColor.value, "important");
 
-        let panelColor = document.getElementById("panelsColor");
-        document.getElementById("layoutNavbar").style.setProperty("background-color", panelColor.value, "important");
+            let textColor = document.getElementById("textsColor");
+            document.body.style.setProperty("color", textColor.value, "important");
 
-        let textColor = document.getElementById("textsColor");
-        document.body.style.setProperty("color", textColor.value, "important");
+            let footerColor = document.getElementById("footersColor");
+            document.getElementById("layoutFooter").style.setProperty("background-color", footerColor.value, "important");
 
-        let footerColor = document.getElementById("footersColor");
-        document.getElementById("layoutFooter").style.setProperty("background-color", footerColor.value, "important");
+            function changeColor() {
+                const backColor = document.getElementById("backgroundsColor").value;
+                localStorage.setItem("backgroundsColor", backColor);
+                document.getElementById("Layout").style.setProperty("background-color", backColor, "important");
+                document.getElementById("Layout").style.transition = 'all 1s';
+            }
 
-        function onLoad() {
-            const backColor = localStorage.getElementById("backgroundsColor");
-        }
+        });
 
-        function changeColor() {
-            const backColor = document.getElementById("backgroundsColor").value;
-            localStorage.setItem("backgroundsColor", backColor);
-            document.getElementById("Layout").style.setProperty("background-color", backColor, "important");
-            document.getElementById("Layout").style.transition = 'all 1s';
-        }
+        document.getElementById("styleDefault").addEventListener("click", () => {
+            document.getElementById("backgroundsColor").value = "#ffffff";
+            document.getElementById("panelsColor").value = "#1e2124";
+            document.getElementById("textsColor").value = "#000000";
+            document.getElementById("footersColor").value = "#ffffff";
 
-    })
+            document.body.dispatchEvent(new Event('change'));
+        });
+
+        document.getElementById("styleRed").addEventListener("click", () => {
+            document.getElementById("backgroundsColor").value = "#ffcbc7";
+            document.getElementById("panelsColor").value = "#ff6559";
+            document.getElementById("textsColor").value = "#000000";
+            document.getElementById("footersColor").value = "#87140b";
+
+            document.body.dispatchEvent(new Event('change'));
+        });
+
+        document.getElementById("styleBlue").addEventListener("click", () => {
+            document.getElementById("backgroundsColor").value = "#ade6f7";
+            document.getElementById("panelsColor").value = "#48b3fa";
+            document.getElementById("textsColor").value = "#000000";
+            document.getElementById("footersColor").value = "#0b5687";
+
+            document.body.dispatchEvent(new Event('change'));
+        });
+
+        document.getElementById("styleGreen").addEventListener("click", () => {
+            document.getElementById("backgroundsColor").value = "#91faa9";
+            document.getElementById("panelsColor").value = "#029e2f";
+            document.getElementById("textsColor").value = "#000000";
+            document.getElementById("footersColor").value = "#0d7d34";
+
+            document.body.dispatchEvent(new Event('change'));
+        });
+    });
+
 </script>
 <div class="container">
     <form asp-action="ChangeLayoutColor" asp-controller="Home" method="post" class="dataForm p-3">
@@ -71,25 +105,25 @@
                 <h4 style="font-weight:bolder;z-index:11;">Podgląd Stylizacji</h4>
                 <div class="row">
                     <div class="col-3">
-                        <img src="~/css/stylizacja domyślna.jpg" height="150px" width="150px" />
+                        <img src="~/css/styleDefault.png" style="cursor:pointer" id="styleDefault" height="150px" width="200px" />
                         <div class="card-body">
                             <p class="card-text">Stylizacja domyślna</p>
                         </div>
                     </div>
                     <div class="col-3">
-                        <img src="~/css/stylizacja czerwona.png" height="150px" width="150px" />
+                        <img src="~/css/styleRed.png" style="cursor:pointer" id="styleRed" height="150px" width="200px" />
                         <div class="card-body">
                             <p class="card-text">Stylizacja czerwona</p>
                         </div>
                     </div>
                     <div class="col-3">
-                        <img src="~/css/stylizacja niebieska.jpg" height="150px" width="150px" />
+                        <img src="~/css/styleBlue.png" style="cursor:pointer" id="styleBlue" height="150px" width="200px" />
                         <div class="card-body">
                             <p class="card-text">Stylizacja niebieska</p>
                         </div>
                     </div>
                     <div class="col-3">
-                        <img src="~/css/stylizacja zielona.jpg" height="150px" width="150px" />
+                        <img src="~/css/styleGreen.png" style="cursor:pointer" id="styleGreen" height="150px" width="200px" />
                         <div class="card-body">
                             <p class="card-text">Stylizacja zielona</p>
                         </div>

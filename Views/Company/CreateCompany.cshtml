@@ -16,49 +16,50 @@
     
 </style>
 <body style="z-index:-1;">
-<div class="container text-center" style="padding:10px;">
-    <h5 id="title" style="font-weight:800;font-size:xx-large;position:relative;text-align:left;z-index:11;">Dodaj Nową Firme</h5>
-    <from>
-            <form asp-action="CreateNewCompany" asp-controller="Company" method="post" style="border: solid 5px black;outline: solid 10px beige;background-color:white;z-index:10;;padding 5px;position:relative;botom:15px;width:698px;">
-            <label for="companyName">Company Name:</label>
-            <input type="text" id="inputs" name="companyName" required>
+    <div class="container text-center" style="padding:10px;">
+        <h5 id="title" style="font-weight:800;font-size:xx-large;position:relative;text-align:left;z-index:11;">Dodaj Nową Firmę</h5>
+        <from>
+            <form asp-action="CreateNewCompany" asp-controller="Company" method="post" style="border: solid 5px black;outline: solid 10px beige;background-color:white;z-index:10;padding 5px;position:relative;bottom:15px;width:750px;">
+                <label for="companyName">Nazwa Firmy:</label>
+                <input type="text" id="inputs" name="companyName" required>
 
-            <label for="companyOwnerName">Owner Name:</label>
-            <input type="text" id="inputs" name="companyOwnerName" required>
+                <label for="companyOwnerName">Imię i Nazwisko Właściciela:</label>
+                <input type="text" id="inputs" name="companyOwnerName" required>
 
-            <label for="companyPostalCode">Postal Code:</label>
-            <input type="text" id="inputs" name="companyPostalCode" required>
+                <label for="companyPostalCode">Kod Pocztowy:</label>
+                <input type="text" id="inputs" name="companyPostalCode" required>
 
-            <label for="companyCity">City:</label>
-            <input type="text" id="inputs" name="companyCity" required>
+                <label for="companyCity">Miasto:</label>
+                <input type="text" id="inputs" name="companyCity" required>
 
-            <label for="companyProvince">Province:</label>
-            <input type="text" id="inputs" name="companyProvince">
+                <label for="companyProvince">Województwo:</label>
+                <input type="text" id="inputs" name="companyProvince">
 
-            <label for="companyStreet">Street:</label>
-            <input type="text" id="inputs" name="companyStreet" required>
+                <label for="companyStreet">Ulica:</label>
+                <input type="text" id="inputs" name="companyStreet" required>
 
-            <label for="companyLocaleNumber">Locale Number:</label>
-            <input type="text" id="inputs" name="companyLocaleNumber" required>
+                <label for="companyLocaleNumber">Numer Lokalu:</label>
+                <input type="text" id="inputs" name="companyLocaleNumber" required>
 
-            <label for="companyContactNumber">Client Contact Number:</label>
-            <input type="text" id="inputs" name="companyContactNumber" required>
+                <label for="companyContactNumber">Numer Kontaktowy Klienta:</label>
+                <input type="text" id="inputs" name="companyContactNumber" required>
 
-            <label for="companyontactMail">Client Mail:</label>
-            <input type="text" id="inputs" name="companyContactMail" required>
+                <label for="companyContactMail">E-mail Klienta:</label>
+                <input type="text" id="inputs" name="companyContactMail" required>
 
-            <label for="companyNIP">NIP:</label>
-            <input type="text" id="inputs" name="companyNIP" required>
+                <label for="companyNIP">NIP:</label>
+                <input type="text" id="inputs" name="companyNIP" required>
 
-            <label for="companyBankName">Bank Name:</label>
-            <input type="text" id="inputs" name="companyBankName" required>
+                <label for="companyBankName">Nazwa Banku:</label>
+                <input type="text" id="inputs" name="companyBankName" required>
 
-            <label for="companyBankAccountNumber">Bank Account Number:</label>
-            <input type="text" id="inputs" name="companyBankAccountNumber" required>
-            <br><br>
+                <label for="companyBankAccountNumber">Numer Konta Bankowego:</label>
+                <input type="text" id="inputs" name="companyBankAccountNumber" required>
+                <br><br>
 
-            <input type="submit" class="btn btn-outline-dark" value="Dodaj Firme" style="text-align:right;">
-        </form>
-    </from>
-</div>
+                <input type="submit" class="btn btn-outline-dark" value="Dodaj Firmę" style="text-align:right;">
+            </form>
+        </from>
+    </div>
+
 </body>

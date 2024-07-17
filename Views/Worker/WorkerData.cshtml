@@ -9,60 +9,64 @@
 <div class="container text-center">
     @if (company == null)
     {
-        <h3>Something went wrong...</h3>
+        <h3>Coś poszło nie tak...</h3>
     }
     else
     {
         <h5>Dodaj nowego pracownika</h5>
-        <from>
-            <form asp-action="AddWorker" asp-controller="Worker" method="post">
-                <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
-                <input type="submit" value="Add new worker to company">
-            </form>
-        </from> <hr />
-        @if(workers == null || workers.Count <= 0){
-            <h3>No workers found, add new worker to be able to modify them...</h3>
-        } else
+        <form asp-action="AddWorker" asp-controller="Worker" method="post">
+            <input type="number" value=@company.ID name="companyId" id="CompanyId" hidden>
+            <input type="submit" value="Dodaj nowego pracownika do firmy">
+        </form>
+        <hr />
+        @if (workers == null || workers.Count <= 0)
+        {
+            <h3>Nie znaleziono pracowników, dodaj nowego pracownika, aby móc ich modyfikować...</h3>
+        }
+        else
         {
             <h5>Modyfikuj Dane Pracowników - <b>@company.Name</b> </h5>
             <table>
                 <tr>
-                    <th scope="col">Worker Username </th>
-                    <th scope="col">Worker Identitfication</th>
-                    <th scope="col">Privilages</th>
-                    <th scope="col">Last Modification Date</th>
-                    <th scope="col">Creation Date</th>
+                    <th scope="col">Nazwa Użytkownika Pracownika</th>
+                    <th scope="col">Identyfikacja Pracownika</th>
+                    <th scope="col">Uprawnienia</th>
+                    <th scope="col">Data Ostatniej Modyfikacji</th>
+                    <th scope="col">Data Utworzenia</th>
                 </tr>
-                @foreach(WorkerUsername worker in workers){
+                @foreach (WorkerUsername worker in workers)
+                {
                     <tr>
                         <form asp-action="UpdateWorker" asp-controller="Worker" method="post">
-                            <td>@worker.Username</td>
-                            <td> <input type="text" value=@worker.Worker.WorkerId name="workerIdentity"> </td>
-                            <td>
-                                <select name="privilages" id="Privilages">
-                                    @if(worker.Worker.Privilages == 1){
-                                        <option value="1" selected>Manager</option>
-                                        <option value="2">Accountant</option>
-                                    } else {
-                                        <option value="1">Manager</option>
-                                        <option value="2" selected>Accountant</option>
+                        <td>@worker.Username</td>
+                        <td> <input type="text" value=@worker.Worker.WorkerId name="workerIdentity"> </td>
+                        <td>
+                            <select name="privilages" id="Privilages">
+                                    @if (worker.Worker.Privilages == 1)
+                                    {
+                                    <option value="1" selected>Kierownik</option>
+                                    <option value="2">Księgowy</option>
                                     }
-                                    
-                                </select>
-                            </td>
-                            <td>@worker.Worker.ModDate</td>
-                            <td>@worker.Worker.CreationDate</td>
-                            <td> 
-                                <input type="number" name="companyId" value=@company.ID hidden>
-                                <input type="number" name="workerId" value=@worker.Worker.ID hidden>
-                                <input type="submit" value="Modify"> 
-                            </td>
+                                    else
+                                    {
+                                    <option value="1">Kierownik</option>
+                                    <option value="2" selected>Księgowy</option>
+                                    }
+                            </select>
+                        </td>
+                        <td>@worker.Worker.ModDate</td>
+                        <td>@worker.Worker.CreationDate</td>
+                        <td>
+                            <input type="number" name="companyId" value=@company.ID hidden>
+                            <input type="number" name="workerId" value=@worker.Worker.ID hidden>
+                            <input type="submit" value="Modyfikuj">
+                        </td>
                         </form>
                         <td>
                             <form asp-action="DeleteWorker" asp-controller="Worker" method="post">
                                 <input type="number" name="companyId" value=@company.ID hidden>
                                 <input type="number" name="workerId" value=@worker.Worker.ID hidden>
-                                <input type="submit" value="Delete" style="background-color: red; color: navajowhite;">
+                                <input type="submit" value="Usuń" style="background-color: red; color: navajowhite;">
                             </form>
                         </td>
                     </tr>
@@ -70,5 +74,4 @@
             </table>
         }
     }
-
 </div>

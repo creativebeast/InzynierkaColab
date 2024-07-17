@@ -87,7 +87,7 @@ namespace Inzynierka.Controllers
 
         public IActionResult Register()
         {
-            return View();
+            return View("Register");
         }
         public IActionResult RegisterComp()
         {
@@ -116,7 +116,7 @@ namespace Inzynierka.Controllers
             };
 
             _sqlCommandsManager.CreateAccount(testUser, password.UserPassword, testCompany);
-            TempData["Message"] = "Konto utworzone pomyślnie";
+            TempData["Success"] = "Konto utworzone pomyślnie";
             return RedirectToAction("Login", "Home");
         }
 
@@ -133,7 +133,7 @@ namespace Inzynierka.Controllers
 
             if (String.IsNullOrWhiteSpace(collection["password"]))
             {
-                TempData["Message"] = "Puste hasło - pamiętaj, aby wypełnić pole hasła!";
+                TempData["error"] = "Puste hasło - pamiętaj, aby wypełnić pole hasła!";
                 return RedirectToAction("Login", "Home");
             }
 
@@ -141,7 +141,7 @@ namespace Inzynierka.Controllers
             string refCode = collection["referalCode"];
 
             _sqlCommandsManager.CreateAccount(newUser, password.UserPassword, refCode);
-            TempData["Message"] = "Konto utworzone pomyślnie";
+            TempData["Success"] = "Konto utworzone pomyślnie";
             return RedirectToAction("Login", "Home");
         }
 

@@ -8,122 +8,188 @@
 <div class="container-fluid text-start">
     @if (company == null)
     {
-        <h3>Something went wrong...</h3>
+        <h3>Coś poszło nie tak...</h3>
     }
     else
     {
-        <h5 style="font-weight:800;font-size:xx-large;z-index:11;">Dodaj Klienta Do Firmy @company.Name</h5>
-        <form asp-action="CreateClient" asp-controller="client" method="post" style="background-color:white;z-index:11;border: solid 5px black;outline: solid 10px beige">
-            <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
+        <div class="row mb-3">
+            <div class="col">
+                <h5 style="font-weight:800;font-size:xx-large;z-index:11;">Dodaj Klienta Do Firmy @company.Name</h5>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <form asp-action="CreateClient" asp-controller="client" class="p-3" method="post" style="background-color:white;z-index:11;border: solid 5px black;outline: solid 10px beige">
+                    <input type="number" value=@company.ID name="companyId" id="companyId" hidden>
 
-            <label for="clientName">Client Name:</label>
-            <input type="text" name="clientName" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientName">Nazwa Klienta:</label>
+                            <input type="text" name="clientName" required>
+                        </div>
+                        <div class="col">
+                            <label for="clientOwnerName">Imię i Nazwisko Właściciela Klienta:</label>
+                            <input type="text" name="clientOwnerName" required>
+                        </div>
+                    </div>
 
-            <label for="clientOwnerName">Client Owner Name:</label>
-            <input type="text" name="clientOwnerName" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientPostalCode">Kod Pocztowy Klienta:</label>
+                            <input type="text" name="clientPostalCode" required>
+                        </div>
+                        <div class="col">
+                            <label for="clientCity">Miasto Klienta:</label>
+                            <input type="text" name="clientCity" required>
+                        </div>
+                    </div>
 
-            <label for="clientPostalCode">Client Postal Code:</label>
-            <input type="text" name="clientPostalCode" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientProvince">Województwo Klienta:</label>
+                            <input type="text" name="clientProvince">
+                        </div>
+                        <div class="col">
+                            <label for="clientStreet">Ulica Klienta:</label>
+                            <input type="text" name="clientStreet" required>
+                        </div>
+                    </div>
 
-            <label for="clientCity">Client City:</label>
-            <input type="text" name="clientCity" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientLocaleNumber">Numer Lokalu Klienta:</label>
+                            <input type="text" name="clientLocaleNumber" required>
+                        </div>
+                        <div class="col">
+                            <label for="clientContactNumber">Numer Kontaktowy Klienta:</label>
+                            <input type="text" name="clientContactNumber" required>
+                        </div>
+                    </div>
 
-            <label for="clientProvince">Client Province:</label>
-            <input type="text" name="clientProvince">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientContactMail">E-mail Klienta:</label>
+                            <input type="text" name="clientContactMail" required>
+                        </div>
+                        <div class="col">
+                            <label for="clientNIP">NIP Klienta:</label>
+                            <input type="text" name="clientNIP" required>
+                        </div>
+                    </div>
 
-            <label for="clientStreet">Client Street:</label>
-            <input type="text" name="clientStreet" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="clientBankName">Nazwa Banku:</label>
+                            <input type="text" name="clientBankName" required>
+                        </div>
+                        <div class="col">
+                            <label for="clientBankAccountNumber">Numer Konta Bankowego:</label>
+                            <input type="text" name="clientBankAccountNumber" required>
+                        </div>
+                    </div>
 
-            <label for="clientLocaleNumber">Client Locale Number:</label>
-            <input type="text" name="clientLocaleNumber" required>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h6>Czy Klient jest Firmą?</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="clientIsCompanyYes" name="clientIsCompany" value="0" checked>
+                                <label class="form-check-label" for="clientIsCompanyYes">Tak</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="clientIsCompanyNo" name="clientIsCompany" value="1">
+                                <label class="form-check-label" for="clientIsCompanyNo">Nie</label>
+                            </div>
+                        </div>
+                    </div>
 
-            <label for="clientContactNumber">Client Contact Number:</label>
-            <input type="text" name="clientContactNumber" required>
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <input type="submit" class="btn btn-outline-dark" value="Dodaj Klienta" style="z-index:11;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-            <label for="clientContactMail">Client Mail:</label>
-            <input type="text" name="clientContactMail" required>
+        @if (avalibleClients != null && avalibleClients.Count > 0)
+        {
+            <div class="row mb-3">
+                <div class="col">
+                    <h5>Modyfikuj Dane Klienta dla Klientów Firmy <b>@company.Name</b> </h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa Klienta</th>
+                                <th scope="col">Imię i Nazwisko Właściciela</th>
+                                <th scope="col">Miasto Klienta</th>
+                                <th scope="col">Województwo Klienta</th>
+                                <th scope="col">Ulica Klienta</th>
+                                <th scope="col">Numer Lokalu Klienta</th>
+                                <th scope="col">Kod Pocztowy Klienta</th>
+                                <th scope="col">NIP Klienta</th>
+                                <th scope="col">Czy Firma?</th>
+                                <th scope="col">Edytuj</th>
+                                <th scope="col">Usuń</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Client client in avalibleClients)
+                            {
+                                <tr>
+                                    <form asp-action="UpdateClient" asp-controller="Client" method="post">
+                                        <input type="number" value=@client.ID name="clientID" hidden>
+                                        <input type="number" value=@company.ID name="companyID" hidden>
+                                    <td> <input type="text" value=@client.Name name="clientName" required></td>
+                                    <td> <input type="text" value=@client.OwnerName name="clientOwnerName" required></td>
+                                    <td> <input type="text" value=@client.City name="clientCity" required></td>
+                                    <td> <input type="text" value=@client.Province name="clientProvince"></td>
+                                    <td> <input type="text" value=@client.Street name="clientStreet" required></td>
+                                    <td> <input type="text" value=@client.LocalNumber name="clientLocaleNumber" required></td>
+                                    <td> <input type="text" value=@client.PostalCode name="clientPostalCode" required></td>
+                                    <td> <input type="text" value=@client.NIP name="clientNIP" required></td>
+                                    <td>
+                                            @if (client.IsCompany != true)
+                                            {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" checked>
+                                                <label class="form-check-label" for="clientIsNotCompany">Nie</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
+                                                <label class="form-check-label" for="clientIsCompany">Tak</label>
+                                            </div>
+                                            }
+                                            else
+                                            {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0">
+                                                <label class="form-check-label" for="clientIsNotCompany">Nie</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="clientIsCompany" name="clientIsCompany" value="1" checked>
+                                                <label class="form-check-label" for="clientIsCompanyD">Tak</label>
+                                            </div>
+                                            }
+                                    </td>
 
-            <label for="clientNIP">Client NIP:</label>
-            <input type="text" name="clientNIP" required>
-
-            <label for="clientBankName">Bank Name:</label>
-            <input type="text" name="clientBankName" required>
-
-            <label for="clientBankAccountNumber">Bank Account Number:</label>
-            <input type="text" name="clientBankAccountNumber" required>
-
-            <h6>Clients is a Company</h6>
-            <input type="radio" id="clientIsCompany" name="clientIsCompany" value="0" selected>
-            <label for="html">Yes</label>
-            <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
-            <label for="css">No</label>
-
-            <br>
-
-            <input type="submit" class="btn btn-outline-dark" value="Dodaj Firme" style="z-index:11;text-align:right;">
-        </form>
-
-        @if(avalibleClients != null && avalibleClients.Count > 0){
-            <h5>Modyfikuj Dane Klienta dla Klientów Firmy <b>@company.Name</b> </h5>
-            <table>
-                <tr>
-                    <th scope="col">Company Name</th>
-                    <th scope="col">Owner Name</th>
-                    <th scope="col">Client City</th>
-                    <th scope="col">Client Province</th>
-                    <th scope="col">Client Street</th>
-                    <th scope="col">Client Locale Number</th>
-                    <th scope="col">Client Postal Code</th>
-                    <th scope="col">Client NIP</th>
-                    <th scope="col">Is Company</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr>
-
-                @foreach (Client client in avalibleClients)
-                {
-                    <tr>
-                        <form asp-action="UpdateClient" asp-controller="Client" method="post">
-                            <input type="number" value=@client.ID name="clientID" hidden>
-                            <input type="number" value=@company.ID name="companyID" hidden>
-                            <td> <input type="text" value=@client.Name name="clientName" required></td>
-                            <td> <input type="text" value=@client.OwnerName name="clientOwnerName" required></td>
-                            <td> <input type="text" value=@client.City name="clientCity" required></td>
-                            <td> <input type="text" value=@client.Province name="clientProvince"></td>
-                            <td> <input type="text" value=@client.Street name="clientStreet" required></td>
-                            <td> <input type="text" value=@client.LocalNumber name="clientLocaleNumber" required></td>
-                            <td> <input type="text" value=@client.PostalCode name="clientPostalCode" required></td>
-                            <td> <input type="text" value=@client.NIP name="clientNIP" required></td>
-                            <td>
-                                @if(client.IsCompany != true){
-                                    <label for="clientIsNotCompany">No</label><br>
-                                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0" checked>
-                                    <label for="clientIsCompany">Yes</label><br>
-                                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1">
-                                } else {
-                                    <label for="clientIsNotCompany">No</label><br>
-                                    <input type="radio" id="clientIsNotCompany" name="clientIsCompany" value="0">
-                                    <label for="clientIsCompany">Yes</label><br>
-                                    <input type="radio" id="clientIsCompany" name="clientIsCompany" value="1" checked>
-                                }
-                            </td>
-                            <td> <input type="submit" value="Modify"></td>
-                        </form>
-                        <form asp-action="DeleteClient" asp-controller="Client" method="post">
-                            <td>
-                                <input type="number" value=@client.ID name="ClientID" hidden>
-                                <input type="number" value=@company.ID name="companyID" hidden>
-                                <input type="submit" value="Delete" style="background-color: red; color: navajowhite;">
-                            </td>
-                        </form>
-                    </tr>
-                }
-            </table>
+                                    <td> <input type="submit" value="Modyfikuj"></td>
+                                    </form>
+                                    <form asp-action="DeleteClient" asp-controller="Client" method="post">
+                                    <td>
+                                        <input type="number" value=@client.ID name="ClientID" hidden>
+                                        <input type="number" value=@company.ID name="companyID" hidden>
+                                        <input type="submit" value="Usuń" style="background-color: red; color: navajowhite;">
+                                    </td>
+                                    </form>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         }
-        
     }
     @section Scripts
-    {
+        {
     }
-
 </div>
