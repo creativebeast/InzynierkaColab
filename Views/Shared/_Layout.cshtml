@@ -4,6 +4,11 @@
     var textsColor = Context.Session.GetString("textsColor") ?? string.Empty;
     var backgroundsColor = Context.Session.GetString("backgroundsColor") ?? string.Empty;
     var userId = Context.Session.GetString("UserID") ?? string.Empty;
+    int? privilages = null;
+    if(userId != string.Empty)
+    {
+        privilages = int.Parse(Context.Session.GetString("Privilages") ?? string.Empty);
+    }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -73,25 +78,34 @@
                         <li class="menu__item">
                             <a asp-controller="User" asp-action="StylingSettings" class="menu__link" style="color:black;">Moje Style</a>
                         </li>
-                        <li class="menu__item">
-                            <a style="color:black;" asp-controller="Company" asp-action="CreateCompany" class="menu__link">Dodaj Firmę</a>
-                        </li>
+                            @if (privilages >= 2)
+                            {
+                                <li class="menu__item">
+                                    <a style="color:black;" asp-controller="Company" asp-action="CreateCompany" class="menu__link">Dodaj Firmę</a>
+                                </li>
+                            }
                     </ul>
                 </li>
-                <li class="menu__item menu__item--parent">
-                    <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
-                    <ul class="menu__sublist menu__sublist--bottom p-0">
-                        <li class="menu__item">
-                            <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
-                        </li>
-                        <li class="menu__item">
-                            <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
-                        </li>
-                        <li class="menu__item">
-                            <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (privilages >= 1)
+                {
+                    <li class="menu__item menu__item--parent">
+                        <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Firmy ▼</a>
+                            <ul class="menu__sublist menu__sublist--bottom p-0">
+                            @if (privilages >= 2)
+                            {
+                                <li class="menu__item">
+                                    <a id="CompanyData" asp-controller="Company" asp-action="CompanyData" class="menu__link" style="color:black;">Dane Firmy</a>
+                                </li>
+                            }
+                            <li class="menu__item">
+                                <a id="WorkerData" style="color:black;" asp-controller="Worker" asp-action="WorkerData" class="menu__link">Panel Pracowników</a>
+                            </li>
+                            <li class="menu__item">
+                                <a id="ClientData" style="color:black;" asp-controller="Client" asp-action="ClientData" class="menu__link">Panel Klientów</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
                 <li class="menu__item menu__item--parent">
                     <a href="#offer" class="menu__link" style="color:black;" disabled>Panel Faktur ▼</a>
                     <ul class="menu__sublist menu__sublist--bottom p-0">

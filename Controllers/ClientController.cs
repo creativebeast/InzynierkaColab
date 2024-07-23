@@ -46,7 +46,7 @@ namespace Inzynierka.Controllers
 
             Company? targetCompany = null;
 
-            if (GetSessionPrivilages() == 0)
+            if (GetSessionPrivilages() == 0 || GetSessionPrivilages() == 1)
                 targetCompany = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);
             else if (GetSessionPrivilages() == 2 || GetSessionPrivilages() == 3)
                 targetCompany = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID())?.FirstOrDefault(c => c.ID == companyId);

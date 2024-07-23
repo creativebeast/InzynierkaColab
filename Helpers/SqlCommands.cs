@@ -29,7 +29,7 @@ namespace Inzynierka.Helpers
         //Add user + add them to target company workers db
         public int CreateAccount(User userToAdd, string password, string referalCode)
         {
-            string procedureName = "sp_Add_User";
+            string procedureName = "sp_Add_User_Referal";
             try
             {
                 using (var conn = (SqlConnection)context.Database.GetDbConnection())
@@ -45,7 +45,7 @@ namespace Inzynierka.Helpers
                     else
                         command.Parameters.AddWithValue("@Phone", DBNull.Value); // Zmiana na DBNull.Value
                     command.Parameters.AddWithValue("@Password", password);
-                    //command.Parameters.AddWithValue("@ReferalCode", referalCode);
+                    command.Parameters.AddWithValue("@ReferalCode", referalCode);
                     command.Parameters.AddWithValue("@IsOwner", 0);
 
                     return command.ExecuteNonQuery();

@@ -122,6 +122,7 @@ namespace Inzynierka.Controllers
                     TempData["Error"] = "Nie udało się utworzyć nowej faktury...";
                     return RedirectToAction("Index", "Home");
                 }
+                TempData["success"] = "Faktura została utworzona pomyślnie";
             }
             else
             {
@@ -208,7 +209,7 @@ namespace Inzynierka.Controllers
                     InvoiceDocument doc = new InvoiceDocument(invoiceToExport);
 
                     DateTime creationDate = DateTime.Now;
-                    string filename = $"{invoiceToExport.InvoiceInfo.Name}.pdf";
+                    string filename = $"{invoiceToExport.InvoiceInfo.Name}.xps";
 
                     return File(doc.GenerateXps(), "application/pdf", filename);
                 }

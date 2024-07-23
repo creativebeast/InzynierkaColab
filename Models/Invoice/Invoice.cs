@@ -81,6 +81,8 @@ namespace Inzynierka.Models
         public static bool CreateNewInvoice(ProjectContext context, Company company, Client client, IFormCollection collection, 
             string paymentMethod, string paymentDueDate, bool includesDelivery, List<ProductTemplate>? products)
         {
+            Random random = new Random();
+            int number = random.Next(100000, 10000000);
             //1.Create Invoice
             //2.Create ProductList
             //3.Insert empty ProductList to db to give it ID
@@ -90,7 +92,7 @@ namespace Inzynierka.Models
             //-----Create Invoice-----
             //--Seller Data--
             newInvoice.Name = collection["invoiceName"].ToString() ?? "";
-            newInvoice.Number = "0000-Test-0000-Test-0000-HardTyped-0000";
+            newInvoice.Number = number.ToString();
             newInvoice.SellerID = int.Parse(collection["companyId"]);
             newInvoice.SellerName = collection["companyName"];
             newInvoice.SellerAdress = collection["companyCity"] + ", " + collection["companyStreet"] + " " + collection["companyLocalNumber"];

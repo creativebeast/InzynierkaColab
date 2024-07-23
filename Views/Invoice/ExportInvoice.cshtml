@@ -5,46 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container text-center">
+<div class="container text-center" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige">
     <table>
 
         <tr>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Seller Data</th>
-            <th>Buyer Data</th>
-            <th>Payment Method</th>
-            <th>Payment date</th>
-            <th>Includes Delivery</th>
-            <th>Price</th>
-            <th scope="col">Products</th>
-            <th>PDF</th>
-            <th>XPS</th>
+            <th class="p-2">Nazwa</th>
+            <th class="p-2">Numer</th>
+            <th class="p-2">Dane sprzedawcy</th>
+            <th class="p-2">Dane kupującego</th>
+            <th class="p-2">Metoda płatności</th>
+            <th class="p-2">Data płatności</th>
+            <th class="p-2">Uwzględnia dostawę</th>
+            <th class="p-2">Cena</th>
+            <th scope="col" class="p-2">Produkty</th>
+            <th class="p-2">PDF</th>
+            <th class="p-2">XPS</th>
         </tr>
     
     @foreach (InvoiceData data in Model)
     {
         <tr>
-            <td>@data.InvoiceInfo.Name</td>
-            <td>@data.InvoiceInfo.Number</td>
-            <td>@data.InvoiceInfo.SellerName</td>
-            <td>@data.InvoiceInfo.BuyerName</td>
-            <td>@data.InvoiceInfo.PaymentMethod</td>
-            <td>@data.InvoiceInfo.PaymentDate</td>
-            <td>@data.InvoiceInfo.IncludesDelivery</td>
-            <td>@data.ProductListInfo.TotalPostDiscountValue</td>
-            <td>
+            <td class="p-2">@data.InvoiceInfo.Name</td>
+            <td class="p-2">@data.InvoiceInfo.Number</td>
+            <td class="p-2">@data.InvoiceInfo.SellerName</td>
+            <td class="p-2">@data.InvoiceInfo.BuyerName</td>
+            <td class="p-2">@data.InvoiceInfo.PaymentMethod</td>
+            <td class="p-2">@data.InvoiceInfo.PaymentDate</td>
+            <td class="p-2">@(data.InvoiceInfo.IncludesDelivery ? "Tak" : "Nie")</td>
+            <td class="p-2">@data.ProductListInfo.TotalPostDiscountValue</td>
+            <td class="p-2">
                 @foreach(Product product in data.ProductsInfo){
                     <p>@product.Name, w ilości @product.Quantity : @product.TotalValue,</p>
                 }
             </td>
-            <td>
+            <td class="p-2">
                 <form asp-action="ExportInvoiceAsPDF" asp-controller="Invoice" method="post">
                     <input type="number" value="@data.InvoiceInfo.ID" name="InvoiceID" hidden>
                     <input type="submit" value="PDF">
                 </form>
             </td>
-            <td>
+            <td class="p-2">
                 <form asp-action="ExportInvoiceAsXPS" asp-controller="Invoice" method="post">
                     <input type="number" value="@data.InvoiceInfo.ID" name="InvoiceID" hidden>
                     <input type="submit" value="XPS">

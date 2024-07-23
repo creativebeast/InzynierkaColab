@@ -19,13 +19,19 @@
     <div class="text-start container">
         @if(privilages >= 0){
 
-            <form asp-action="CompanyData" asp-controller="Company" method="post">
-                <input type="submit" value="Zarządzaj Swoimi Firmami">
-            </form>
+            @if (privilages >= 1)
+            {
+                @if (privilages >= 2)
+                {
+                    <form asp-action="CompanyData" asp-controller="Company" method="post">
+                        <input type="submit" value="Zarządzaj Swoimi Firmami">
+                    </form>
+                }
 
-            <form asp-action="ClientData" asp-controller="Client" method="post">
-                <input type="submit" value="Zarządzaj Klientami">
-            </form>
+                <form asp-action="ClientData" asp-controller="Client" method="post">
+                    <input type="submit" value="Zarządzaj Klientami">
+                </form>
+            }
 
             <form asp-action="InvoiceData" asp-controller="Invoice" method="post">
                 <input type="submit" value="Zarządzaj Fakturami">

@@ -86,7 +86,7 @@ namespace QuestPDF.ExampleInvoice
 
                 var totalPrice = Model.ProductListInfo.TotalPostDiscountValue;
                 column.Item().PaddingRight(5).AlignRight().Text($"Grand total: {totalPrice:C}").SemiBold();
-                column.Item().PaddingTop(25).Element(ComposeComments);
+                //column.Item().PaddingTop(25).Element(ComposeComments);
             });
         }
 

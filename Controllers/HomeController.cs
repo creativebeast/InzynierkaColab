@@ -27,7 +27,7 @@ namespace Inzynierka.Controllers
             List<Company> companies = new List<Company>();
 
             int privilages = GetSessionPrivilages();
-            if (privilages == 0)
+            if (privilages == 0 || privilages == 1)
                 companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
             else if (privilages == 2 || privilages == 3)
                 companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
@@ -80,7 +80,7 @@ namespace Inzynierka.Controllers
             List<Company> companies = new List<Company>();
 
             int privilages = GetSessionPrivilages();
-            if (privilages == 0)
+            if (privilages == 0 || privilages == 1)
                 companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
             else if (privilages == 2 || privilages == 3)
                 companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());

@@ -71,7 +71,7 @@ namespace Inzynierka.Models
 
         public static bool DeleteWorkerFromCompany(ProjectContext context, int companyId, int workerId)
         {
-            Worker? workerToDelete = context.Workers.FirstOrDefault(w => w.UserID == workerId && w.CompanyID == companyId);
+            Worker? workerToDelete = context.Workers.FirstOrDefault(w => w.ID == workerId && w.CompanyID == companyId);
             if (workerToDelete == null)
                 return false;
 

@@ -5,7 +5,7 @@
     List<Invoice>? invoices = ViewData["Invoices"] as List<Invoice>;
 }
 
-<div class="container text-center">
+<div class="container text-center" style="background-color:white;z-index:10;border: solid 5px black;outline: solid 10px beige">
     @if (company == null)
     {
         <h3>Coś poszło nie tak...</h3>
@@ -24,7 +24,7 @@
             <input type="submit" class="btn btn-primary" value="Wyeksportuj faktury">
         </form>
 
-        <h3>Dodaj nową cykliczną fakture</h3>
+@*        <h3>Dodaj nową cykliczną fakture</h3>*@
     }
     else
     {

@@ -46,7 +46,7 @@ namespace Inzynierka.Controllers
             //if(foundUser.Email != null)
             //    TokenHelper.SendTokenViaMail(foundUser.Email, token);
             //else
-            //    TokenHelper.SendTokenViaMail("sztucznawiedza@gmail.com", token);
+            //    TokenHelper.SendTokenViaMail("testmail@test.com", token);
             SetSessionPrivilages(foundUser.Username, foundUser.Privilage.ToString(), foundUser.ID.ToString());
 
             return RedirectToAction("ChangeCompany", "Home");
@@ -156,7 +156,7 @@ namespace Inzynierka.Controllers
             ViewData["User"] = currentUser;
 
             List<Company> companies;
-            if (currentUser.Privilage == 0)
+            if (currentUser.Privilage >= 1)
                 companies = Company.getCompaniesRelatedToOwner(_context, GetSessionUserID());
             else
                 companies = Company.getCompaniesRelatedToWorker(_context, GetSessionUserID());
